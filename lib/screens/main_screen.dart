@@ -114,6 +114,7 @@ class _MainScreenState extends State<MainScreen> {
 
   AppBar _buildAppBar(BuildContext context) {
     final isDashboard = _selectedIndex == 3;
+    final isLeads     = _selectedIndex == 0;
 
     return AppBar(
       title: Row(
@@ -185,9 +186,7 @@ class _MainScreenState extends State<MainScreen> {
               preferredSize: const Size.fromHeight(156),
               child: Container(
                 decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(color: CommonColors.borderColor),
-                  ),
+                  border: Border(bottom: BorderSide(color: CommonColors.borderColor)),
                 ),
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                 child: Column(
@@ -196,6 +195,25 @@ class _MainScreenState extends State<MainScreen> {
                     _buildSearchBar(context),
                     const SizedBox(height: 12),
                     _buildQuickActions(context),
+                  ],
+                ),
+              ),
+            )
+          : isLeads
+          ? PreferredSize(
+              preferredSize: const Size.fromHeight(56),
+              child: Container(
+                // decoration: BoxDecoration(
+                //   border: Border(bottom: BorderSide(color: CommonColors.borderColor)),
+                // ),
+                padding: EdgeInsets.fromLTRB(context.w(16), 0, context.w(16), context.h(10)),
+                child: Row(
+                  children: [
+                    Expanded(child: _buildLeadsSearchBar(context)),
+                    SizedBox(width: context.w(8)),
+                    _buildIconBtn(context, CommonImg.crmFunnelOutlined),
+                    SizedBox(width: context.w(8)),
+                    _buildAddBtn(context),
                   ],
                 ),
               ),
@@ -260,6 +278,74 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildLeadsSearchBar(BuildContext context) {
+    return SizedBox(
+      height: context.h(38),
+      child: TextFormField(
+        style: TextStyle(fontSize: context.s(12), color: CommonColors.txtPrimary),
+        decoration: InputDecoration(
+          hintText: 'Search leads...',
+          hintStyle: TextStyle(fontSize: context.s(12), color: CommonColors.greyAEAEAE),
+          prefixIcon: Icon(Icons.search, size: context.w(16), color: CommonColors.greyAEAEAE),
+          filled: true,
+          fillColor: const Color(0xFFF0F2F5),
+          contentPadding: EdgeInsets.zero,
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide.none),
+          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide.none),
+          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide.none),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildIconBtn(BuildContext context, String svgPath) {
+    return Container(
+      width: context.w(38),
+      height: context.h(38),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF0F2F5),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Center(
+        child: SvgPicture.asset(
+          svgPath,
+          width: context.w(16),
+          height: context.w(16),
+          colorFilter: const ColorFilter.mode(CommonColors.grey475569, BlendMode.srcIn),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAddBtn(BuildContext context) {
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        height: context.h(38),
+        padding: EdgeInsets.symmetric(horizontal: context.w(14)),
+        decoration: BoxDecoration(
+          color: CommonColors.appRedColor,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.add, size: context.w(16), color: CommonColors.whiteColor),
+            SizedBox(width: context.w(4)),
+            Text(
+              'Add',
+              style: TextStyle(
+                fontSize: context.s(12),
+                fontWeight: FontWeight.w600,
+                color: CommonColors.whiteColor,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

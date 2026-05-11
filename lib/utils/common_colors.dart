@@ -23,14 +23,16 @@ class CommonColors {
   static const Color whiteColor = Color(0xffFFFFFF);
   static const Color orangeColor = Color(0xffEC821A);
   static const Color borderColor = Color(0xFFE8E2E1);
+  static const Color borderSubtle = Color(0xFFE5E7EB);
   static const Color hintColor = Color(0xff646368);
   static const Color greyColor = Color(0xffF0F0F0);
   static const Color dividerColor = Color(0xffECECEC);
   static const Color blueColor = Color(0xff2F80ED);
   static const Color txtPrimary = Color(0xff111827);
   static const Color txtSecondary = Color(0xff4B5563);
+  static const Color txtTertiary = Color(0xff6B7280);
   static const Color redB52424 = Color(0xffff0000);
-  static const Color appGreenColor = Color(0xff48AB3D);
+  static const Color appGreenColor = Color(0xff059669);
   static const Color appRedColor = Color(0xffFA5F1C);
   static const Color greyAEAEAE = Color(0xffAEAEAE);
   static const Color grey3B4A5E = Color(0xff3B4A5E);
