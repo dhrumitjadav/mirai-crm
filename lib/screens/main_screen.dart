@@ -1,0 +1,277 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mirai_crm/screens/campaigns/campaigns_screen.dart';
+import 'package:mirai_crm/screens/dashboard/dashboard_screen.dart';
+import 'package:mirai_crm/screens/leads/leads_screen.dart';
+import 'package:mirai_crm/screens/more/more_screen.dart';
+import 'package:mirai_crm/screens/task/task_screen.dart';
+import 'package:mirai_crm/utils/app_size.dart';
+import 'package:mirai_crm/utils/common_colors.dart';
+import 'package:mirai_crm/utils/common_img.dart';
+import 'package:mirai_crm/widgets/dashboard/quick_action_card.dart';
+
+class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  int _selectedIndex = 3;
+
+  static const _screens = <Widget>[
+    LeadsScreen(),
+    CampaignsScreen(),
+    TaskScreen(),
+    DashboardScreen(),
+    MoreScreen(),
+  ];
+
+  static const _items = [
+    _NavItem(
+      label: 'Leads',
+      outlined: CommonImg.crmLeadsOutlined,
+      filled: CommonImg.crmLeadsFilled,
+    ),
+    _NavItem(
+      label: 'Campaigns',
+      outlined: CommonImg.crmMegaphoneOutlined,
+      filled: CommonImg.crmMegaphoneFilled,
+    ),
+    _NavItem(
+      label: 'Task',
+      outlined: CommonImg.crmTaskOutlined,
+      filled: CommonImg.crmTaskFilled,
+    ),
+    _NavItem(
+      label: 'Dashboard',
+      outlined: CommonImg.crmDashboardOutlined,
+      filled: CommonImg.crmDashboardFilled,
+    ),
+    _NavItem(
+      label: 'More',
+      outlined: CommonImg.crmFunnelOutlined,
+      filled: CommonImg.crmFunnelOutlined,
+    ),
+  ];
+
+  // static const _titles = ['Leads', 'Campaigns', 'Task', '', 'More'];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: CommonColors.scaffoldBgColor,
+      appBar: _buildAppBar(context),
+      body: IndexedStack(index: _selectedIndex, children: _screens),
+      bottomNavigationBar: Theme(
+        data: Theme.of(context).copyWith(splashFactory: NoSplash.splashFactory),
+        child: BottomNavigationBar(
+          currentIndex: _selectedIndex,
+          onTap: (i) => setState(() => _selectedIndex = i),
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: CommonColors.appRedColor,
+          unselectedItemColor: CommonColors.grey475569,
+          selectedLabelStyle: const TextStyle(fontSize: 12),
+          unselectedLabelStyle: const TextStyle(fontSize: 12),
+          backgroundColor: CommonColors.whiteColor,
+          elevation: 12,
+          items: _items
+              .map(
+                (item) => BottomNavigationBarItem(
+                  label: item.label,
+                  icon: Container(
+                    margin: EdgeInsets.only(bottom: context.h(8)),
+                    child: SvgPicture.asset(
+                      item.outlined,
+                      width: 28,
+                      height: 28,
+                      colorFilter: const ColorFilter.mode(
+                        CommonColors.grey475569,
+                        BlendMode.srcIn,
+                      ),
+                    ),
+                  ),
+                  activeIcon: Container(
+                    margin: EdgeInsets.only(bottom: context.h(8)),
+                    child: SvgPicture.asset(
+                      item.filled,
+                      width: 28,
+                      height: 28,
+                      colorFilter: const ColorFilter.mode(
+                        CommonColors.appRedColor,
+                        BlendMode.srcIn,
+                      ),
+                    ),
+                  ),
+                ),
+              )
+              .toList(),
+        ),
+      ),
+    );
+  }
+
+  AppBar _buildAppBar(BuildContext context) {
+    final isDashboard = _selectedIndex == 3;
+
+    return AppBar(
+      title: Row(
+        children: [
+          Image.asset(CommonImg.appLogo, height: context.h(50)),
+          SizedBox(width: context.w(8)),
+          Text(
+            'Mirai',
+            style: TextStyle(
+              fontSize: context.s(18),
+              fontWeight: FontWeight.w800,
+              color: CommonColors.txtPrimary,
+            ),
+          ),
+        ],
+      ),
+      actions: [
+        Stack(
+          children: [
+            Container(
+              margin: const EdgeInsets.all(5),
+              width: context.w(38),
+              height: context.w(38),
+              decoration: const BoxDecoration(
+                color: Color(0xFFF0F2F5),
+                shape: BoxShape.circle,
+              ),
+              child: Center(
+                child: SvgPicture.asset(
+                  CommonImg.crmBellOutlined,
+                  width: context.w(18),
+                  height: context.w(18),
+                  colorFilter: const ColorFilter.mode(
+                    CommonColors.txtPrimary,
+                    BlendMode.srcIn,
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              top: context.h(4),
+              right: context.w(6),
+              child: Container(
+                width: context.w(6),
+                height: context.w(6),
+                decoration: const BoxDecoration(
+                  color: Colors.red,
+                  shape: BoxShape.circle,
+                ),
+              ),
+            ),
+          ],
+        ),
+        Container(
+          margin: const EdgeInsets.all(5),
+          child: CircleAvatar(
+            radius: context.w(18),
+            backgroundColor: CommonColors.greyColor,
+            child: Icon(
+              Icons.person,
+              size: context.w(20),
+              color: CommonColors.greyAEAEAE,
+            ),
+          ),
+        ),
+      ],
+      bottom: isDashboard
+          ? PreferredSize(
+              preferredSize: const Size.fromHeight(156),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(color: CommonColors.borderColor),
+                  ),
+                ),
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildSearchBar(context),
+                    const SizedBox(height: 12),
+                    _buildQuickActions(context),
+                  ],
+                ),
+              ),
+            )
+          : null,
+    );
+  }
+
+  Widget _buildSearchBar(BuildContext context) {
+    return TextFormField(
+      style: TextStyle(fontSize: context.s(12), color: CommonColors.txtPrimary),
+      decoration: InputDecoration(
+        hintText: 'Search leads, campaigns...',
+        hintStyle: TextStyle(
+          fontSize: context.s(12),
+          color: CommonColors.greyAEAEAE,
+        ),
+        prefixIcon: Icon(
+          Icons.search,
+          size: context.w(18),
+          color: CommonColors.greyAEAEAE,
+        ),
+        filled: true,
+        fillColor: const Color(0xFFF0F2F5),
+        contentPadding: EdgeInsets.symmetric(vertical: context.h(11)),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide.none,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide.none,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildQuickActions(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: QuickActionCard(
+            label: 'View Campaigns',
+            subtitle: 'Manage Campaigns',
+            svgIcon: CommonImg.crmMegaphoneOutlined,
+            color: const Color(0xFF4B6CF5),
+            onTap: () {},
+          ),
+        ),
+        SizedBox(width: context.w(10)),
+        Expanded(
+          child: QuickActionCard(
+            label: 'All Leads',
+            subtitle: 'Browse all leads',
+            svgIcon: CommonImg.crmLeadsOutlined,
+            color: const Color(0xFFD94F4F),
+            onTap: () {},
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _NavItem {
+  final String label;
+  final String outlined;
+  final String filled;
+
+  const _NavItem({
+    required this.label,
+    required this.outlined,
+    required this.filled,
+  });
+}

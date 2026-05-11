@@ -156,7 +156,7 @@ noInternetDialog({required Function() onRetry}) {
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
-                        color: CommonColors.textColor,
+                        color: CommonColors.txtPrimary,
                       ),
                     ),
                   ),

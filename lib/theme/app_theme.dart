@@ -5,7 +5,7 @@ import 'package:mirai_crm/utils/common_colors.dart';
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: CommonColors.scaffoldBgColor,
-    fontFamily: 'Lexend',
+    fontFamily: 'DMSans',
     colorScheme: ColorScheme.fromSeed(
       seedColor: CommonColors.primaryColor,
       brightness: Brightness.light,
@@ -14,9 +14,11 @@ class AppTheme {
     visualDensity: VisualDensity.adaptivePlatformDensity,
 
     appBarTheme: const AppBarTheme(
-      elevation: 0,
+      backgroundColor: CommonColors.whiteColor,
+      surfaceTintColor: Colors.transparent,
+      elevation: 1,
       systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: CommonColors.scaffoldBgColor,
+        // statusBarColor: CommonColors.scaffoldBgColor,
         statusBarIconBrightness: Brightness.dark,
         systemNavigationBarColor: CommonColors.scaffoldBgColor,
         systemNavigationBarIconBrightness: Brightness.dark,

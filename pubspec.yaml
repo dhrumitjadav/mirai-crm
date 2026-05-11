@@ -27,6 +27,7 @@ dependencies:
   url_launcher: ^6.3.2
   file_picker: ^11.0.2
   flutter_html: ^3.0.0-beta.2
+  fl_chart: ^0.69.0
 
 dev_dependencies:
   flutter_test:
@@ -41,6 +42,8 @@ flutter:
     - assets/fonts/
     - assets/animations/
     - assets/icons/
+    - assets/icons/crm_outlined/
+    - assets/icons/crm_filled/
 
   fonts:
     - family: DMSans

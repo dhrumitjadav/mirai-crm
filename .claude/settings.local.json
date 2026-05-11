@@ -3,7 +3,10 @@
     "allow": [
       "PowerShell(Get-ChildItem -Path \"E:\\\\flutter\\\\rk\" -Force | Select-Object Name, @{N=\"Type\"; E={if\\($_.PSIsContainer\\){\"DIR\"}else{\"FILE\"}}} | Format-Table -AutoSize)",
       "PowerShell(Get-ChildItem -Path \"E:\\\\Flutter\\\\mirai_crm\" -Force | Select-Object Name, @{N=\"Type\"; E={if\\($_.PSIsContainer\\){\"DIR\"}else{\"FILE\"}}} | Format-Table -AutoSize)",
-      "PowerShell(Get-ChildItem -Path \"E:\\\\Flutter\\\\mirai_crm\" -Force | Where-Object {$_.Name -eq 'assets'})"
+      "PowerShell(Get-ChildItem -Path \"E:\\\\Flutter\\\\mirai_crm\" -Force | Where-Object {$_.Name -eq 'assets'})",
+      "PowerShell(New-Item *)",
+      "PowerShell(Copy-Item *)",
+      "Bash(flutter pub *)"
     ]
   }
 }
