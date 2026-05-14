@@ -28,7 +28,7 @@ class SectionHeader extends StatelessWidget {
         Text(
           title,
           style: TextStyle(
-            fontSize: context.s(16),
+            fontSize: context.s(15),
             fontWeight: FontWeight.w600,
             color: CommonColors.textPrimary,
           ),
@@ -41,7 +41,7 @@ class SectionHeader extends StatelessWidget {
             child: Text(
               prefixText ?? 'View All',
               style: TextStyle(
-                fontSize: context.s(13),
+                fontSize: context.s(14),
                 fontWeight: FontWeight.w500,
                 height: 1,
                 color: CommonColors.red500,

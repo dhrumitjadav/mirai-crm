@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mirai_crm/utils/app_size.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
 import 'package:mirai_crm/widgets/leads/lead_list_card.dart';
 import 'package:mirai_crm/widgets/app_divider.dart';
 import 'package:mirai_crm/widgets/leads/sort_bottom_sheet.dart';
+import 'package:mirai_crm/screens/leads/lead_detail_screen.dart';
 
 class LeadsScreen extends StatelessWidget {
   const LeadsScreen({super.key});
@@ -144,7 +146,14 @@ class LeadsScreen extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: context.w(16)),
           child: Column(
-            children: _leads.map((l) => LeadListCard(lead: l)).toList(),
+            children: _leads
+              .map(
+                (l) => GestureDetector(
+                  onTap: () => Get.to(() => const LeadDetailScreen()),
+                  child: LeadListCard(lead: l),
+                ),
+              )
+              .toList(),
           ),
         ),
         _buildFooter(context),

@@ -34,13 +34,13 @@ class CommonImg {
   static const String crmBookmarkOutlined = '$_o/bookmark.svg';
   static const String crmPhoneOutlined = '$_o/phone.svg';
   static const String crmPersonOutlined = '$_o/person.svg';
+  static const String crmPersonAddOutlined = '$_o/person_add.svg';
   static const String crmPlayOutlined = '$_o/play.svg';
   static const String crmSettingsOutlined = '$_o/settings.svg';
   static const String crmSettingGearOutlined = '$_o/setting_gear.svg';
   static const String crmStarOutlined = '$_o/star.svg';
   static const String crmTaskOutlined = '$_o/clipboard.svg';
   static const String crmTeamOutlined = '$_o/team.svg';
-  static const String crmTimerOutlined = '$_o/timer.svg';
   static const String crmTrashOutlined = '$_o/trash.svg';
   static const String crmTrendingDownOutlined = '$_o/trending_down.svg';
   static const String crmTrendingUpOutlined = '$_o/trending_up.svg';
@@ -81,6 +81,7 @@ class CommonImg {
   static const String crmPersonFilled = '$_f/bookmark.svg';
   static const String crmPhoneFilled = '$_f/phone.svg';
   static const String crmPlayFilled = '$_f/play.svg';
+  static const String crmPushPinFilled = '$_f/push_pin_fill.svg';
   static const String crmPersonAddFilled = '$_f/person_add.svg';
   static const String crmTaskFilled = '$_f/clipboard.svg';
   static const String crmTeamFilled = '$_f/team.svg';

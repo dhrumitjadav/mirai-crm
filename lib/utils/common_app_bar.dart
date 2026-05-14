@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:mirai_crm/utils/app_size.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
 import 'package:mirai_crm/utils/common_img.dart';
@@ -24,7 +25,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       leading: GestureDetector(
-        onTap: () => Navigator.maybePop(context),
+        onTap: () => Get.back(),
         child: Center(
           child: Container(
             width: context.w(32),

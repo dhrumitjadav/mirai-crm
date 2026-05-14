@@ -58,7 +58,21 @@ class CommonTextField extends StatelessWidget {
       textInputAction: textInputAction ?? TextInputAction.next,
       onTap: onTap,
       onTapOutside: (_) => FocusManager.instance.primaryFocus?.unfocus(),
-      keyboardType: isPhoneNumber ? TextInputType.number : TextInputType.text,
+      onEditingComplete: () {
+        if (onSubmitted != null) {
+          onSubmitted!();
+          return;
+        }
+        final action = textInputAction ?? TextInputAction.next;
+        if (action == TextInputAction.next) {
+          FocusScope.of(context).nextFocus();
+        } else if (action == TextInputAction.previous) {
+          FocusScope.of(context).previousFocus();
+        } else {
+          FocusScope.of(context).unfocus();
+        }
+      },
+      keyboardType: isPhoneNumber ? TextInputType.phone : TextInputType.text,
       validator: validator,
       style: TextStyle(
         fontSize: context.s(14),
@@ -73,6 +87,7 @@ class CommonTextField extends StatelessWidget {
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         counterText: '',
+
         filled: true,
         fillColor: CommonColors.whiteColor,
         alignLabelWithHint: true,

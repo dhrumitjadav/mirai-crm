@@ -5,6 +5,7 @@ import 'package:mirai_crm/utils/app_size.dart';
 import 'package:mirai_crm/utils/common_app_bar.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
 import 'package:mirai_crm/utils/common_img.dart';
+import 'package:mirai_crm/utils/common_dropdown.dart';
 import 'package:mirai_crm/utils/common_text_field.dart';
 
 class AddLeadScreen extends StatefulWidget {
@@ -23,6 +24,10 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
   final _phoneCtrl = TextEditingController();
   final _emailCtrl = TextEditingController();
   final _cityCtrl = TextEditingController();
+  final _nameFocus = FocusNode();
+  final _phoneFocus = FocusNode();
+  final _emailFocus = FocusNode();
+  final _cityFocus = FocusNode();
 
   // Step 2
   String? _source;
@@ -46,6 +51,10 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
     _budgetMinCtrl.dispose();
     _budgetMaxCtrl.dispose();
     _notesCtrl.dispose();
+    _nameFocus.dispose();
+    _phoneFocus.dispose();
+    _emailFocus.dispose();
+    _cityFocus.dispose();
     super.dispose();
   }
 
@@ -102,7 +111,7 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
             style: TextStyle(
               fontSize: context.s(12),
               fontWeight: FontWeight.w600,
-              color: CommonColors.appRedColor,
+              color: CommonColors.primaryColor,
             ),
           ),
           SizedBox(height: context.h(8)),
@@ -117,8 +126,8 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
                   height: context.h(4),
                   decoration: BoxDecoration(
                     color: filled
-                        ? CommonColors.appRedColor
-                        : CommonColors.grey200,
+                        ? CommonColors.primaryColor
+                        : CommonColors.grey75,
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),
@@ -151,35 +160,42 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
         SizedBox(height: context.h(6)),
         CommonTextField(
           controller: _nameCtrl,
+          focusNode: _nameFocus,
           hint: 'Write Your Full Name Here',
           textInputAction: TextInputAction.next,
+          onSubmitted: () => _phoneFocus.requestFocus(),
         ),
         SizedBox(height: context.h(16)),
         _buildLabel(context, 'Phone Number'),
         SizedBox(height: context.h(6)),
         CommonTextField(
           controller: _phoneCtrl,
+          focusNode: _phoneFocus,
           hint: 'Write Your Phone Number Here',
           isPhoneNumber: true,
           isApplyInputFormatter: true,
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           textInputAction: TextInputAction.next,
           prefixIcon: _svgPrefix(context, CommonImg.crmPhoneOutlined),
+          onSubmitted: () => _emailFocus.requestFocus(),
         ),
         SizedBox(height: context.h(16)),
         _buildLabel(context, 'Email'),
         SizedBox(height: context.h(6)),
         CommonTextField(
           controller: _emailCtrl,
+          focusNode: _emailFocus,
           hint: 'Write Your Email Here',
           textInputAction: TextInputAction.next,
           prefixIcon: _svgPrefix(context, CommonImg.crmMailOutlined),
+          onSubmitted: () => _cityFocus.requestFocus(),
         ),
         SizedBox(height: context.h(16)),
         _buildLabel(context, 'City'),
         SizedBox(height: context.h(6)),
         CommonTextField(
           controller: _cityCtrl,
+          focusNode: _cityFocus,
           hint: 'Search Your City Name',
           textInputAction: TextInputAction.done,
         ),
@@ -250,11 +266,11 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
               ),
               decoration: BoxDecoration(
                 color: isSelected
-                    ? CommonColors.appRedColor.withValues(alpha: 0.08)
+                    ? CommonColors.primaryColor.withValues(alpha: 0.08)
                     : CommonColors.whiteColor,
                 border: Border.all(
                   color: isSelected
-                      ? CommonColors.appRedColor
+                      ? CommonColors.primaryColor
                       : CommonColors.borderDefault,
                 ),
                 borderRadius: BorderRadius.circular(8),
@@ -265,7 +281,7 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
                   fontSize: context.s(13),
                   fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
                   color: isSelected
-                      ? CommonColors.appRedColor
+                      ? CommonColors.primaryColor
                       : CommonColors.textSecondary,
                 ),
               ),
@@ -335,13 +351,13 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
             style: TextStyle(
               fontSize: context.s(14),
               fontWeight: FontWeight.w500,
-              color: CommonColors.appRedColor,
+              color: CommonColors.primaryColor,
             ),
             decoration: InputDecoration(
               hintText: hint,
               hintStyle: TextStyle(
                 fontSize: context.s(14),
-                color: CommonColors.appRedColor,
+                color: CommonColors.primaryColor,
               ),
               isDense: true,
               contentPadding: EdgeInsets.zero,
@@ -476,47 +492,11 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
     required List<String> items,
     required ValueChanged<String?> onChanged,
   }) {
-    return DropdownButtonFormField<String>(
+    return CommonDropdown(
+      hint: hint,
       value: value,
+      items: items,
       onChanged: onChanged,
-      isExpanded: true,
-      icon: Icon(
-        Icons.keyboard_arrow_down_rounded,
-        color: CommonColors.textTertiary,
-        size: context.w(22),
-      ),
-      style: TextStyle(
-        fontSize: context.s(14),
-        color: CommonColors.textPrimary,
-      ),
-      decoration: InputDecoration(
-        hintText: hint,
-        hintStyle: TextStyle(
-          fontSize: context.s(14),
-          color: CommonColors.textTertiary,
-        ),
-        filled: true,
-        fillColor: CommonColors.whiteColor,
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: context.w(14),
-          vertical: context.h(14),
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: CommonColors.borderDefault),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: CommonColors.borderDefault),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: CommonColors.appRedColor, width: 1.5),
-        ),
-      ),
-      items: items
-          .map((e) => DropdownMenuItem(value: e, child: Text(e)))
-          .toList(),
     );
   }
 
@@ -551,7 +531,7 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
         child: ElevatedButton(
           onPressed: _onContinue,
           style: ElevatedButton.styleFrom(
-            backgroundColor: CommonColors.appRedColor,
+            backgroundColor: CommonColors.primaryColor,
             foregroundColor: CommonColors.whiteColor,
             elevation: 0,
             shape: RoundedRectangleBorder(

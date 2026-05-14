@@ -103,7 +103,7 @@ class DashboardScreen extends StatelessWidget {
         change: '+18%',
         changeLabel: 'attn req',
         isPositive: true,
-        svgIcon: CommonImg.crmTimerOutlined,
+        svgIcon: CommonImg.crmTimeAltOutlined,
         iconBgColor: CommonColors.red50,
         iconColor: CommonColors.red700,
       ),
