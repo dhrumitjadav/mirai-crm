@@ -28,7 +28,7 @@ class SectionHeader extends StatelessWidget {
           style: TextStyle(
             fontSize: context.s(16),
             fontWeight: FontWeight.w600,
-            color: CommonColors.blackColor,
+            color: CommonColors.textPrimary,
           ),
         ),
         if (trailing != null)
@@ -42,7 +42,7 @@ class SectionHeader extends StatelessWidget {
                 fontSize: context.s(13),
                 fontWeight: FontWeight.w500,
                 height: 1,
-                color: CommonColors.appRedColor,
+                color: CommonColors.red500,
               ),
             ),
           ),

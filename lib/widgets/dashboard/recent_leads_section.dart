@@ -13,14 +13,10 @@ class RecentLeadsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-        vertical: context.h(16),
-        horizontal: context.w(10),
-      ),
       decoration: BoxDecoration(
         color: CommonColors.whiteColor,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: CommonColors.borderColor),
+        border: Border.all(color: CommonColors.borderDefault),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,13 +28,10 @@ class RecentLeadsSection extends StatelessWidget {
             ),
             child: SectionHeader(title: 'Recent Leads', onViewAll: onViewAll),
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: context.w(14)),
-            child: Divider(
-              height: 1,
-              thickness: 1,
-              color: CommonColors.borderColor,
-            ),
+          Divider(
+            color: CommonColors.borderSubtle,
+            indent: context.w(16),
+            endIndent: context.w(16),
           ),
           ...List.generate(
             leads.length,
@@ -47,9 +40,7 @@ class RecentLeadsSection extends StatelessWidget {
                 LeadCard(lead: leads[i]),
                 if (i < leads.length - 1)
                   Divider(
-                    height: 1,
-                    thickness: 1,
-                    color: CommonColors.borderColor,
+                    color: CommonColors.borderSubtle,
                     indent: context.w(16),
                     endIndent: context.w(16),
                   ),

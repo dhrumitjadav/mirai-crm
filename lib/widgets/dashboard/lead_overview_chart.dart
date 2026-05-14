@@ -30,9 +30,7 @@ class _LeadOverviewChartState extends State<LeadOverviewChart> {
       decoration: BoxDecoration(
         color: CommonColors.whiteColor,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: CommonColors.borderColor,
-        ),
+        border: Border.all(color: CommonColors.borderDefault),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,7 +51,7 @@ class _LeadOverviewChartState extends State<LeadOverviewChart> {
                   drawVerticalLine: false,
                   horizontalInterval: 10,
                   getDrawingHorizontalLine: (_) =>
-                      FlLine(color: CommonColors.borderColor, strokeWidth: 1),
+                      FlLine(color: CommonColors.borderSubtle, strokeWidth: 1),
                 ),
                 borderData: FlBorderData(show: false),
                 titlesData: FlTitlesData(
@@ -80,7 +78,7 @@ class _LeadOverviewChartState extends State<LeadOverviewChart> {
                             _labels[i],
                             style: TextStyle(
                               fontSize: context.s(11),
-                              color: CommonColors.greyAEAEAE,
+                              color: CommonColors.textSecondary,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -100,7 +98,7 @@ class _LeadOverviewChartState extends State<LeadOverviewChart> {
                       TextStyle(
                         fontSize: context.s(11),
                         fontWeight: FontWeight.w500,
-                        color: CommonColors.primaryColor,
+                        color: CommonColors.info600,
                       ),
                     ),
                   ),
@@ -114,8 +112,8 @@ class _LeadOverviewChartState extends State<LeadOverviewChart> {
                       BarChartRodData(
                         toY: _data[i],
                         color: dimmed
-                            ? CommonColors.primaryColor.withValues(alpha: 0.28)
-                            : CommonColors.primaryColor,
+                            ? CommonColors.info50
+                            : CommonColors.info600,
                         width: context.w(28),
                         borderRadius: const BorderRadius.vertical(
                           top: Radius.circular(4),
@@ -153,14 +151,8 @@ class _LeadOverviewChartState extends State<LeadOverviewChart> {
           vertical: context.h(2.5),
         ),
         decoration: BoxDecoration(
-          color: active
-              ? CommonColors.primaryColor.withValues(alpha: 0.1)
-              : null,
-          border: active
-              ? Border.all(
-                  color: CommonColors.primaryColor.withValues(alpha: 0.5),
-                )
-              : null,
+          color: active ? CommonColors.info50 : null,
+          border: active ? Border.all(color: CommonColors.info600) : null,
           borderRadius: BorderRadius.circular(6),
         ),
         child: Text(
@@ -168,7 +160,7 @@ class _LeadOverviewChartState extends State<LeadOverviewChart> {
           style: TextStyle(
             fontSize: context.s(12),
             fontWeight: FontWeight.w500,
-            color: CommonColors.txtPrimary,
+            color: CommonColors.textPrimary,
           ),
         ),
       ),

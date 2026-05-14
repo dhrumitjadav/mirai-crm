@@ -66,47 +66,61 @@ class _MainScreenState extends State<MainScreen> {
       body: IndexedStack(index: _selectedIndex, children: _screens),
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(splashFactory: NoSplash.splashFactory),
-        child: BottomNavigationBar(
-          currentIndex: _selectedIndex,
-          onTap: (i) => setState(() => _selectedIndex = i),
-          type: BottomNavigationBarType.fixed,
-          selectedItemColor: CommonColors.appRedColor,
-          unselectedItemColor: CommonColors.grey475569,
-          selectedLabelStyle: const TextStyle(fontSize: 12),
-          unselectedLabelStyle: const TextStyle(fontSize: 12),
-          backgroundColor: CommonColors.whiteColor,
-          elevation: 12,
-          items: _items
-              .map(
-                (item) => BottomNavigationBarItem(
-                  label: item.label,
-                  icon: Container(
-                    margin: EdgeInsets.only(bottom: context.h(8)),
-                    child: SvgPicture.asset(
-                      item.outlined,
-                      width: 28,
-                      height: 28,
-                      colorFilter: const ColorFilter.mode(
-                        CommonColors.grey475569,
-                        BlendMode.srcIn,
+        child: Container(
+          decoration: BoxDecoration(
+            color: CommonColors.whiteColor,
+            boxShadow: [
+              BoxShadow(
+                color: CommonColors.blackColor.withValues(alpha: 0.03),
+                offset: Offset(0, -5),
+                blurStyle: BlurStyle.normal,
+                blurRadius: context.h(24),
+                spreadRadius: 0,
+              ),
+            ],
+          ),
+          child: BottomNavigationBar(
+            currentIndex: _selectedIndex,
+            onTap: (i) => setState(() => _selectedIndex = i),
+            type: BottomNavigationBarType.fixed,
+            selectedItemColor: CommonColors.appRedColor,
+            unselectedItemColor: CommonColors.grey475569,
+            selectedLabelStyle: const TextStyle(fontSize: 12),
+            unselectedLabelStyle: const TextStyle(fontSize: 12),
+            backgroundColor: CommonColors.whiteColor,
+            elevation: 0,
+            items: _items
+                .map(
+                  (item) => BottomNavigationBarItem(
+                    label: item.label,
+                    icon: Container(
+                      margin: EdgeInsets.only(bottom: context.h(8)),
+                      child: SvgPicture.asset(
+                        item.outlined,
+                        width: 28,
+                        height: 28,
+                        colorFilter: const ColorFilter.mode(
+                          CommonColors.grey475569,
+                          BlendMode.srcIn,
+                        ),
+                      ),
+                    ),
+                    activeIcon: Container(
+                      margin: EdgeInsets.only(bottom: context.h(8)),
+                      child: SvgPicture.asset(
+                        item.filled,
+                        width: 28,
+                        height: 28,
+                        colorFilter: const ColorFilter.mode(
+                          CommonColors.appRedColor,
+                          BlendMode.srcIn,
+                        ),
                       ),
                     ),
                   ),
-                  activeIcon: Container(
-                    margin: EdgeInsets.only(bottom: context.h(8)),
-                    child: SvgPicture.asset(
-                      item.filled,
-                      width: 28,
-                      height: 28,
-                      colorFilter: const ColorFilter.mode(
-                        CommonColors.appRedColor,
-                        BlendMode.srcIn,
-                      ),
-                    ),
-                  ),
-                ),
-              )
-              .toList(),
+                )
+                .toList(),
+          ),
         ),
       ),
     );
@@ -114,7 +128,7 @@ class _MainScreenState extends State<MainScreen> {
 
   AppBar _buildAppBar(BuildContext context) {
     final isDashboard = _selectedIndex == 3;
-    final isLeads     = _selectedIndex == 0;
+    final isLeads = _selectedIndex == 0;
 
     return AppBar(
       title: Row(
@@ -126,7 +140,7 @@ class _MainScreenState extends State<MainScreen> {
             style: TextStyle(
               fontSize: context.s(18),
               fontWeight: FontWeight.w800,
-              color: CommonColors.txtPrimary,
+              color: CommonColors.textPrimary,
             ),
           ),
         ],
@@ -148,7 +162,7 @@ class _MainScreenState extends State<MainScreen> {
                   width: context.w(18),
                   height: context.w(18),
                   colorFilter: const ColorFilter.mode(
-                    CommonColors.txtPrimary,
+                    CommonColors.textPrimary,
                     BlendMode.srcIn,
                   ),
                 ),
@@ -186,7 +200,9 @@ class _MainScreenState extends State<MainScreen> {
               preferredSize: const Size.fromHeight(156),
               child: Container(
                 decoration: BoxDecoration(
-                  border: Border(bottom: BorderSide(color: CommonColors.borderColor)),
+                  border: Border(
+                    bottom: BorderSide(color: CommonColors.borderSubtle),
+                  ),
                 ),
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                 child: Column(
@@ -204,9 +220,14 @@ class _MainScreenState extends State<MainScreen> {
               preferredSize: const Size.fromHeight(56),
               child: Container(
                 // decoration: BoxDecoration(
-                //   border: Border(bottom: BorderSide(color: CommonColors.borderColor)),
+                //   border: Border(bottom: BorderSide(color: CommonColors.borderDefault)),
                 // ),
-                padding: EdgeInsets.fromLTRB(context.w(16), 0, context.w(16), context.h(10)),
+                padding: EdgeInsets.fromLTRB(
+                  context.w(16),
+                  0,
+                  context.w(16),
+                  context.h(10),
+                ),
                 child: Row(
                   children: [
                     Expanded(child: _buildLeadsSearchBar(context)),
@@ -224,7 +245,10 @@ class _MainScreenState extends State<MainScreen> {
 
   Widget _buildSearchBar(BuildContext context) {
     return TextFormField(
-      style: TextStyle(fontSize: context.s(12), color: CommonColors.txtPrimary),
+      style: TextStyle(
+        fontSize: context.s(12),
+        color: CommonColors.textPrimary,
+      ),
       decoration: InputDecoration(
         hintText: 'Search leads, campaigns...',
         hintStyle: TextStyle(
@@ -263,7 +287,9 @@ class _MainScreenState extends State<MainScreen> {
             label: 'View Campaigns',
             subtitle: 'Manage Campaigns',
             svgIcon: CommonImg.crmMegaphoneOutlined,
-            color: const Color(0xFF4B6CF5),
+            color: CommonColors.info50,
+            iconColor: CommonColors.info600,
+            borderDefault: CommonColors.info400,
             onTap: () {},
           ),
         ),
@@ -273,7 +299,9 @@ class _MainScreenState extends State<MainScreen> {
             label: 'All Leads',
             subtitle: 'Browse all leads',
             svgIcon: CommonImg.crmLeadsOutlined,
-            color: const Color(0xFFD94F4F),
+            color: CommonColors.red50,
+            iconColor: CommonColors.red500,
+            borderDefault: CommonColors.red200,
             onTap: () {},
           ),
         ),
@@ -285,17 +313,36 @@ class _MainScreenState extends State<MainScreen> {
     return SizedBox(
       height: context.h(38),
       child: TextFormField(
-        style: TextStyle(fontSize: context.s(12), color: CommonColors.txtPrimary),
+        style: TextStyle(
+          fontSize: context.s(12),
+          color: CommonColors.textPrimary,
+        ),
         decoration: InputDecoration(
           hintText: 'Search leads...',
-          hintStyle: TextStyle(fontSize: context.s(12), color: CommonColors.greyAEAEAE),
-          prefixIcon: Icon(Icons.search, size: context.w(16), color: CommonColors.greyAEAEAE),
+          hintStyle: TextStyle(
+            fontSize: context.s(12),
+            color: CommonColors.greyAEAEAE,
+          ),
+          prefixIcon: Icon(
+            Icons.search,
+            size: context.w(16),
+            color: CommonColors.greyAEAEAE,
+          ),
           filled: true,
           fillColor: const Color(0xFFF0F2F5),
           contentPadding: EdgeInsets.zero,
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide.none),
-          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide.none),
-          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide.none),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide.none,
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide.none,
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide.none,
+          ),
         ),
       ),
     );
@@ -314,7 +361,10 @@ class _MainScreenState extends State<MainScreen> {
           svgPath,
           width: context.w(16),
           height: context.w(16),
-          colorFilter: const ColorFilter.mode(CommonColors.grey475569, BlendMode.srcIn),
+          colorFilter: const ColorFilter.mode(
+            CommonColors.grey475569,
+            BlendMode.srcIn,
+          ),
         ),
       ),
     );
@@ -333,7 +383,11 @@ class _MainScreenState extends State<MainScreen> {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.add, size: context.w(16), color: CommonColors.whiteColor),
+            Icon(
+              Icons.add,
+              size: context.w(16),
+              color: CommonColors.whiteColor,
+            ),
             SizedBox(width: context.w(4)),
             Text(
               'Add',

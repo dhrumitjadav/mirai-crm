@@ -84,7 +84,7 @@ class LeadsScreen extends StatelessWidget {
         isScrollable: true,
         tabAlignment: TabAlignment.start,
         labelColor: CommonColors.appRedColor,
-        unselectedLabelColor: CommonColors.txtTertiary,
+        unselectedLabelColor: CommonColors.textTertiary,
         labelStyle: TextStyle(
           fontSize: context.s(14),
           fontWeight: FontWeight.w600,
@@ -96,7 +96,7 @@ class LeadsScreen extends StatelessWidget {
         indicatorColor: CommonColors.appRedColor,
         indicatorWeight: 2,
         indicatorSize: TabBarIndicatorSize.tab,
-        dividerColor: CommonColors.borderColor,
+        dividerColor: CommonColors.borderDefault,
         tabs: _tabs.map((t) => Tab(text: t)).toList(),
       ),
     );
@@ -115,7 +115,7 @@ class LeadsScreen extends StatelessWidget {
             style: TextStyle(
               fontSize: context.s(15),
               fontWeight: FontWeight.w600,
-              color: CommonColors.txtPrimary,
+              color: CommonColors.textPrimary,
             ),
           ),
           const Spacer(),
@@ -154,7 +154,11 @@ class LeadsScreen extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: context.h(10)),
       child: Column(
         children: [
-          Container(margin:EdgeInsets.symmetric(horizontal: context.w(50)),child: Divider(color: Color(0xFFD1D5DB))),
+          Divider(
+            color: CommonColors.borderSubtle,
+            indent: context.w(16),
+            endIndent: context.w(16),
+          ),
           Text(
             'Showing leads from the last 7 days',
             style: TextStyle(
@@ -211,14 +215,14 @@ class _HeaderAction extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           if (icon != null) ...[
-            Icon(icon, size: context.w(14), color: CommonColors.txtSecondary),
+            Icon(icon, size: context.w(14), color: CommonColors.textSecondary),
             SizedBox(width: context.w(4)),
           ],
           Text(
             label,
             style: TextStyle(
               fontSize: context.s(14),
-              color: CommonColors.txtSecondary,
+              color: CommonColors.textSecondary,
             ),
           ),
         ],

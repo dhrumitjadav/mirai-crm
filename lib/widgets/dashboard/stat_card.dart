@@ -12,6 +12,7 @@ class StatCard extends StatelessWidget {
   final bool? isPositive;
   final String svgIcon;
   final Color iconColor;
+  final Color iconBgColor;
 
   const StatCard({
     super.key,
@@ -22,21 +23,16 @@ class StatCard extends StatelessWidget {
     required this.isPositive,
     required this.svgIcon,
     required this.iconColor,
+    required this.iconBgColor,
   });
 
   @override
   Widget build(BuildContext context) {
-    final changeColor = isPositive == null
-        ? CommonColors.greyAEAEAE
-        : isPositive!
-        ? CommonColors.appGreenColor
-        : CommonColors.appRedColor;
-
     return Container(
       padding: EdgeInsets.all(context.w(12)),
       decoration: BoxDecoration(
         color: CommonColors.whiteColor,
-        border: Border.all(color: CommonColors.borderColor),
+        border: Border.all(color: CommonColors.borderDefault),
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
@@ -58,7 +54,7 @@ class StatCard extends StatelessWidget {
                   label,
                   style: TextStyle(
                     fontSize: context.s(12),
-                    color: CommonColors.hintColor,
+                    color: CommonColors.textPrimary,
                     fontWeight: FontWeight.w500,
                     height: 1.2,
                   ),
@@ -69,7 +65,7 @@ class StatCard extends StatelessWidget {
                 width: context.w(28),
                 height: context.w(28),
                 decoration: BoxDecoration(
-                  color: iconColor.withValues(alpha: 0.1),
+                  color: iconBgColor,
                   borderRadius: BorderRadius.all(Radius.circular(context.w(4))),
                 ),
                 child: SvgPicture.asset(
@@ -86,7 +82,7 @@ class StatCard extends StatelessWidget {
               fontSize: context.s(22),
               fontWeight: FontWeight.w600,
               height: 1,
-              color: CommonColors.blackColor,
+              color: CommonColors.textPrimary,
             ),
           ),
           SizedBox(height: context.h(4)),
@@ -98,7 +94,12 @@ class StatCard extends StatelessWidget {
                   isPositive!
                       ? CommonImg.crmTrendingUpOutlined
                       : CommonImg.crmTrendingDownOutlined,
-                  colorFilter: ColorFilter.mode(changeColor, BlendMode.srcIn),
+                  colorFilter: ColorFilter.mode(
+                    isPositive!
+                        ? CommonColors.success500
+                        : CommonColors.error500,
+                    BlendMode.srcIn,
+                  ),
                 ),
               Text(
                 ' $change ',
@@ -106,7 +107,9 @@ class StatCard extends StatelessWidget {
                   fontSize: context.s(11),
                   height: 1,
                   fontWeight: FontWeight.w400,
-                  color: changeColor,
+                  color: isPositive!
+                      ? CommonColors.success500
+                      : CommonColors.error500,
                 ),
               ),
               Text(
@@ -115,7 +118,7 @@ class StatCard extends StatelessWidget {
                   fontSize: context.s(11),
                   height: 1,
                   fontWeight: FontWeight.w400,
-                  color: CommonColors.greyAEAEAE,
+                  color: CommonColors.textTertiary,
                 ),
               ),
             ],

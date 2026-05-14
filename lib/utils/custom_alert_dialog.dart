@@ -146,7 +146,7 @@ noInternetDialog({required Function() onRetry}) {
                     onPressed: () => Get.back(),
                     style: OutlinedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 13),
-                      side: const BorderSide(color: CommonColors.borderColor),
+                      side: const BorderSide(color: CommonColors.borderDefault),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -156,7 +156,7 @@ noInternetDialog({required Function() onRetry}) {
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
-                        color: CommonColors.txtPrimary,
+                        color: CommonColors.textPrimary,
                       ),
                     ),
                   ),

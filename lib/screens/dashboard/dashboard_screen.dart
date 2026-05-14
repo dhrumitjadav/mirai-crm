@@ -20,7 +20,6 @@ class DashboardScreen extends StatelessWidget {
       time: '2m ago',
       agent: 'Alex',
       status: 'NEW',
-      color: Color(0xFFD94F4F),
     ),
     LeadData(
       initials: 'EC',
@@ -28,7 +27,6 @@ class DashboardScreen extends StatelessWidget {
       time: '2m ago',
       agent: 'Alex',
       status: 'CONVERTED',
-      color: Color(0xFFD94F4F),
     ),
     LeadData(
       initials: 'RP',
@@ -36,7 +34,6 @@ class DashboardScreen extends StatelessWidget {
       time: '2m ago',
       agent: 'Alex',
       status: 'CONVERTED',
-      color: Color(0xFFD94F4F),
     ),
     LeadData(
       initials: 'AK',
@@ -44,7 +41,6 @@ class DashboardScreen extends StatelessWidget {
       time: '2m ago',
       agent: 'Alex',
       status: 'PENDING',
-      color: Color(0xFFD94F4F),
     ),
   ];
 
@@ -63,6 +59,7 @@ class DashboardScreen extends StatelessWidget {
           const LeadStatusChart(),
           const ActiveCampaignsSection(),
           const AgentPerformanceSection(),
+          Container(),
         ],
       ),
     );
@@ -77,7 +74,8 @@ class DashboardScreen extends StatelessWidget {
         changeLabel: 'vs last mo',
         isPositive: true,
         svgIcon: CommonImg.crmLeadsOutlined,
-        iconColor: CommonColors.primaryColor,
+        iconBgColor: CommonColors.info50,
+        iconColor: CommonColors.info700,
       ),
       (
         label: 'Converted\nLeads',
@@ -86,7 +84,8 @@ class DashboardScreen extends StatelessWidget {
         changeLabel: 'vs last mo',
         isPositive: false,
         svgIcon: CommonImg.crmMegaphoneOutlined,
-        iconColor: CommonColors.appGreenColor,
+        iconBgColor: CommonColors.green50,
+        iconColor: CommonColors.green700,
       ),
       (
         label: 'Ongoing\nLeads',
@@ -95,7 +94,8 @@ class DashboardScreen extends StatelessWidget {
         changeLabel: 'vs last mo',
         isPositive: false,
         svgIcon: CommonImg.crmLoadingOutlined,
-        iconColor: CommonColors.orangeColor,
+        iconBgColor: CommonColors.warning100,
+        iconColor: CommonColors.warning600,
       ),
       (
         label: 'Pending Tasks',
@@ -104,7 +104,8 @@ class DashboardScreen extends StatelessWidget {
         changeLabel: 'attn req',
         isPositive: true,
         svgIcon: CommonImg.crmTimerOutlined,
-        iconColor: CommonColors.appRedColor,
+        iconBgColor: CommonColors.red50,
+        iconColor: CommonColors.red700,
       ),
     ];
     return GridView.count(
@@ -124,6 +125,7 @@ class DashboardScreen extends StatelessWidget {
               isPositive: s.isPositive,
               svgIcon: s.svgIcon,
               iconColor: s.iconColor,
+              iconBgColor: s.iconBgColor,
             ),
           )
           .toList(),

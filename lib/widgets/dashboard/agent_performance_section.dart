@@ -11,7 +11,7 @@ class AgentPerformanceSection extends StatelessWidget {
       initials: 'SD',
       name: 'Sarah Disouza',
       percent: 92,
-      barColor: Color(0xFF047857),
+      barColor: CommonColors.green700,
     ),
     _Agent(
       initials: 'MT',
@@ -30,17 +30,12 @@ class AgentPerformanceSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(
-        context.w(16),
-        context.h(14),
-        context.w(16),
-        context.h(4),
-      ),
+      padding: EdgeInsets.all(context.w(16)),
       decoration: BoxDecoration(
         color: CommonColors.whiteColor,
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
-          color: CommonColors.blackColor.withValues(alpha: 0.04),
+          color: CommonColors.borderDefault,
         ),
       ),
       child: Column(
@@ -73,7 +68,7 @@ class _AgentRow extends StatelessWidget {
                 width: context.w(38),
                 height: context.w(38),
                 decoration: BoxDecoration(
-                  color: Color(0xFFECFDF5),
+                  color: CommonColors.green50,
                   shape: BoxShape.circle,
                 ),
                 child: Center(
@@ -82,7 +77,7 @@ class _AgentRow extends StatelessWidget {
                     style: TextStyle(
                       fontSize: context.s(14),
                       fontWeight: FontWeight.w700,
-                      color: Color(0xFF059669),
+                      color: CommonColors.green600,
                     ),
                   ),
                 ),
@@ -97,7 +92,7 @@ class _AgentRow extends StatelessWidget {
                       style: TextStyle(
                         fontSize: context.s(14),
                         fontWeight: FontWeight.w700,
-                        color: CommonColors.txtPrimary,
+                        color: CommonColors.textPrimary,
                       ),
                     ),
                     SizedBox(height: context.h(2)),
@@ -105,7 +100,7 @@ class _AgentRow extends StatelessWidget {
                       '${agent.closed} closed this month',
                       style: TextStyle(
                         fontSize: context.s(12),
-                        color: CommonColors.txtSecondary,
+                        color: CommonColors.textSecondary,
                       ),
                     ),
                   ],
@@ -116,7 +111,7 @@ class _AgentRow extends StatelessWidget {
                 style: TextStyle(
                   fontSize: context.s(16),
                   fontWeight: FontWeight.w500,
-                  color: CommonColors.txtSecondary,
+                  color: CommonColors.textSecondary,
                 ),
               ),
             ],
@@ -127,7 +122,7 @@ class _AgentRow extends StatelessWidget {
             child: LinearProgressIndicator(
               value: agent.percent / 100,
               minHeight: context.h(5),
-              backgroundColor: CommonColors.borderColor,
+              backgroundColor: CommonColors.borderDefault,
               valueColor: AlwaysStoppedAnimation<Color>(agent.barColor),
             ),
           ),

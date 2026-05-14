@@ -10,7 +10,6 @@ class LeadData {
   final String time;
   final String agent;
   final String status;
-  final Color color;
 
   const LeadData({
     required this.initials,
@@ -18,7 +17,6 @@ class LeadData {
     required this.time,
     required this.agent,
     required this.status,
-    required this.color,
   });
 }
 
@@ -30,11 +28,22 @@ class LeadCard extends StatelessWidget {
   Color get _statusColor {
     switch (lead.status) {
       case 'NEW':
-        return CommonColors.primaryColor;
+        return CommonColors.info700;
       case 'CONVERTED':
-        return CommonColors.appGreenColor;
+        return CommonColors.green600;
       default:
-        return CommonColors.grey3B4A5E;
+        return CommonColors.grey650;
+    }
+  }
+
+  Color get _statusBgColor {
+    switch (lead.status) {
+      case 'NEW':
+        return CommonColors.info50;
+      case 'CONVERTED':
+        return CommonColors.green50;
+      default:
+        return CommonColors.grey75;
     }
   }
 
@@ -51,7 +60,7 @@ class LeadCard extends StatelessWidget {
             width: context.w(40),
             height: context.h(40),
             decoration: BoxDecoration(
-              color: lead.color.withValues(alpha: 0.1),
+              color: CommonColors.red50,
               borderRadius: BorderRadius.circular(8),
             ),
             alignment: Alignment.center,
@@ -61,7 +70,7 @@ class LeadCard extends StatelessWidget {
                 fontSize: context.s(14),
                 fontWeight: FontWeight.w600,
                 height: 1,
-                color: lead.color,
+                color: CommonColors.red600,
               ),
             ),
           ),
@@ -76,7 +85,7 @@ class LeadCard extends StatelessWidget {
                     fontSize: context.s(14),
                     fontWeight: FontWeight.w700,
                     height: 1,
-                    color: CommonColors.blackColor,
+                    color: CommonColors.textPrimary,
                   ),
                 ),
                 SizedBox(height: context.h(2)),
@@ -86,7 +95,7 @@ class LeadCard extends StatelessWidget {
                       lead.time,
                       style: TextStyle(
                         fontSize: context.s(12),
-                        color: CommonColors.greyAEAEAE,
+                        color: CommonColors.textSecondary,
                       ),
                     ),
                     SizedBox(width: context.w(16)),
@@ -104,7 +113,7 @@ class LeadCard extends StatelessWidget {
                       style: TextStyle(
                         fontSize: context.s(12),
                         fontWeight: FontWeight.w500,
-                        color: CommonColors.txtPrimary,
+                        color: CommonColors.textPrimary,
                       ),
                     ),
                   ],
@@ -118,7 +127,7 @@ class LeadCard extends StatelessWidget {
               vertical: context.h(4),
             ),
             decoration: BoxDecoration(
-              color: _statusColor.withValues(alpha: 0.1),
+              color: _statusBgColor,
               borderRadius: BorderRadius.circular(4),
             ),
             child: Text(

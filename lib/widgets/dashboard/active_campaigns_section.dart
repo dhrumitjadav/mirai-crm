@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mirai_crm/utils/app_size.dart';
@@ -39,9 +41,7 @@ class ActiveCampaignsSection extends StatelessWidget {
       decoration: BoxDecoration(
         color: CommonColors.whiteColor,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: CommonColors.blackColor.withValues(alpha: 0.04),
-        ),
+        border: Border.all(color: CommonColors.borderDefault),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,78 +62,86 @@ class _CampaignCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(
-        // horizontal: context.w(12),
-        bottom: context.h(12),
-      ),
-      decoration: BoxDecoration(
-        // color: const Color(0xFFF6F8FF),
+    return Material(
+      color: Colors.transparent,
+      borderRadius: BorderRadius.circular(10),
+      child: InkWell(
         borderRadius: BorderRadius.circular(10),
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: EdgeInsets.all(context.w(10)),
-            decoration: BoxDecoration(
-              color: ActiveCampaignsSection._iconBg,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: SvgPicture.asset(
-              fit: BoxFit.fitHeight,
-              height: context.h(18),
-              campaign.svgIcon,
-              colorFilter: ColorFilter.mode(
-                ActiveCampaignsSection._iconColor,
-                BlendMode.srcIn,
+        splashColor: CommonColors.grey50,
+        highlightColor: CommonColors.grey50,
+        onTap: () {
+          log('--------${campaign.title}');
+        },
+        child: Container(
+          padding: EdgeInsets.symmetric(
+            vertical: context.h(12),
+            // horizontal: context.w(12),
+          ),
+          child: Row(
+            children: [
+              Container(
+                padding: EdgeInsets.all(context.w(10)),
+                decoration: BoxDecoration(
+                  color: ActiveCampaignsSection._iconBg,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: SvgPicture.asset(
+                  fit: BoxFit.fitHeight,
+                  height: context.h(18),
+                  campaign.svgIcon,
+                  colorFilter: ColorFilter.mode(
+                    ActiveCampaignsSection._iconColor,
+                    BlendMode.srcIn,
+                  ),
+                ),
               ),
-            ),
-          ),
-          SizedBox(width: context.w(12)),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  campaign.title,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  style: TextStyle(
-                    fontSize: context.s(14),
-                    fontWeight: FontWeight.w700,
-                    color: CommonColors.txtPrimary,
-                  ),
+              SizedBox(width: context.w(12)),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      campaign.title,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: TextStyle(
+                        fontSize: context.s(14),
+                        fontWeight: FontWeight.w700,
+                        color: CommonColors.textPrimary,
+                      ),
+                    ),
+                    SizedBox(height: context.h(2)),
+                    Text(
+                      campaign.subtitle,
+                      style: TextStyle(
+                        fontSize: context.s(12),
+                        color: CommonColors.textSecondary,
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(height: context.h(2)),
-                Text(
-                  campaign.subtitle,
-                  style: TextStyle(
-                    fontSize: context.s(12),
-                    color: CommonColors.txtSecondary,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(width: context.w(12)),
+              ),
+              SizedBox(width: context.w(12)),
 
-          Text(
-            campaign.progress,
-            style: TextStyle(
-              fontSize: context.s(14),
-              fontWeight: FontWeight.w500,
-              color: CommonColors.txtSecondary,
-            ),
+              Text(
+                campaign.progress,
+                style: TextStyle(
+                  fontSize: context.s(14),
+                  fontWeight: FontWeight.w500,
+                  color: CommonColors.textSecondary,
+                ),
+              ),
+              SizedBox(width: context.w(4)),
+              SvgPicture.asset(
+                CommonImg.crmArrowRightFilled,
+                colorFilter: ColorFilter.mode(
+                  CommonColors.greyAEAEAE,
+                  BlendMode.srcIn,
+                ),
+              ),
+            ],
           ),
-          SizedBox(width: context.w(4)),
-          SvgPicture.asset(
-            CommonImg.crmArrowRightFilled,
-            colorFilter: ColorFilter.mode(
-              CommonColors.greyAEAEAE,
-              BlendMode.srcIn,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

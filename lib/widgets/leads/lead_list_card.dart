@@ -148,7 +148,7 @@ class LeadListCard extends StatelessWidget {
                             style: TextStyle(
                               fontSize: context.s(15),
                               fontWeight: FontWeight.w600,
-                              color: CommonColors.txtPrimary,
+                              color: CommonColors.textPrimary,
                             ),
                           ),
                           Text(
@@ -156,7 +156,7 @@ class LeadListCard extends StatelessWidget {
                             style: TextStyle(
                               fontSize: context.s(12),
                               fontWeight: FontWeight.w500,
-                              color: CommonColors.txtTertiary,
+                              color: CommonColors.textTertiary,
                             ),
                           ),
                           Text.rich(
@@ -164,14 +164,14 @@ class LeadListCard extends StatelessWidget {
                               text: 'Assigned to ',
                               style: TextStyle(
                                 fontSize: context.s(12),
-                                color: CommonColors.txtTertiary,
+                                color: CommonColors.textTertiary,
                               ),
                               children: [
                                 TextSpan(
                                   text: lead.assignedTo,
                                   style: TextStyle(
                                     fontWeight: FontWeight.w700,
-                                    color: CommonColors.txtPrimary,
+                                    color: CommonColors.textPrimary,
                                   ),
                                 ),
                               ],
@@ -196,9 +196,9 @@ class LeadListCard extends StatelessWidget {
               ),
               // SizedBox(height: context.h(14)),
               Divider(
-                height: 1,
-                thickness: 1,
                 color: CommonColors.borderSubtle,
+                indent: context.w(16),
+                endIndent: context.w(16),
               ),
               Padding(
                 padding: EdgeInsets.only(top: context.h(20)),
@@ -207,7 +207,7 @@ class LeadListCard extends StatelessWidget {
                     _InfoPair(
                       label: 'Source',
                       value: lead.source,
-                      valueColor: CommonColors.txtPrimary,
+                      valueColor: CommonColors.textPrimary,
                     ),
                     SizedBox(width: context.w(20)),
                     _InfoPair(
@@ -295,7 +295,7 @@ class _InfoPair extends StatelessWidget {
           label,
           style: TextStyle(
             fontSize: context.s(12),
-            color: CommonColors.txtTertiary,
+            color: CommonColors.textTertiary,
             fontWeight: FontWeight.w500,
           ),
         ),

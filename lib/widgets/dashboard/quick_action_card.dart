@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mirai_crm/utils/app_size.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
+import 'package:mirai_crm/utils/common_img.dart';
 
 class QuickActionCard extends StatelessWidget {
   final String label;
   final String subtitle;
   final String svgIcon;
   final Color color;
+  final Color iconColor;
+  final Color borderDefault;
   final VoidCallback onTap;
 
   const QuickActionCard({
@@ -15,6 +18,8 @@ class QuickActionCard extends StatelessWidget {
     required this.label,
     required this.subtitle,
     required this.svgIcon,
+    required this.iconColor,
+    required this.borderDefault,
     required this.color,
     required this.onTap,
   });
@@ -30,9 +35,9 @@ class QuickActionCard extends StatelessWidget {
           vertical: context.h(10),
         ),
         decoration: BoxDecoration(
-          color: color.withValues(alpha: 0.07),
+          color: color,
           borderRadius: BorderRadius.circular(14),
-          border: Border.all(color: color.withValues(alpha: 0.35), width: 1.5),
+          border: Border.all(color: borderDefault, width: 1),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -41,7 +46,7 @@ class QuickActionCard extends StatelessWidget {
               svgIcon,
               width: context.w(20),
               height: context.w(20),
-              colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+              colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
             ),
             SizedBox(width: context.w(6)),
             Expanded(
@@ -76,7 +81,12 @@ class QuickActionCard extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(Icons.chevron_right, size: context.w(14), color: color),
+            SvgPicture.asset(
+              CommonImg.crmArrowRightFilled,
+              width: context.w(20),
+              height: context.w(20),
+              colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
+            ),
           ],
         ),
       ),

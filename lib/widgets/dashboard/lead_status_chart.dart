@@ -8,10 +8,10 @@ class LeadStatusChart extends StatelessWidget {
   const LeadStatusChart({super.key});
 
   static const _segments = [
-    _Segment(label: 'Converted', value: 45, color: Color(0xFFD97706)),
-    _Segment(label: 'Active', value: 24, color: Color(0xFFEA580C)),
-    _Segment(label: 'Pending', value: 20, color: Color(0xFF991B1B)),
-    _Segment(label: 'Lost', value: 65, color: Color(0xFF65A30D)),
+    _Segment(label: 'Converted', value: 45, color: CommonColors.percent41to60),
+    _Segment(label: 'Active', value: 24, color: CommonColors.percent21to40),
+    _Segment(label: 'Pending', value: 20, color: CommonColors.percent1to20),
+    _Segment(label: 'Lost', value: 65, color: CommonColors.percent61to80),
   ];
 
   @override
@@ -21,7 +21,7 @@ class LeadStatusChart extends StatelessWidget {
       decoration: BoxDecoration(
         color: CommonColors.whiteColor,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: CommonColors.borderColor),
+        border: Border.all(color: CommonColors.borderDefault),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,7 +61,7 @@ class LeadStatusChart extends StatelessWidget {
                           style: TextStyle(
                             fontSize: context.s(12),
                             fontWeight: FontWeight.w800,
-                            color: CommonColors.txtPrimary,
+                            color: CommonColors.textPrimary,
                           ),
                         ),
                         Text(
@@ -103,7 +103,7 @@ class LeadStatusChart extends StatelessWidget {
                                   style: TextStyle(
                                     fontSize: context.s(12),
                                     fontWeight: FontWeight.w600,
-                                    color: CommonColors.txtSecondary,
+                                    color: CommonColors.textSecondary,
                                   ),
                                 ),
                               ),
@@ -112,7 +112,7 @@ class LeadStatusChart extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: context.s(12),
                                   fontWeight: FontWeight.w700,
-                                  color: CommonColors.txtPrimary,
+                                  color: CommonColors.textPrimary,
                                 ),
                               ),
                             ],
