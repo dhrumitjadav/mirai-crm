@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mirai_crm/utils/app_size.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
 import 'package:mirai_crm/utils/common_img.dart';
+import 'package:mirai_crm/widgets/app_divider.dart';
 
 class LeadListItem {
   final String initials;
@@ -29,7 +30,7 @@ class LeadListItem {
 class LeadListCard extends StatelessWidget {
   final LeadListItem lead;
 
-  const LeadListCard({required this.lead});
+  const LeadListCard({super.key, required this.lead});
 
   Color get _priorityColor {
     switch (lead.priority.toLowerCase()) {
@@ -75,7 +76,7 @@ class LeadListCard extends StatelessWidget {
                 context.w(0),
               ),
               decoration: BoxDecoration(
-                color: CommonColors.appGreenColor,
+                color: CommonColors.green600,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(context.w(6)),
                   topRight: Radius.circular(context.w(6)),
@@ -121,7 +122,7 @@ class LeadListCard extends StatelessWidget {
                       width: context.w(56),
                       height: context.w(56),
                       decoration: BoxDecoration(
-                        color: Color(0xFFFEF0EE),
+                        color: CommonColors.red50,
                         borderRadius: BorderRadius.circular(14),
                       ),
                       child: Center(
@@ -130,7 +131,7 @@ class LeadListCard extends StatelessWidget {
                           style: TextStyle(
                             fontSize: context.s(14),
                             fontWeight: FontWeight.w600,
-                            color: Color(0xFFC11A06),
+                            color: CommonColors.red600,
                           ),
                         ),
                       ),
@@ -170,7 +171,7 @@ class LeadListCard extends StatelessWidget {
                                 TextSpan(
                                   text: lead.assignedTo,
                                   style: TextStyle(
-                                    fontWeight: FontWeight.w700,
+                                    fontWeight: FontWeight.w500,
                                     color: CommonColors.textPrimary,
                                   ),
                                 ),
@@ -195,11 +196,7 @@ class LeadListCard extends StatelessWidget {
                 ),
               ),
               // SizedBox(height: context.h(14)),
-              Divider(
-                color: CommonColors.borderSubtle,
-                indent: context.w(16),
-                endIndent: context.w(16),
-              ),
+              AppDivider(),
               Padding(
                 padding: EdgeInsets.only(top: context.h(20)),
                 child: Row(

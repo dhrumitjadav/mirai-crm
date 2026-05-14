@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:mirai_crm/utils/app_size.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
 import 'package:mirai_crm/widgets/leads/lead_list_card.dart';
+import 'package:mirai_crm/widgets/app_divider.dart';
+import 'package:mirai_crm/widgets/leads/sort_bottom_sheet.dart';
 
 class LeadsScreen extends StatelessWidget {
   const LeadsScreen({super.key});
 
-  static const _tabs = ['All', 'New', 'Contacted', 'Un-read', 'Follow-up'];
+  static const _tabs = ['All', 'New', 'Contacted', 'Un-read', 'Follow-up','Hold'];
 
   static const _leads = [
     LeadListItem(
@@ -80,24 +82,27 @@ class LeadsScreen extends StatelessWidget {
   Widget _buildTabBar(BuildContext context) {
     return Container(
       color: CommonColors.whiteColor,
-      child: TabBar(
-        isScrollable: true,
-        tabAlignment: TabAlignment.start,
-        labelColor: CommonColors.appRedColor,
-        unselectedLabelColor: CommonColors.textTertiary,
-        labelStyle: TextStyle(
-          fontSize: context.s(14),
-          fontWeight: FontWeight.w600,
+      child: Container(
+        margin:EdgeInsets.symmetric(horizontal: context.w(16)),
+        child: TabBar(
+          isScrollable: true,
+          tabAlignment: TabAlignment.start,
+          labelColor: CommonColors.primaryColor,
+          unselectedLabelColor: CommonColors.textTertiary,
+          labelStyle: TextStyle(
+            fontSize: context.s(14),
+            fontWeight: FontWeight.w600,
+          ),
+          unselectedLabelStyle: TextStyle(
+            fontSize: context.s(14),
+            fontWeight: FontWeight.w500,
+          ),
+          indicatorColor: CommonColors.appRedColor,
+          indicatorWeight: 2,
+          indicatorSize: TabBarIndicatorSize.tab,
+          dividerColor: CommonColors.borderDefault,
+          tabs: _tabs.map((t) => Tab(text: t)).toList(),
         ),
-        unselectedLabelStyle: TextStyle(
-          fontSize: context.s(14),
-          fontWeight: FontWeight.w500,
-        ),
-        indicatorColor: CommonColors.appRedColor,
-        indicatorWeight: 2,
-        indicatorSize: TabBarIndicatorSize.tab,
-        dividerColor: CommonColors.borderDefault,
-        tabs: _tabs.map((t) => Tab(text: t)).toList(),
       ),
     );
   }
@@ -119,7 +124,11 @@ class LeadsScreen extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          _HeaderAction(icon: Icons.swap_vert_rounded, label: 'Sort'),
+          _HeaderAction(
+            icon: Icons.swap_vert_rounded,
+            label: 'Sort',
+            onTap: () => showSortBottomSheet(context),
+          ),
           SizedBox(width: context.w(8)),
           _HeaderAction(icon: null, label: 'Select'),
         ],
@@ -154,11 +163,7 @@ class LeadsScreen extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: context.h(10)),
       child: Column(
         children: [
-          Divider(
-            color: CommonColors.borderSubtle,
-            indent: context.w(16),
-            endIndent: context.w(16),
-          ),
+          AppDivider(),
           Text(
             'Showing leads from the last 7 days',
             style: TextStyle(
@@ -197,12 +202,15 @@ class LeadsScreen extends StatelessWidget {
 class _HeaderAction extends StatelessWidget {
   final IconData? icon;
   final String label;
+  final VoidCallback? onTap;
 
-  const _HeaderAction({required this.icon, required this.label});
+  const _HeaderAction({required this.icon, required this.label, this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
       padding: EdgeInsets.symmetric(
         horizontal: context.w(10),
         vertical: context.h(5),
@@ -227,6 +235,7 @@ class _HeaderAction extends StatelessWidget {
           ),
         ],
       ),
+    ),
     );
   }
 }

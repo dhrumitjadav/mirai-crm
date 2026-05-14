@@ -13,6 +13,7 @@ class CommonColors {
   static const Color scaffoldBgColor = Color(0xffFAFAF9);
   static const Color appBgColor = Color(0xffffffff);
   static const Color fieldBgColor = Color(0xffFFFFFF);
+  static const Color bottomSheetBgColor = Color(0xffF5F5F5);
 
   // Social
   static const Color googleRed = Color(0xffEA4335);
@@ -27,6 +28,7 @@ class CommonColors {
   static const Color greyColor = Color(0xffF0F0F0);
   static const Color dividerColor = Color(0xffECECEC);
   static const Color blueColor = Color(0xff2F80ED);
+
   // static const Color txtPrimary = Color(0xff111827);
   // static const Color txtSecondary = Color(0xff4B5563);
   // static const Color txtTertiary = Color(0xff6B7280);
@@ -48,16 +50,16 @@ class CommonColors {
   static const Color colorAppBg = Color(0xffFAFAF9);
 
   // ── Primary Red (brand) ────────────────────────────────────────────────────
-  static const Color primary900 = Color(0xff5C111C);
-  static const Color primary800 = Color(0xff7A1322);
-  static const Color primary700 = Color(0xff9A132A);
-  static const Color primary600 = Color(0xffBC1A33);
-  static const Color primary500 = Color(0xffC81E1E);
-  static const Color primary400 = Color(0xffEB5C71);
-  static const Color primary300 = Color(0xffF4929F);
-  static const Color primary200 = Color(0xffFAC2CA);
-  static const Color primary100 = Color(0xffFDE0E4);
-  static const Color primary50 = Color(0xffFEF1F3);
+  // static const Color primary900 = Color(0xff5C111C);
+  // static const Color primary800 = Color(0xff7A1322);
+  // static const Color primary700 = Color(0xff9A132A);
+  // static const Color primary600 = Color(0xffBC1A33);
+  // static const Color primary500 = Color(0xffC81E1E);
+  // static const Color primary400 = Color(0xffEB5C71);
+  // static const Color primary300 = Color(0xffF4929F);
+  // static const Color primary200 = Color(0xffFAC2CA);
+  // static const Color primary100 = Color(0xffFDE0E4);
+  // static const Color primary50 = Color(0xffFEF1F3);
 
   // ── Success ────────────────────────────────────────────────────────────────
   static const Color success800 = Color(0xff0A512B);
@@ -110,7 +112,6 @@ class CommonColors {
   static const Color borderFocus = Color(0xffD8253E);
   static const Color borderError = Color(0xffEF4444);
   static const Color borderSuccess = Color(0xff1AA85D);
-
 
   // ── Text ───────────────────────────────────────────────────────────────────
   static const Color textPrimary = Color(0xff0C0A09);

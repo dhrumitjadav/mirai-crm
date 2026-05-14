@@ -4,6 +4,7 @@ import 'package:mirai_crm/utils/common_colors.dart';
 
 class SectionHeader extends StatelessWidget {
   final String title;
+  final String? prefixText;
 
   /// Shows a red "View All" label. Ignored if [trailing] is provided.
   final VoidCallback? onViewAll;
@@ -14,6 +15,7 @@ class SectionHeader extends StatelessWidget {
   const SectionHeader({
     super.key,
     required this.title,
+    this.prefixText,
     this.onViewAll,
     this.trailing,
   });
@@ -37,7 +39,7 @@ class SectionHeader extends StatelessWidget {
           GestureDetector(
             onTap: onViewAll,
             child: Text(
-              'View All',
+              prefixText ?? 'View All',
               style: TextStyle(
                 fontSize: context.s(13),
                 fontWeight: FontWeight.w500,

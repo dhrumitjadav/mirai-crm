@@ -133,7 +133,7 @@ class _CampaignCard extends StatelessWidget {
               ),
               SizedBox(width: context.w(4)),
               SvgPicture.asset(
-                CommonImg.crmArrowRightFilled,
+                CommonImg.crmArrowRightOutlined,
                 colorFilter: ColorFilter.mode(
                   CommonColors.greyAEAEAE,
                   BlendMode.srcIn,

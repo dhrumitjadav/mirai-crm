@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:mirai_crm/screens/campaigns/campaigns_screen.dart';
 import 'package:mirai_crm/screens/dashboard/dashboard_screen.dart';
+import 'package:mirai_crm/screens/leads/add_lead_screen.dart';
 import 'package:mirai_crm/screens/leads/leads_screen.dart';
 import 'package:mirai_crm/screens/more/more_screen.dart';
 import 'package:mirai_crm/screens/task/task_screen.dart';
@@ -9,6 +11,7 @@ import 'package:mirai_crm/utils/app_size.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
 import 'package:mirai_crm/utils/common_img.dart';
 import 'package:mirai_crm/widgets/dashboard/quick_action_card.dart';
+import 'package:mirai_crm/widgets/more_bottom_sheet.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -51,8 +54,8 @@ class _MainScreenState extends State<MainScreen> {
     ),
     _NavItem(
       label: 'More',
-      outlined: CommonImg.crmFunnelOutlined,
-      filled: CommonImg.crmFunnelOutlined,
+      outlined: CommonImg.crmListOutlined,
+      filled: CommonImg.crmListOutlined,
     ),
   ];
 
@@ -81,7 +84,13 @@ class _MainScreenState extends State<MainScreen> {
           ),
           child: BottomNavigationBar(
             currentIndex: _selectedIndex,
-            onTap: (i) => setState(() => _selectedIndex = i),
+            onTap: (i) {
+              if (i == 4) {
+                showMoreBottomSheet(context);
+              } else {
+                setState(() => _selectedIndex = i);
+              }
+            },
             type: BottomNavigationBarType.fixed,
             selectedItemColor: CommonColors.appRedColor,
             unselectedItemColor: CommonColors.grey475569,
@@ -133,8 +142,8 @@ class _MainScreenState extends State<MainScreen> {
     return AppBar(
       title: Row(
         children: [
-          Image.asset(CommonImg.appLogo, height: context.h(50)),
-          SizedBox(width: context.w(8)),
+          Image.asset(CommonImg.appLogo, height: context.h(35)),
+          SizedBox(width: context.w(2)),
           Text(
             'Mirai',
             style: TextStyle(
@@ -184,13 +193,14 @@ class _MainScreenState extends State<MainScreen> {
         ),
         Container(
           margin: const EdgeInsets.all(5),
-          child: CircleAvatar(
-            radius: context.w(18),
-            backgroundColor: CommonColors.greyColor,
-            child: Icon(
-              Icons.person,
-              size: context.w(20),
-              color: CommonColors.greyAEAEAE,
+          width: context.w(36),
+          height: context.w(36),
+          decoration: BoxDecoration(
+            color: CommonColors.greyF8F8F8,
+            shape: BoxShape.circle,
+            image: DecorationImage(
+              image: AssetImage(CommonImg.profilePicture),
+              fit: BoxFit.cover,
             ),
           ),
         ),
@@ -284,24 +294,21 @@ class _MainScreenState extends State<MainScreen> {
       children: [
         Expanded(
           child: QuickActionCard(
-            label: 'View Campaigns',
-            subtitle: 'Manage Campaigns',
-            svgIcon: CommonImg.crmMegaphoneOutlined,
-            color: CommonColors.info50,
-            iconColor: CommonColors.info600,
-            borderDefault: CommonColors.info400,
+            label: 'All Leads',
+            subtitle: 'Browse all leads',
+            svgIcon: CommonImg.crmLeadsOutlined,
+            color: CommonColors.red500,
             onTap: () {},
           ),
         ),
         SizedBox(width: context.w(10)),
+
         Expanded(
           child: QuickActionCard(
-            label: 'All Leads',
-            subtitle: 'Browse all leads',
-            svgIcon: CommonImg.crmLeadsOutlined,
-            color: CommonColors.red50,
-            iconColor: CommonColors.red500,
-            borderDefault: CommonColors.red200,
+            label: 'View Campaigns',
+            subtitle: 'Manage Campaigns',
+            svgIcon: CommonImg.crmMegaphoneOutlined,
+            color: CommonColors.info600,
             onTap: () {},
           ),
         ),
@@ -372,12 +379,14 @@ class _MainScreenState extends State<MainScreen> {
 
   Widget _buildAddBtn(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Get.to(() => AddLeadScreen());
+      },
       child: Container(
         height: context.h(38),
         padding: EdgeInsets.symmetric(horizontal: context.w(14)),
         decoration: BoxDecoration(
-          color: CommonColors.appRedColor,
+          color: CommonColors.primaryColor,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Row(

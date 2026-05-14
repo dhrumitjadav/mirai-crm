@@ -9,8 +9,6 @@ class QuickActionCard extends StatelessWidget {
   final String subtitle;
   final String svgIcon;
   final Color color;
-  final Color iconColor;
-  final Color borderDefault;
   final VoidCallback onTap;
 
   const QuickActionCard({
@@ -18,8 +16,6 @@ class QuickActionCard extends StatelessWidget {
     required this.label,
     required this.subtitle,
     required this.svgIcon,
-    required this.iconColor,
-    required this.borderDefault,
     required this.color,
     required this.onTap,
   });
@@ -37,7 +33,6 @@ class QuickActionCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(14),
-          border: Border.all(color: borderDefault, width: 1),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -46,7 +41,10 @@ class QuickActionCard extends StatelessWidget {
               svgIcon,
               width: context.w(20),
               height: context.w(20),
-              colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
+              colorFilter: ColorFilter.mode(
+                CommonColors.whiteColor,
+                BlendMode.srcIn,
+              ),
             ),
             SizedBox(width: context.w(6)),
             Expanded(
@@ -63,7 +61,7 @@ class QuickActionCard extends StatelessWidget {
                       fontSize: context.s(13),
                       height: 1,
                       fontWeight: FontWeight.w600,
-                      color: CommonColors.blackColor,
+                      color: CommonColors.whiteColor,
                     ),
                   ),
                   SizedBox(height: context.w(5)),
@@ -75,17 +73,20 @@ class QuickActionCard extends StatelessWidget {
                       fontSize: context.s(11),
                       height: 1,
                       fontWeight: FontWeight.w400,
-                      color: CommonColors.hintColor,
+                      color: CommonColors.whiteColor,
                     ),
                   ),
                 ],
               ),
             ),
             SvgPicture.asset(
-              CommonImg.crmArrowRightFilled,
+              CommonImg.crmArrowRightOutlined,
               width: context.w(20),
               height: context.w(20),
-              colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
+              colorFilter: ColorFilter.mode(
+                CommonColors.whiteColor,
+                BlendMode.srcIn,
+              ),
             ),
           ],
         ),

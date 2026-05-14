@@ -34,14 +34,16 @@ class AgentPerformanceSection extends StatelessWidget {
       decoration: BoxDecoration(
         color: CommonColors.whiteColor,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: CommonColors.borderDefault,
-        ),
+        border: Border.all(color: CommonColors.borderDefault),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SectionHeader(title: 'Agent Performance', onViewAll: () {}),
+          SectionHeader(
+            title: 'Agent Performance',
+            prefixText: 'View All Agents',
+            onViewAll: () {},
+          ),
           SizedBox(height: context.h(14)),
           ..._agents.map((a) => _AgentRow(agent: a)),
         ],

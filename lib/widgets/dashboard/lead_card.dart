@@ -100,7 +100,7 @@ class LeadCard extends StatelessWidget {
                     ),
                     SizedBox(width: context.w(16)),
                     SvgPicture.asset(
-                      CommonImg.crmPersonOutlined,
+                      CommonImg.crmBookmarkOutlined,
                       height: context.h(12),
                       colorFilter: ColorFilter.mode(
                         CommonColors.blackColor,
@@ -141,7 +141,7 @@ class LeadCard extends StatelessWidget {
           ),
           SizedBox(width: context.w(6)),
           SvgPicture.asset(
-            CommonImg.crmArrowRightFilled,
+            CommonImg.crmArrowRightOutlined,
             height: context.h(18),
             colorFilter: ColorFilter.mode(
               CommonColors.greyAEAEAE,

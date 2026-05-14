@@ -3,6 +3,7 @@ import 'package:mirai_crm/utils/app_size.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
 import 'package:mirai_crm/widgets/section_header.dart';
 import 'package:mirai_crm/widgets/dashboard/lead_card.dart';
+import 'package:mirai_crm/widgets/app_divider.dart';
 
 class RecentLeadsSection extends StatelessWidget {
   final List<LeadData> leads;
@@ -28,22 +29,13 @@ class RecentLeadsSection extends StatelessWidget {
             ),
             child: SectionHeader(title: 'Recent Leads', onViewAll: onViewAll),
           ),
-          Divider(
-            color: CommonColors.borderSubtle,
-            indent: context.w(16),
-            endIndent: context.w(16),
-          ),
+          AppDivider(),
           ...List.generate(
             leads.length,
             (i) => Column(
               children: [
                 LeadCard(lead: leads[i]),
-                if (i < leads.length - 1)
-                  Divider(
-                    color: CommonColors.borderSubtle,
-                    indent: context.w(16),
-                    endIndent: context.w(16),
-                  ),
+                if (i < leads.length - 1) AppDivider(),
               ],
             ),
           ),

@@ -6,7 +6,10 @@
       "PowerShell(Get-ChildItem -Path \"E:\\\\Flutter\\\\mirai_crm\" -Force | Where-Object {$_.Name -eq 'assets'})",
       "PowerShell(New-Item *)",
       "PowerShell(Copy-Item *)",
-      "Bash(flutter pub *)"
+      "Bash(flutter pub *)",
+      "Bash(Get-ChildItem -Recurse \"E:\\\\Flutter\\\\mirai_crm\\\\assets\\\\icons\")",
+      "Bash(Select-Object FullName, Name)",
+      "Bash(Format-Table -AutoSize)"
     ]
   }
 }

@@ -70,8 +70,9 @@ class _LeadOverviewChartState extends State<LeadOverviewChart> {
                       reservedSize: context.h(28),
                       getTitlesWidget: (value, _) {
                         final i = value.toInt();
-                        if (i < 0 || i >= _labels.length)
+                        if (i < 0 || i >= _labels.length) {
                           return const SizedBox.shrink();
+                        }
                         return Padding(
                           padding: EdgeInsets.only(top: context.h(6)),
                           child: Text(
