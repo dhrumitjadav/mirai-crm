@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mirai_crm/utils/app_size.dart';
+import 'package:mirai_crm/utils/responsive.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
 import 'package:mirai_crm/utils/common_img.dart';
 
@@ -22,13 +22,14 @@ class QuickActionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    RS.init(context);
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: context.h(60),
+        height: RS.VS(60),
         padding: EdgeInsets.symmetric(
-          horizontal: context.w(12),
-          vertical: context.h(10),
+          horizontal: RS.HS(12),
+          vertical: RS.VS(10),
         ),
         decoration: BoxDecoration(
           color: color,
@@ -39,14 +40,14 @@ class QuickActionCard extends StatelessWidget {
           children: [
             SvgPicture.asset(
               svgIcon,
-              width: context.w(20),
-              height: context.w(20),
+              width: RS.HS(20),
+              height: RS.HS(20),
               colorFilter: ColorFilter.mode(
                 CommonColors.whiteColor,
                 BlendMode.srcIn,
               ),
             ),
-            SizedBox(width: context.w(6)),
+            SizedBox(width: RS.HS(6)),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,19 +59,19 @@ class QuickActionCard extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: TextStyle(
-                      fontSize: context.s(13),
+                      fontSize: RS.FS(13),
                       height: 1,
                       fontWeight: FontWeight.w600,
                       color: CommonColors.whiteColor,
                     ),
                   ),
-                  SizedBox(height: context.w(5)),
+                  SizedBox(height: RS.HS(5)),
                   Text(
                     subtitle,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: TextStyle(
-                      fontSize: context.s(11),
+                      fontSize: RS.FS(11),
                       height: 1,
                       fontWeight: FontWeight.w400,
                       color: CommonColors.whiteColor,
@@ -81,8 +82,8 @@ class QuickActionCard extends StatelessWidget {
             ),
             SvgPicture.asset(
               CommonImg.crmArrowRightOutlined,
-              width: context.w(20),
-              height: context.w(20),
+              width: RS.HS(20),
+              height: RS.HS(20),
               colorFilter: ColorFilter.mode(
                 CommonColors.whiteColor,
                 BlendMode.srcIn,

@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:mirai_crm/utils/app_size.dart';
+﻿import 'package:flutter/material.dart';
+import 'package:mirai_crm/utils/responsive.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
 
 class AppDivider extends StatelessWidget {
@@ -18,10 +18,11 @@ class AppDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    RS.init(context);
     return Divider(
       color: color ?? CommonColors.borderSubtle,
-      indent: indent ?? context.w(10),
-      endIndent: endIndent ?? context.w(10),
+      indent: indent ?? RS.HS(10),
+      endIndent: endIndent ?? RS.HS(10),
       thickness: thickness,
       height: thickness,
     );

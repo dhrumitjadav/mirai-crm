@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:mirai_crm/utils/app_size.dart';
+﻿import 'package:flutter/material.dart';
+import 'package:mirai_crm/utils/responsive.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
 import 'package:mirai_crm/widgets/app_divider.dart';
 import 'package:mirai_crm/widgets/leads/date_range_picker_sheet.dart';
@@ -73,6 +73,7 @@ class _SortSheetState extends State<_SortSheet> {
 
   @override
   Widget build(BuildContext context) {
+    RS.init(context);
     return Container(
       decoration: const BoxDecoration(
         color: CommonColors.bottomSheetBgColor,
@@ -82,8 +83,27 @@ class _SortSheetState extends State<_SortSheet> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _buildHandle(context),
-          _buildHeader(context),
+          Container(
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(color: CommonColors.borderDefault),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: CommonColors.blackColor.withValues(alpha: 0.08),
+                  offset: Offset(0, 2),
+                  blurRadius: 2,
+                  blurStyle: BlurStyle.outer,
+                ),
+              ],
+            ),
+            child: Column(
+              children: [
+                _buildHandle(context),
+                _buildHeader(context),
+              ],
+            ),
+          ),
           AppDivider(indent: 20, endIndent: 20),
           ...List.generate(
             _options.length,
@@ -97,10 +117,10 @@ class _SortSheetState extends State<_SortSheet> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(context.w(16)),
+            padding: EdgeInsets.all(RS.HS(16)),
             child: SizedBox(
               width: double.infinity,
-              height: context.h(50),
+              height: RS.VS(50),
               child: ElevatedButton(
                 onPressed: () => Navigator.pop(context),
                 style: ElevatedButton.styleFrom(
@@ -114,7 +134,7 @@ class _SortSheetState extends State<_SortSheet> {
                 child: Text(
                   'Apply',
                   style: TextStyle(
-                    fontSize: context.s(16),
+                    fontSize: RS.FS(16),
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -128,10 +148,10 @@ class _SortSheetState extends State<_SortSheet> {
 
   Widget _buildHandle(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: context.h(12), bottom: context.h(4)),
+      padding: EdgeInsets.only(top: RS.VS(12), bottom: RS.VS(4)),
       child: Container(
-        width: context.w(40),
-        height: context.h(4),
+        width: RS.HS(40),
+        height: RS.VS(4),
         decoration: BoxDecoration(
           color: CommonColors.blackColor.withValues(alpha: 0.08),
           borderRadius: BorderRadius.circular(2),
@@ -143,15 +163,15 @@ class _SortSheetState extends State<_SortSheet> {
   Widget _buildHeader(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: context.w(16),
-        vertical: context.h(14),
+        horizontal: RS.HS(16),
+        vertical: RS.VS(14),
       ),
       child: Row(
         children: [
           Text(
             'Sort by',
             style: TextStyle(
-              fontSize: context.s(20),
+              fontSize: RS.FS(20),
               fontWeight: FontWeight.w600,
               color: CommonColors.textPrimary,
             ),
@@ -161,7 +181,7 @@ class _SortSheetState extends State<_SortSheet> {
             onTap: () => Navigator.pop(context),
             child: Icon(
               Icons.close,
-              size: context.w(22),
+              size: RS.HS(22),
               color: CommonColors.blackColor,
             ),
           ),
@@ -181,8 +201,8 @@ class _SortSheetState extends State<_SortSheet> {
       },
       child: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: context.w(20),
-          vertical: context.h(14),
+          horizontal: RS.HS(20),
+          vertical: RS.VS(14),
         ),
         child: Row(
           children: [
@@ -190,7 +210,7 @@ class _SortSheetState extends State<_SortSheet> {
               Text(
                 label,
                 style: TextStyle(
-                  fontSize: context.s(15),
+                  fontSize: RS.FS(15),
                   color: isSelected
                       ? CommonColors.primaryColor
                       : CommonColors.textPrimary,
@@ -199,7 +219,7 @@ class _SortSheetState extends State<_SortSheet> {
               Text(
                 _dateRangeLabel,
                 style: TextStyle(
-                  fontSize: context.s(13),
+                  fontSize: RS.FS(13),
                   color: CommonColors.primaryColor,
                   fontWeight: FontWeight.w500,
                 ),
@@ -208,7 +228,7 @@ class _SortSheetState extends State<_SortSheet> {
               Text(
                 label,
                 style: TextStyle(
-                  fontSize: context.s(15),
+                  fontSize: RS.FS(15),
                   color: isSelected
                       ? CommonColors.primaryColor
                       : CommonColors.textPrimary,
@@ -216,8 +236,8 @@ class _SortSheetState extends State<_SortSheet> {
               ),
             const Spacer(),
             Container(
-              width: context.w(22),
-              height: context.w(22),
+              width: RS.HS(22),
+              height: RS.HS(22),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: isSelected
@@ -233,8 +253,8 @@ class _SortSheetState extends State<_SortSheet> {
               child: isSelected
                   ? Center(
                       child: Container(
-                        width: context.w(8),
-                        height: context.w(8),
+                        width: RS.HS(8),
+                        height: RS.HS(8),
                         decoration: const BoxDecoration(
                           color: CommonColors.whiteColor,
                           shape: BoxShape.circle,

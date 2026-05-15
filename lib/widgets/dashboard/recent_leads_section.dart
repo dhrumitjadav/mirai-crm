@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:mirai_crm/utils/app_size.dart';
+﻿import 'package:flutter/material.dart';
+import 'package:mirai_crm/utils/responsive.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
 import 'package:mirai_crm/widgets/section_header.dart';
 import 'package:mirai_crm/widgets/dashboard/lead_card.dart';
@@ -13,6 +13,7 @@ class RecentLeadsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    RS.init(context);
     return Container(
       decoration: BoxDecoration(
         color: CommonColors.whiteColor,
@@ -24,8 +25,8 @@ class RecentLeadsSection extends StatelessWidget {
         children: [
           Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: context.w(16),
-              vertical: context.h(10),
+              horizontal: RS.HS(16),
+              vertical: RS.VS(10),
             ),
             child: SectionHeader(title: 'Recent Leads', onViewAll: onViewAll),
           ),

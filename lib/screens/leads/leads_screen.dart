@@ -1,29 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:mirai_crm/utils/app_size.dart';
+import 'package:mirai_crm/utils/responsive.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
+import 'package:mirai_crm/utils/common_delete_dialog.dart';
+import 'package:mirai_crm/utils/common_img.dart';
 import 'package:mirai_crm/widgets/leads/lead_list_card.dart';
 import 'package:mirai_crm/widgets/app_divider.dart';
+import 'package:mirai_crm/widgets/leads/filter_sheet.dart';
 import 'package:mirai_crm/widgets/leads/sort_bottom_sheet.dart';
 import 'package:mirai_crm/screens/leads/lead_detail_screen.dart';
 
-class LeadsScreen extends StatelessWidget {
+class LeadsScreen extends StatefulWidget {
   const LeadsScreen({super.key});
 
-  static const _tabs = ['All', 'New', 'Contacted', 'Un-read', 'Follow-up','Hold'];
+  @override
+  State<LeadsScreen> createState() => _LeadsScreenState();
+}
 
-  static const _leads = [
-    LeadListItem(
+class _LeadsScreenState extends State<LeadsScreen> {
+  static const _tabs = [
+    'All',
+    'New',
+    'Contacted',
+    'Un-read',
+    'Follow-up',
+    'Hold',
+  ];
+
+  final List<LeadListItem> _leads = [
+    const LeadListItem(
       initials: 'MR',
       name: 'Michael Rodriguez',
       time: 'Yesterday, 04:10 PM',
       assignedTo: 'Nour',
       source: 'Facebook Ad',
-      priority: 'Medium',
+      priority: 'High',
       status: 'New',
       isRecentlyAdded: true,
     ),
-    LeadListItem(
+    const LeadListItem(
       initials: 'MR',
       name: 'Michael Rodriguez',
       time: 'Yesterday, 04:10 PM',
@@ -32,7 +48,7 @@ class LeadsScreen extends StatelessWidget {
       priority: 'Medium',
       status: 'New',
     ),
-    LeadListItem(
+    const LeadListItem(
       initials: 'EC',
       name: 'Emily Chen',
       time: '2 days ago, 11:30 AM',
@@ -41,7 +57,7 @@ class LeadsScreen extends StatelessWidget {
       priority: 'High',
       status: 'Contacted',
     ),
-    LeadListItem(
+    const LeadListItem(
       initials: 'RP',
       name: 'Robert Pattinson',
       time: '3 days ago, 09:00 AM',
@@ -50,7 +66,7 @@ class LeadsScreen extends StatelessWidget {
       priority: 'Low',
       status: 'Converted',
     ),
-    LeadListItem(
+    const LeadListItem(
       initials: 'AK',
       name: 'Ananya Krishnan',
       time: '4 days ago, 02:15 PM',
@@ -61,8 +77,62 @@ class LeadsScreen extends StatelessWidget {
     ),
   ];
 
+  bool _isSelectMode = false;
+  final Set<int> _selectedIndices = {};
+
+  void _enterSelectMode(int index) {
+    setState(() {
+      _isSelectMode = true;
+      _selectedIndices.add(index);
+    });
+  }
+
+  void _exitSelectMode() {
+    setState(() {
+      _isSelectMode = false;
+      _selectedIndices.clear();
+    });
+  }
+
+  void _toggleSelection(int index) {
+    setState(() {
+      if (_selectedIndices.contains(index)) {
+        _selectedIndices.remove(index);
+      } else {
+        _selectedIndices.add(index);
+      }
+    });
+  }
+
+  void _selectAll() {
+    setState(() {
+      _selectedIndices.addAll(List.generate(_leads.length, (i) => i));
+    });
+  }
+
+  Future<void> _onDeleteTap() async {
+    final count = _selectedIndices.length;
+    final confirmed = await showDeleteDialog(
+      context,
+      title: 'Delete $count lead${count > 1 ? 's' : ''}?',
+      description:
+          'All selected leads – and every note, follow-up, recording and file attached to them – will be permanently removed. This cannot be undone.',
+    );
+    if (confirmed && mounted) {
+      setState(() {
+        final sorted = _selectedIndices.toList()
+          ..sort((a, b) => b.compareTo(a));
+        for (final i in sorted) {
+          _leads.removeAt(i);
+        }
+        _exitSelectMode();
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    RS.init(context);
     return DefaultTabController(
       length: _tabs.length,
       child: Column(
@@ -76,6 +146,7 @@ class LeadsScreen extends StatelessWidget {
               ],
             ),
           ),
+          if (_isSelectMode) _buildSelectionBottomBar(context),
         ],
       ),
     );
@@ -85,21 +156,21 @@ class LeadsScreen extends StatelessWidget {
     return Container(
       color: CommonColors.whiteColor,
       child: Container(
-        margin:EdgeInsets.symmetric(horizontal: context.w(16)),
+        margin: EdgeInsets.symmetric(horizontal: RS.HS(16)),
         child: TabBar(
           isScrollable: true,
           tabAlignment: TabAlignment.start,
           labelColor: CommonColors.primaryColor,
           unselectedLabelColor: CommonColors.textTertiary,
           labelStyle: TextStyle(
-            fontSize: context.s(14),
+            fontSize: RS.FS(14),
             fontWeight: FontWeight.w600,
           ),
           unselectedLabelStyle: TextStyle(
-            fontSize: context.s(14),
+            fontSize: RS.FS(14),
             fontWeight: FontWeight.w500,
           ),
-          indicatorColor: CommonColors.appRedColor,
+          indicatorColor: CommonColors.primaryColor,
           indicatorWeight: 2,
           indicatorSize: TabBarIndicatorSize.tab,
           dividerColor: CommonColors.borderDefault,
@@ -111,52 +182,148 @@ class LeadsScreen extends StatelessWidget {
 
   Widget _buildListHeader(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: context.w(16),
-        vertical: context.h(10),
-      ),
+      padding: EdgeInsets.fromLTRB(RS.HS(16), RS.VS(10), RS.HS(16), RS.VS(5)),
       child: Row(
         children: [
           Text(
-            'All Leads (122)',
+            'All Leads (${_leads.length})',
             style: TextStyle(
-              fontSize: context.s(15),
+              fontSize: RS.FS(15),
               fontWeight: FontWeight.w600,
               color: CommonColors.textPrimary,
             ),
           ),
           const Spacer(),
           _HeaderAction(
+            icon: Icons.tune_rounded,
+            label: 'Filter',
+            onTap: () => showFilterSheet(context),
+          ),
+          SizedBox(width: RS.HS(8)),
+          _HeaderAction(
             icon: Icons.swap_vert_rounded,
             label: 'Sort',
             onTap: () => showSortBottomSheet(context),
           ),
-          SizedBox(width: context.w(8)),
-          _HeaderAction(icon: null, label: 'Select'),
+          SizedBox(width: RS.HS(8)),
+          _HeaderAction(
+            icon: null,
+            label: 'Select',
+            onTap: () => setState(() => _isSelectMode = true),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSelectionBanner(BuildContext context) {
+    final allSelected = _selectedIndices.length == _leads.length;
+    return Container(
+      decoration: BoxDecoration(
+        color: CommonColors.red50,
+        border: Border(bottom: BorderSide(color: CommonColors.red200)),
+      ),
+      padding: EdgeInsets.symmetric(horizontal: RS.HS(16), vertical: RS.VS(18)),
+      child: Row(
+        children: [
+          GestureDetector(
+            onTap: _exitSelectMode,
+            child: Container(
+              padding: EdgeInsets.all(2),
+              decoration: BoxDecoration(
+                color: CommonColors.whiteColor,
+                shape: BoxShape.circle,
+                border: Border.all(color: CommonColors.red200),
+              ),
+              height: RS.VS(20),
+              width: RS.HS(20),
+              child: Center(
+                child: SvgPicture.asset(
+                  CommonImg.crmCrossCircleOutlined,
+                  colorFilter: ColorFilter.mode(
+                    CommonColors.red500,
+                    BlendMode.srcIn,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(width: RS.HS(10)),
+          Text(
+            '${_selectedIndices.length} Selected',
+            style: TextStyle(
+              fontSize: RS.FS(15),
+              fontWeight: FontWeight.w500,
+              color: CommonColors.red600,
+            ),
+          ),
+          const Spacer(),
+          GestureDetector(
+            onTap: allSelected
+                ? () {
+                    _selectedIndices.clear();
+                    setState(() {});
+                  }
+                : _selectAll,
+            child: Text(
+              allSelected ? 'Deselect All' : 'Select All',
+              style: TextStyle(
+                fontSize: RS.FS(14),
+                fontWeight: FontWeight.w600,
+                color: CommonColors.primaryColor,
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
 
   Widget _buildLeadsList(BuildContext context) {
-    return ListView(
-      padding: EdgeInsets.only(bottom: context.h(16)),
+    return Column(
       children: [
-        _buildListHeader(context),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: context.w(16)),
-          child: Column(
-            children: _leads
-              .map(
-                (l) => GestureDetector(
-                  onTap: () => Get.to(() => const LeadDetailScreen()),
-                  child: LeadListCard(lead: l),
+        if (_isSelectMode)
+          _buildSelectionBanner(context)
+        else
+          _buildListHeader(context),
+        SizedBox(height: RS.VS(7)),
+        Expanded(
+          child: ListView(
+            padding: EdgeInsets.only(bottom: RS.VS(16)),
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: RS.HS(16),
+                  vertical: RS.VS(8),
                 ),
-              )
-              .toList(),
+                child: Column(
+                  children: _leads.indexed
+                      .map(
+                        (entry) => GestureDetector(
+                          onTap: () {
+                            if (_isSelectMode) {
+                              _toggleSelection(entry.$1);
+                            } else {
+                              Get.to(() => const LeadDetailScreen());
+                            }
+                          },
+                          onLongPress: _isSelectMode
+                              ? null
+                              : () => _enterSelectMode(entry.$1),
+                          child: LeadListCard(
+                            lead: entry.$2,
+                            isSelectMode: _isSelectMode,
+                            isSelected: _selectedIndices.contains(entry.$1),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                ),
+              ),
+              if (!_isSelectMode) _buildFooter(context),
+            ],
           ),
         ),
-        _buildFooter(context),
       ],
     );
   }
@@ -169,37 +336,109 @@ class LeadsScreen extends StatelessWidget {
 
   Widget _buildFooter(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: context.h(10)),
+      padding: EdgeInsets.symmetric(vertical: RS.VS(10)),
       child: Column(
         children: [
           AppDivider(),
           Text(
             'Showing leads from the last 7 days',
             style: TextStyle(
-              fontSize: context.s(11),
+              fontSize: RS.FS(11),
               color: CommonColors.greyAEAEAE,
             ),
           ),
-          SizedBox(height: context.h(2)),
+          SizedBox(height: RS.VS(2)),
           Text.rich(
             TextSpan(
               text: 'Use ',
               style: TextStyle(
-                fontSize: context.s(11),
+                fontSize: RS.FS(11),
                 color: CommonColors.greyAEAEAE,
               ),
               children: [
                 TextSpan(
                   text: 'filter',
                   style: TextStyle(
-                    color: CommonColors.appRedColor,
+                    color: CommonColors.primaryColor,
                     fontWeight: FontWeight.w600,
                     decoration: TextDecoration.underline,
-                    decorationColor: CommonColors.appRedColor,
+                    decorationColor: CommonColors.primaryColor,
                   ),
                 ),
                 const TextSpan(text: ' to see older leads.'),
               ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSelectionBottomBar(BuildContext context) {
+    final count = _selectedIndices.length;
+    return Container(
+      decoration: BoxDecoration(
+        color: CommonColors.whiteColor,
+        border: Border(top: BorderSide(color: CommonColors.borderDefault)),
+      ),
+      padding: EdgeInsets.fromLTRB(
+        RS.HS(16),
+        RS.VS(12),
+        RS.HS(16),
+        RS.VS(16) + MediaQuery.of(context).padding.bottom,
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: OutlinedButton.icon(
+              onPressed: () {},
+              icon: Icon(Icons.person_add_outlined, size: RS.HS(16)),
+              label: const Text('Reassign'),
+              style: OutlinedButton.styleFrom(
+                foregroundColor: CommonColors.textPrimary,
+                iconSize: RS.HS(16),
+                textStyle: TextStyle(
+                  fontSize: RS.FS(14),
+                  fontWeight: FontWeight.w600,
+                ),
+                side: const BorderSide(color: CommonColors.borderDefault),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                padding: EdgeInsets.symmetric(vertical: RS.VS(14)),
+              ),
+            ),
+          ),
+          SizedBox(width: RS.HS(12)),
+          Expanded(
+            child: ElevatedButton.icon(
+              onPressed: count > 0 ? _onDeleteTap : null,
+              icon: SvgPicture.asset(
+                CommonImg.crmTrashOutlined,
+                width: RS.HS(16),
+                height: RS.HS(16),
+                colorFilter: const ColorFilter.mode(
+                  CommonColors.whiteColor,
+                  BlendMode.srcIn,
+                ),
+              ),
+              label: Text('Delete $count'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: CommonColors.primaryColor,
+                disabledBackgroundColor: CommonColors.primaryColor.withValues(
+                  alpha: 0.4,
+                ),
+                foregroundColor: CommonColors.whiteColor,
+                elevation: 0,
+                textStyle: TextStyle(
+                  fontSize: RS.FS(14),
+                  fontWeight: FontWeight.w600,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                padding: EdgeInsets.symmetric(vertical: RS.VS(14)),
+              ),
             ),
           ),
         ],
@@ -217,34 +456,35 @@ class _HeaderAction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    RS.init(context);
     return GestureDetector(
       onTap: onTap,
       child: Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: context.w(10),
-        vertical: context.h(5),
-      ),
-      decoration: BoxDecoration(
-        border: Border.all(color: CommonColors.borderSubtle),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (icon != null) ...[
-            Icon(icon, size: context.w(14), color: CommonColors.textSecondary),
-            SizedBox(width: context.w(4)),
-          ],
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: context.s(14),
-              color: CommonColors.textSecondary,
+        padding: EdgeInsets.symmetric(
+          horizontal: RS.HS(10),
+          vertical: RS.VS(5),
+        ),
+        decoration: BoxDecoration(
+          border: Border.all(color: CommonColors.borderSubtle),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (icon != null) ...[
+              Icon(icon, size: RS.HS(14), color: CommonColors.textSecondary),
+              SizedBox(width: RS.HS(4)),
+            ],
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: RS.FS(14),
+                color: CommonColors.textSecondary,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ),
     );
   }
 }

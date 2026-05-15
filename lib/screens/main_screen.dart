@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:mirai_crm/screens/campaigns/campaigns_screen.dart';
@@ -7,7 +7,7 @@ import 'package:mirai_crm/screens/leads/add_lead_screen.dart';
 import 'package:mirai_crm/screens/leads/leads_screen.dart';
 import 'package:mirai_crm/screens/more/more_screen.dart';
 import 'package:mirai_crm/screens/task/task_screen.dart';
-import 'package:mirai_crm/utils/app_size.dart';
+import 'package:mirai_crm/utils/responsive.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
 import 'package:mirai_crm/utils/common_img.dart';
 import 'package:mirai_crm/widgets/dashboard/quick_action_card.dart';
@@ -63,6 +63,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    RS.init(context);
     return Scaffold(
       backgroundColor: CommonColors.scaffoldBgColor,
       appBar: _buildAppBar(context),
@@ -77,7 +78,7 @@ class _MainScreenState extends State<MainScreen> {
                 color: CommonColors.blackColor.withValues(alpha: 0.03),
                 offset: Offset(0, -5),
                 blurStyle: BlurStyle.normal,
-                blurRadius: context.h(24),
+                blurRadius: RS.VS(24),
                 spreadRadius: 0,
               ),
             ],
@@ -92,7 +93,7 @@ class _MainScreenState extends State<MainScreen> {
               }
             },
             type: BottomNavigationBarType.fixed,
-            selectedItemColor: CommonColors.appRedColor,
+            selectedItemColor: CommonColors.primaryColor,
             unselectedItemColor: CommonColors.grey475569,
             selectedLabelStyle: const TextStyle(fontSize: 12),
             unselectedLabelStyle: const TextStyle(fontSize: 12),
@@ -103,7 +104,7 @@ class _MainScreenState extends State<MainScreen> {
                   (item) => BottomNavigationBarItem(
                     label: item.label,
                     icon: Container(
-                      margin: EdgeInsets.only(bottom: context.h(8)),
+                      margin: EdgeInsets.only(bottom: RS.VS(8)),
                       child: SvgPicture.asset(
                         item.outlined,
                         width: 28,
@@ -115,13 +116,13 @@ class _MainScreenState extends State<MainScreen> {
                       ),
                     ),
                     activeIcon: Container(
-                      margin: EdgeInsets.only(bottom: context.h(8)),
+                      margin: EdgeInsets.only(bottom: RS.VS(8)),
                       child: SvgPicture.asset(
                         item.filled,
                         width: 28,
                         height: 28,
                         colorFilter: const ColorFilter.mode(
-                          CommonColors.appRedColor,
+                          CommonColors.primaryColor,
                           BlendMode.srcIn,
                         ),
                       ),
@@ -142,12 +143,12 @@ class _MainScreenState extends State<MainScreen> {
     return AppBar(
       title: Row(
         children: [
-          Image.asset(CommonImg.appLogo, height: context.h(35)),
-          SizedBox(width: context.w(2)),
+          Image.asset(CommonImg.appLogo, height: RS.VS(35)),
+          SizedBox(width: RS.HS(2)),
           Text(
             'Mirai',
             style: TextStyle(
-              fontSize: context.s(18),
+              fontSize: RS.FS(18),
               fontWeight: FontWeight.w800,
               color: CommonColors.textPrimary,
             ),
@@ -159,8 +160,8 @@ class _MainScreenState extends State<MainScreen> {
           children: [
             Container(
               margin: const EdgeInsets.all(5),
-              width: context.w(38),
-              height: context.w(38),
+              width: RS.HS(38),
+              height: RS.HS(38),
               decoration: const BoxDecoration(
                 color: Color(0xFFF0F2F5),
                 shape: BoxShape.circle,
@@ -168,8 +169,8 @@ class _MainScreenState extends State<MainScreen> {
               child: Center(
                 child: SvgPicture.asset(
                   CommonImg.crmBellOutlined,
-                  width: context.w(18),
-                  height: context.w(18),
+                  width: RS.HS(18),
+                  height: RS.HS(18),
                   colorFilter: const ColorFilter.mode(
                     CommonColors.textPrimary,
                     BlendMode.srcIn,
@@ -178,11 +179,11 @@ class _MainScreenState extends State<MainScreen> {
               ),
             ),
             Positioned(
-              top: context.h(4),
-              right: context.w(6),
+              top: RS.VS(4),
+              right: RS.HS(6),
               child: Container(
-                width: context.w(6),
-                height: context.w(6),
+                width: RS.HS(6),
+                height: RS.HS(6),
                 decoration: const BoxDecoration(
                   color: Colors.red,
                   shape: BoxShape.circle,
@@ -193,8 +194,8 @@ class _MainScreenState extends State<MainScreen> {
         ),
         Container(
           margin: const EdgeInsets.all(5),
-          width: context.w(36),
-          height: context.w(36),
+          width: RS.HS(36),
+          height: RS.HS(36),
           decoration: BoxDecoration(
             color: CommonColors.greyF8F8F8,
             shape: BoxShape.circle,
@@ -233,17 +234,17 @@ class _MainScreenState extends State<MainScreen> {
                 //   border: Border(bottom: BorderSide(color: CommonColors.borderDefault)),
                 // ),
                 padding: EdgeInsets.fromLTRB(
-                  context.w(16),
+                  RS.HS(16),
                   0,
-                  context.w(16),
-                  context.h(10),
+                  RS.HS(16),
+                  RS.VS(10),
                 ),
                 child: Row(
                   children: [
                     Expanded(child: _buildLeadsSearchBar(context)),
-                    SizedBox(width: context.w(8)),
+                    SizedBox(width: RS.HS(8)),
                     _buildIconBtn(context, CommonImg.crmFunnelOutlined),
-                    SizedBox(width: context.w(8)),
+                    SizedBox(width: RS.HS(8)),
                     _buildAddBtn(context),
                   ],
                 ),
@@ -256,23 +257,23 @@ class _MainScreenState extends State<MainScreen> {
   Widget _buildSearchBar(BuildContext context) {
     return TextFormField(
       style: TextStyle(
-        fontSize: context.s(12),
+        fontSize: RS.FS(12),
         color: CommonColors.textPrimary,
       ),
       decoration: InputDecoration(
         hintText: 'Search leads, campaigns...',
         hintStyle: TextStyle(
-          fontSize: context.s(12),
+          fontSize: RS.FS(12),
           color: CommonColors.greyAEAEAE,
         ),
         prefixIcon: Icon(
           Icons.search,
-          size: context.w(18),
+          size: RS.HS(18),
           color: CommonColors.greyAEAEAE,
         ),
         filled: true,
         fillColor: const Color(0xFFF0F2F5),
-        contentPadding: EdgeInsets.symmetric(vertical: context.h(11)),
+        contentPadding: EdgeInsets.symmetric(vertical: RS.VS(11)),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide.none,
@@ -301,7 +302,7 @@ class _MainScreenState extends State<MainScreen> {
             onTap: () {},
           ),
         ),
-        SizedBox(width: context.w(10)),
+        SizedBox(width: RS.HS(10)),
 
         Expanded(
           child: QuickActionCard(
@@ -318,21 +319,21 @@ class _MainScreenState extends State<MainScreen> {
 
   Widget _buildLeadsSearchBar(BuildContext context) {
     return SizedBox(
-      height: context.h(38),
+      height: RS.VS(38),
       child: TextFormField(
         style: TextStyle(
-          fontSize: context.s(12),
+          fontSize: RS.FS(12),
           color: CommonColors.textPrimary,
         ),
         decoration: InputDecoration(
           hintText: 'Search leads...',
           hintStyle: TextStyle(
-            fontSize: context.s(12),
+            fontSize: RS.FS(12),
             color: CommonColors.greyAEAEAE,
           ),
           prefixIcon: Icon(
             Icons.search,
-            size: context.w(16),
+            size: RS.HS(16),
             color: CommonColors.greyAEAEAE,
           ),
           filled: true,
@@ -357,8 +358,8 @@ class _MainScreenState extends State<MainScreen> {
 
   Widget _buildIconBtn(BuildContext context, String svgPath) {
     return Container(
-      width: context.w(38),
-      height: context.h(38),
+      width: RS.HS(38),
+      height: RS.VS(38),
       decoration: BoxDecoration(
         color: const Color(0xFFF0F2F5),
         borderRadius: BorderRadius.circular(10),
@@ -366,8 +367,8 @@ class _MainScreenState extends State<MainScreen> {
       child: Center(
         child: SvgPicture.asset(
           svgPath,
-          width: context.w(16),
-          height: context.w(16),
+          width: RS.HS(16),
+          height: RS.HS(16),
           colorFilter: const ColorFilter.mode(
             CommonColors.grey475569,
             BlendMode.srcIn,
@@ -383,8 +384,8 @@ class _MainScreenState extends State<MainScreen> {
         Get.to(() => AddLeadScreen());
       },
       child: Container(
-        height: context.h(38),
-        padding: EdgeInsets.symmetric(horizontal: context.w(14)),
+        height: RS.VS(38),
+        padding: EdgeInsets.symmetric(horizontal: RS.HS(14)),
         decoration: BoxDecoration(
           color: CommonColors.primaryColor,
           borderRadius: BorderRadius.circular(10),
@@ -394,14 +395,14 @@ class _MainScreenState extends State<MainScreen> {
           children: [
             Icon(
               Icons.add,
-              size: context.w(16),
+              size: RS.HS(16),
               color: CommonColors.whiteColor,
             ),
-            SizedBox(width: context.w(4)),
+            SizedBox(width: RS.HS(4)),
             Text(
               'Add',
               style: TextStyle(
-                fontSize: context.s(12),
+                fontSize: RS.FS(12),
                 fontWeight: FontWeight.w600,
                 color: CommonColors.whiteColor,
               ),

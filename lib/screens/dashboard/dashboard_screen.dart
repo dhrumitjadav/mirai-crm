@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:mirai_crm/utils/app_size.dart';
+﻿import 'package:flutter/material.dart';
+import 'package:mirai_crm/utils/responsive.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
 import 'package:mirai_crm/utils/common_img.dart';
 import 'package:mirai_crm/widgets/dashboard/lead_card.dart';
@@ -46,11 +46,12 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    RS.init(context);
     return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(horizontal: context.w(16)),
+      padding: EdgeInsets.symmetric(horizontal: RS.HS(16)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: context.h(18),
+        spacing: RS.VS(18),
         children: [
           Container(),
           _buildStatsGrid(context),
@@ -112,8 +113,8 @@ class DashboardScreen extends StatelessWidget {
       crossAxisCount: 2,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      crossAxisSpacing: context.w(10),
-      mainAxisSpacing: context.h(10),
+      crossAxisSpacing: RS.HS(10),
+      mainAxisSpacing: RS.VS(10),
       childAspectRatio: 1.49,
       children: stats
           .map(

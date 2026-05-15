@@ -1,6 +1,6 @@
-import 'package:fl_chart/fl_chart.dart';
+﻿import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:mirai_crm/utils/app_size.dart';
+import 'package:mirai_crm/utils/responsive.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
 import 'package:mirai_crm/widgets/section_header.dart';
 
@@ -25,8 +25,9 @@ class _LeadOverviewChartState extends State<LeadOverviewChart> {
 
   @override
   Widget build(BuildContext context) {
+    RS.init(context);
     return Container(
-      padding: EdgeInsets.all(context.h(16)),
+      padding: EdgeInsets.all(RS.VS(16)),
       decoration: BoxDecoration(
         color: CommonColors.whiteColor,
         borderRadius: BorderRadius.circular(8),
@@ -39,11 +40,11 @@ class _LeadOverviewChartState extends State<LeadOverviewChart> {
             title: 'Lead Overview',
             trailing: _buildToggle(context),
           ),
-          SizedBox(height: context.h(16)),
+          SizedBox(height: RS.VS(16)),
           SizedBox(
-            height: context.h(190),
+            height: RS.VS(190),
             child: BarChart(
-              swapAnimationDuration: const Duration(milliseconds: 300),
+              duration: const Duration(milliseconds: 300),
               BarChartData(
                 maxY: 38,
                 gridData: FlGridData(
@@ -67,18 +68,18 @@ class _LeadOverviewChartState extends State<LeadOverviewChart> {
                   bottomTitles: AxisTitles(
                     sideTitles: SideTitles(
                       showTitles: true,
-                      reservedSize: context.h(28),
+                      reservedSize: RS.VS(28),
                       getTitlesWidget: (value, _) {
                         final i = value.toInt();
                         if (i < 0 || i >= _labels.length) {
                           return const SizedBox.shrink();
                         }
                         return Padding(
-                          padding: EdgeInsets.only(top: context.h(6)),
+                          padding: EdgeInsets.only(top: RS.VS(6)),
                           child: Text(
                             _labels[i],
                             style: TextStyle(
-                              fontSize: context.s(11),
+                              fontSize: RS.FS(11),
                               color: CommonColors.textSecondary,
                               fontWeight: FontWeight.w500,
                             ),
@@ -93,11 +94,11 @@ class _LeadOverviewChartState extends State<LeadOverviewChart> {
                   touchTooltipData: BarTouchTooltipData(
                     getTooltipColor: (_) => Colors.transparent,
                     tooltipPadding: EdgeInsets.zero,
-                    tooltipMargin: context.h(4),
+                    tooltipMargin: RS.VS(4),
                     getTooltipItem: (_, __, rod, ___) => BarTooltipItem(
                       '${rod.toY.toInt()}%',
                       TextStyle(
-                        fontSize: context.s(11),
+                        fontSize: RS.FS(11),
                         fontWeight: FontWeight.w500,
                         color: CommonColors.info600,
                       ),
@@ -115,7 +116,7 @@ class _LeadOverviewChartState extends State<LeadOverviewChart> {
                         color: dimmed
                             ? CommonColors.info50
                             : CommonColors.info600,
-                        width: context.w(28),
+                        width: RS.HS(28),
                         borderRadius: const BorderRadius.vertical(
                           top: Radius.circular(4),
                         ),
@@ -136,7 +137,7 @@ class _LeadOverviewChartState extends State<LeadOverviewChart> {
       mainAxisSize: MainAxisSize.min,
       children: [
         _toggleBtn(context, 'Monthly', _isMonthly),
-        SizedBox(width: context.w(10)),
+        SizedBox(width: RS.HS(10)),
         _toggleBtn(context, 'Weekly', !_isMonthly),
       ],
     );
@@ -148,8 +149,8 @@ class _LeadOverviewChartState extends State<LeadOverviewChart> {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         padding: EdgeInsets.symmetric(
-          horizontal: context.w(8),
-          vertical: context.h(2.5),
+          horizontal: RS.HS(8),
+          vertical: RS.VS(2.5),
         ),
         decoration: BoxDecoration(
           color: active ? CommonColors.info50 : null,
@@ -159,7 +160,7 @@ class _LeadOverviewChartState extends State<LeadOverviewChart> {
         child: Text(
           label,
           style: TextStyle(
-            fontSize: context.s(12),
+            fontSize: RS.FS(12),
             fontWeight: FontWeight.w500,
             color: CommonColors.textPrimary,
           ),

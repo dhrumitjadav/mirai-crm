@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mirai_crm/utils/app_size.dart';
+import 'package:mirai_crm/utils/responsive.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
 import 'package:mirai_crm/utils/common_img.dart';
 
@@ -28,8 +28,9 @@ class StatCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    RS.init(context);
     return Container(
-      padding: EdgeInsets.all(context.w(12)),
+      padding: EdgeInsets.all(RS.HS(12)),
       decoration: BoxDecoration(
         color: CommonColors.whiteColor,
         border: Border.all(color: CommonColors.borderDefault),
@@ -46,7 +47,7 @@ class StatCard extends StatelessWidget {
                 child: Text(
                   label,
                   style: TextStyle(
-                    fontSize: context.s(12),
+                    fontSize: RS.FS(12),
                     color: CommonColors.textPrimary,
                     fontWeight: FontWeight.w500,
                     height: 1.2,
@@ -54,12 +55,12 @@ class StatCard extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(context.w(5)),
-                width: context.w(28),
-                height: context.w(28),
+                padding: EdgeInsets.all(RS.HS(5)),
+                width: RS.HS(28),
+                height: RS.HS(28),
                 decoration: BoxDecoration(
                   color: iconBgColor,
-                  borderRadius: BorderRadius.all(Radius.circular(context.w(4))),
+                  borderRadius: BorderRadius.all(Radius.circular(RS.HS(4))),
                 ),
                 child: SvgPicture.asset(
                   svgIcon,
@@ -68,22 +69,22 @@ class StatCard extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: context.h(12)),
+          SizedBox(height: RS.VS(12)),
           Text(
             value,
             style: TextStyle(
-              fontSize: context.s(22),
+              fontSize: RS.FS(22),
               fontWeight: FontWeight.w600,
               height: 1,
               color: CommonColors.textPrimary,
             ),
           ),
-          SizedBox(height: context.h(4)),
+          SizedBox(height: RS.VS(4)),
           Row(
             children: [
               if (isPositive != null)
                 SvgPicture.asset(
-                  height: context.w(12),
+                  height: RS.HS(12),
                   isPositive!
                       ? CommonImg.crmTrendingUpOutlined
                       : CommonImg.crmTrendingDownOutlined,
@@ -97,7 +98,7 @@ class StatCard extends StatelessWidget {
               Text(
                 ' $change ',
                 style: TextStyle(
-                  fontSize: context.s(11),
+                  fontSize: RS.FS(11),
                   height: 1,
                   fontWeight: FontWeight.w400,
                   color: isPositive!
@@ -108,7 +109,7 @@ class StatCard extends StatelessWidget {
               Text(
                 changeLabel,
                 style: TextStyle(
-                  fontSize: context.s(11),
+                  fontSize: RS.FS(11),
                   height: 1,
                   fontWeight: FontWeight.w400,
                   color: CommonColors.textTertiary,

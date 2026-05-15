@@ -34,13 +34,13 @@ showAlertDialog({String? msg}) {
               width: 60,
               height: 60,
               decoration: BoxDecoration(
-                color: CommonColors.appRedColor.withValues(alpha: 0.08),
+                color: CommonColors.primaryColor.withValues(alpha: 0.08),
                 shape: BoxShape.circle,
               ),
               child: const Icon(
                 Icons.error_outline_rounded,
                 size: 30,
-                color: CommonColors.appRedColor,
+                color: CommonColors.primaryColor,
               ),
             ),
             const SizedBox(height: 16),

@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mirai_crm/utils/app_size.dart';
+import 'package:mirai_crm/utils/responsive.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
 import 'package:mirai_crm/utils/common_img.dart';
 
@@ -25,18 +25,19 @@ class _DeleteDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    RS.init(context);
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       backgroundColor: CommonColors.whiteColor,
       child: Padding(
-        padding: EdgeInsets.all(context.w(16)),
+        padding: EdgeInsets.all(RS.HS(16)),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             // Icon
             Container(
-              width: context.w(54),
-              height: context.w(54),
+              width: RS.HS(54),
+              height: RS.HS(54),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(color: CommonColors.primaryColor, width: 1),
@@ -44,8 +45,8 @@ class _DeleteDialog extends StatelessWidget {
               ),
               child: Center(
                 child: Container(
-                  width: context.w(44),
-                  height: context.w(44),
+                  width: RS.HS(44),
+                  height: RS.HS(44),
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     color: CommonColors.primaryColor,
@@ -53,8 +54,8 @@ class _DeleteDialog extends StatelessWidget {
                   child: Center(
                     child: SvgPicture.asset(
                       CommonImg.crmTrashOutlined,
-                      width: context.w(20),
-                      height: context.w(20),
+                      width: RS.HS(20),
+                      height: RS.HS(20),
                       colorFilter: const ColorFilter.mode(
                         CommonColors.whiteColor,
                         BlendMode.srcIn,
@@ -64,28 +65,28 @@ class _DeleteDialog extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: context.h(20)),
+            SizedBox(height: RS.VS(20)),
             // Title
             Text(
               title,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: context.s(18),
+                fontSize: RS.FS(18),
                 fontWeight: FontWeight.w600,
                 color: CommonColors.textPrimary,
               ),
             ),
-            SizedBox(height: context.h(8)),
+            SizedBox(height: RS.VS(8)),
             // Description
             Text(
               description,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: context.s(13),
+                fontSize: RS.FS(13),
                 color: CommonColors.textTertiary,
               ),
             ),
-            SizedBox(height: context.h(16)),
+            SizedBox(height: RS.VS(16)),
             // Buttons
             Row(
               children: [
@@ -98,18 +99,18 @@ class _DeleteDialog extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      padding: EdgeInsets.symmetric(vertical: context.h(14)),
+                      padding: EdgeInsets.symmetric(vertical: RS.VS(14)),
                     ),
                     child: Text(
                       'Cancel',
                       style: TextStyle(
-                        fontSize: context.s(14),
+                        fontSize: RS.FS(14),
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
                 ),
-                SizedBox(width: context.w(12)),
+                SizedBox(width: RS.HS(12)),
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () => Navigator.pop(context, true),
@@ -120,12 +121,12 @@ class _DeleteDialog extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      padding: EdgeInsets.symmetric(vertical: context.h(14)),
+                      padding: EdgeInsets.symmetric(vertical: RS.VS(14)),
                     ),
                     child: Text(
                       'Yes Delete',
                       style: TextStyle(
-                        fontSize: context.s(14),
+                        fontSize: RS.FS(14),
                         fontWeight: FontWeight.w600,
                       ),
                     ),

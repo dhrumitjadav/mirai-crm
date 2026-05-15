@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:mirai_crm/utils/app_size.dart';
+﻿import 'package:flutter/material.dart';
+import 'package:mirai_crm/utils/responsive.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
 
 enum _PickerMode { day, month, year }
@@ -96,13 +96,14 @@ class _DateRangePickerState extends State<DateRangePicker> {
 
   @override
   Widget build(BuildContext context) {
+    RS.init(context);
     return Column(
       children: [
         _buildHeader(context),
-        SizedBox(height: context.h(16)),
+        SizedBox(height: RS.VS(16)),
         if (_mode == _PickerMode.day) ...[
           _buildWeekdaysRow(context),
-          SizedBox(height: context.h(6)),
+          SizedBox(height: RS.VS(6)),
           _buildDaysGrid(context),
         ] else if (_mode == _PickerMode.month)
           _buildMonthPicker(context)
@@ -126,7 +127,7 @@ class _DateRangePickerState extends State<DateRangePicker> {
           onTap: _onPrev,
           child: Icon(
             Icons.chevron_left,
-            size: context.w(24),
+            size: RS.HS(24),
             color: CommonColors.textSecondary,
           ),
         ),
@@ -135,7 +136,7 @@ class _DateRangePickerState extends State<DateRangePicker> {
           Text(
             centerLabel,
             style: TextStyle(
-              fontSize: context.s(15),
+              fontSize: RS.FS(15),
               fontWeight: FontWeight.w600,
               color: CommonColors.textPrimary,
             ),
@@ -152,10 +153,10 @@ class _DateRangePickerState extends State<DateRangePicker> {
                     Text(
                       _months[_currentMonth.month - 1].substring(0, 3),
                       style: TextStyle(
-                        fontSize: context.s(15),
+                        fontSize: RS.FS(15),
                         fontWeight: FontWeight.w600,
                         color: _mode == _PickerMode.month
-                            ? CommonColors.appRedColor
+                            ? CommonColors.primaryColor
                             : CommonColors.textPrimary,
                       ),
                     ),
@@ -163,15 +164,15 @@ class _DateRangePickerState extends State<DateRangePicker> {
                       _mode == _PickerMode.month
                           ? Icons.keyboard_arrow_up_rounded
                           : Icons.keyboard_arrow_down_rounded,
-                      size: context.w(18),
+                      size: RS.HS(18),
                       color: _mode == _PickerMode.month
-                          ? CommonColors.appRedColor
+                          ? CommonColors.primaryColor
                           : CommonColors.textPrimary,
                     ),
                   ],
                 ),
               ),
-              SizedBox(width: context.w(6)),
+              SizedBox(width: RS.HS(6)),
               GestureDetector(
                 onTap: () => setState(() => _mode = _PickerMode.year),
                 child: Row(
@@ -180,18 +181,18 @@ class _DateRangePickerState extends State<DateRangePicker> {
                     Text(
                       '${_currentMonth.year}',
                       style: TextStyle(
-                        fontSize: context.s(15),
+                        fontSize: RS.FS(15),
                         fontWeight: FontWeight.w600,
                         color: _mode == _PickerMode.year
-                            ? CommonColors.appRedColor
+                            ? CommonColors.primaryColor
                             : CommonColors.textPrimary,
                       ),
                     ),
                     Icon(
                       Icons.keyboard_arrow_down_rounded,
-                      size: context.w(18),
+                      size: RS.HS(18),
                       color: _mode == _PickerMode.year
-                          ? CommonColors.appRedColor
+                          ? CommonColors.primaryColor
                           : CommonColors.textPrimary,
                     ),
                   ],
@@ -204,7 +205,7 @@ class _DateRangePickerState extends State<DateRangePicker> {
           onTap: _onNext,
           child: Icon(
             Icons.chevron_right,
-            size: context.w(24),
+            size: RS.HS(24),
             color: CommonColors.textSecondary,
           ),
         ),
@@ -226,10 +227,10 @@ class _DateRangePickerState extends State<DateRangePicker> {
             _mode = _PickerMode.day;
           }),
           child: Container(
-            margin: EdgeInsets.all(context.w(4)),
+            margin: EdgeInsets.all(RS.HS(4)),
             decoration: isSelected
                 ? BoxDecoration(
-                    color: CommonColors.appRedColor,
+                    color: CommonColors.primaryColor,
                     borderRadius: BorderRadius.circular(8),
                   )
                 : null,
@@ -237,7 +238,7 @@ class _DateRangePickerState extends State<DateRangePicker> {
               child: Text(
                 _months[i].substring(0, 3),
                 style: TextStyle(
-                  fontSize: context.s(14),
+                  fontSize: RS.FS(14),
                   fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
                   color: isSelected
                       ? CommonColors.whiteColor
@@ -266,10 +267,10 @@ class _DateRangePickerState extends State<DateRangePicker> {
             _mode = _PickerMode.day;
           }),
           child: Container(
-            margin: EdgeInsets.all(context.w(4)),
+            margin: EdgeInsets.all(RS.HS(4)),
             decoration: isSelected
                 ? BoxDecoration(
-                    color: CommonColors.appRedColor,
+                    color: CommonColors.primaryColor,
                     borderRadius: BorderRadius.circular(8),
                   )
                 : null,
@@ -277,7 +278,7 @@ class _DateRangePickerState extends State<DateRangePicker> {
               child: Text(
                 '$year',
                 style: TextStyle(
-                  fontSize: context.s(14),
+                  fontSize: RS.FS(14),
                   fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
                   color: isSelected
                       ? CommonColors.whiteColor
@@ -300,7 +301,7 @@ class _DateRangePickerState extends State<DateRangePicker> {
                 child: Text(
                   d,
                   style: TextStyle(
-                    fontSize: context.s(12),
+                    fontSize: RS.FS(12),
                     fontWeight: FontWeight.w500,
                     color: CommonColors.textTertiary,
                   ),
@@ -373,19 +374,19 @@ class _DateRangePickerState extends State<DateRangePicker> {
     return GestureDetector(
       onTap: isCurrentMonth ? () => _onDayTap(day) : null,
       child: SizedBox(
-        height: context.h(40),
+        height: RS.VS(40),
         child: Stack(
           children: [
             if (isInRange)
               Positioned.fill(
-                top: context.h(4),
-                bottom: context.h(4),
+                top: RS.VS(4),
+                bottom: RS.VS(4),
                 child: Container(color: rangeColor),
               ),
             if (isStart && hasRange)
               Positioned.fill(
-                top: context.h(4),
-                bottom: context.h(4),
+                top: RS.VS(4),
+                bottom: RS.VS(4),
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: FractionallySizedBox(
@@ -397,8 +398,8 @@ class _DateRangePickerState extends State<DateRangePicker> {
               ),
             if (isEnd)
               Positioned.fill(
-                top: context.h(4),
-                bottom: context.h(4),
+                top: RS.VS(4),
+                bottom: RS.VS(4),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: FractionallySizedBox(
@@ -410,9 +411,9 @@ class _DateRangePickerState extends State<DateRangePicker> {
               ),
             Center(
               child: Container(
-                margin: EdgeInsets.symmetric(vertical: context.h(2)),
-                width: context.w(32),
-                height: context.h(32),
+                margin: EdgeInsets.symmetric(vertical: RS.VS(2)),
+                width: RS.HS(32),
+                height: RS.VS(32),
                 decoration: isSelected
                     ? BoxDecoration(
                         color: CommonColors.primaryColor,
@@ -433,7 +434,7 @@ class _DateRangePickerState extends State<DateRangePicker> {
                   child: Text(
                     '${day.day}',
                     style: TextStyle(
-                      fontSize: context.s(13),
+                      fontSize: RS.FS(13),
                       fontWeight:
                           isSelected ? FontWeight.w700 : FontWeight.w400,
                       color: isSelected

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mirai_crm/utils/app_size.dart';
+import 'package:mirai_crm/utils/responsive.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
 import 'package:mirai_crm/utils/common_img.dart';
 import 'package:mirai_crm/widgets/app_divider.dart';
@@ -29,17 +29,24 @@ class LeadListItem {
 
 class LeadListCard extends StatelessWidget {
   final LeadListItem lead;
+  final bool isSelectMode;
+  final bool isSelected;
 
-  const LeadListCard({super.key, required this.lead});
+  const LeadListCard({
+    super.key,
+    required this.lead,
+    this.isSelectMode = false,
+    this.isSelected = false,
+  });
 
   Color get _priorityColor {
     switch (lead.priority.toLowerCase()) {
       case 'high':
-        return CommonColors.appRedColor;
+        return CommonColors.warning800;
       case 'medium':
-        return CommonColors.orangeColor;
+        return CommonColors.warning500;
       default:
-        return CommonColors.appGreenColor;
+        return CommonColors.green500;
     }
   }
 
@@ -58,34 +65,36 @@ class LeadListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    RS.init(context);
+    final showBadge = lead.isRecentlyAdded && !isSelectMode;
     return Stack(
       clipBehavior: Clip.none,
       children: [
-        if (lead.isRecentlyAdded)
+        if (showBadge)
           Positioned(
             top: -10,
             left: 0,
             child: Container(
-              height: context.h(37),
-              margin: EdgeInsets.only(top: 3),
+              height: RS.VS(37),
+              margin: const EdgeInsets.only(top: 3),
               alignment: Alignment.topLeft,
               padding: EdgeInsets.fromLTRB(
-                context.w(12),
-                context.h(7),
-                context.w(17),
-                context.w(0),
+                RS.HS(12),
+                RS.VS(7),
+                RS.HS(17),
+                0,
               ),
               decoration: BoxDecoration(
                 color: CommonColors.green600,
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(context.w(6)),
-                  topRight: Radius.circular(context.w(6)),
+                  topLeft: Radius.circular(RS.HS(6)),
+                  topRight: Radius.circular(RS.HS(6)),
                 ),
               ),
               child: Text(
                 'Recently Added',
                 style: TextStyle(
-                  fontSize: context.s(10),
+                  fontSize: RS.FS(10),
                   color: CommonColors.whiteColor,
                 ),
               ),
@@ -93,34 +102,42 @@ class LeadListCard extends StatelessWidget {
           ),
         Container(
           margin: EdgeInsets.only(
-            bottom: context.h(12),
-            top: lead.isRecentlyAdded ? context.h(21) : 0,
+            bottom: RS.VS(12),
+            top: showBadge ? RS.VS(21) : 0,
           ),
-          padding: EdgeInsets.all(context.h(24)),
+          padding: EdgeInsets.all(RS.VS(16)),
           decoration: BoxDecoration(
-            color: CommonColors.whiteColor,
+            color: isSelected
+                ? CommonColors.primaryColor.withValues(alpha: 0.04)
+                : CommonColors.whiteColor,
             borderRadius: BorderRadius.circular(14),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.06),
-                blurRadius: 10,
-                offset: const Offset(0, 2),
-              ),
-            ],
+            border: isSelected ? Border.all(color: CommonColors.red200) : null,
+            boxShadow: isSelected
+                ? null
+                : [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.06),
+                      blurRadius: 10,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (lead.isRecentlyAdded) SizedBox(height: context.h(6)),
+              if (showBadge) SizedBox(height: RS.VS(6)),
               Padding(
-                padding: EdgeInsets.only(bottom: context.w(14)),
+                padding: EdgeInsets.only(bottom: RS.HS(14)),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // Avatar
+                    if (isSelectMode) ...[
+                      _SelectCircle(isSelected: isSelected),
+                      SizedBox(width: RS.HS(10)),
+                    ],
                     Container(
-                      width: context.w(56),
-                      height: context.w(56),
+                      width: RS.HS(56),
+                      height: RS.HS(56),
                       decoration: BoxDecoration(
                         color: CommonColors.red50,
                         borderRadius: BorderRadius.circular(14),
@@ -129,15 +146,14 @@ class LeadListCard extends StatelessWidget {
                         child: Text(
                           lead.initials,
                           style: TextStyle(
-                            fontSize: context.s(14),
+                            fontSize: RS.FS(14),
                             fontWeight: FontWeight.w600,
                             color: CommonColors.red600,
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(width: context.w(12)),
-                    // Name / time / assigned
+                    SizedBox(width: RS.HS(12)),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -147,7 +163,7 @@ class LeadListCard extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                             style: TextStyle(
-                              fontSize: context.s(15),
+                              fontSize: RS.FS(15),
                               fontWeight: FontWeight.w600,
                               color: CommonColors.textPrimary,
                             ),
@@ -155,7 +171,7 @@ class LeadListCard extends StatelessWidget {
                           Text(
                             lead.time,
                             style: TextStyle(
-                              fontSize: context.s(12),
+                              fontSize: RS.FS(12),
                               fontWeight: FontWeight.w500,
                               color: CommonColors.textTertiary,
                             ),
@@ -164,7 +180,7 @@ class LeadListCard extends StatelessWidget {
                             TextSpan(
                               text: 'Assigned to ',
                               style: TextStyle(
-                                fontSize: context.s(12),
+                                fontSize: RS.FS(12),
                                 color: CommonColors.textTertiary,
                               ),
                               children: [
@@ -181,24 +197,24 @@ class LeadListCard extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(width: context.w(5)),
-                    // Action buttons
-                    _ActionBtn(
-                      svgPath: CommonImg.crmPhoneOutlined,
-                      color: const Color(0xFF2563EB),
-                    ),
-                    SizedBox(width: context.w(8)),
-                    _ActionBtn(
-                      svgPath: CommonImg.crmWhatsappOutlined,
-                      color: const Color(0xFF16A34A),
-                    ),
+                    if (!isSelectMode) ...[
+                      SizedBox(width: RS.HS(5)),
+                      _ActionBtn(
+                        svgPath: CommonImg.crmPhoneOutlined,
+                        color: const Color(0xFF2563EB),
+                      ),
+                      SizedBox(width: RS.HS(8)),
+                      _ActionBtn(
+                        svgPath: CommonImg.crmWhatsappOutlined,
+                        color: const Color(0xFF16A34A),
+                      ),
+                    ],
                   ],
                 ),
               ),
-              // SizedBox(height: context.h(14)),
               AppDivider(),
               Padding(
-                padding: EdgeInsets.only(top: context.h(20)),
+                padding: EdgeInsets.only(top: RS.VS(14)),
                 child: Row(
                   children: [
                     _InfoPair(
@@ -206,7 +222,7 @@ class LeadListCard extends StatelessWidget {
                       value: lead.source,
                       valueColor: CommonColors.textPrimary,
                     ),
-                    SizedBox(width: context.w(20)),
+                    SizedBox(width: RS.HS(20)),
                     _InfoPair(
                       label: 'Priority',
                       value: lead.priority,
@@ -215,17 +231,17 @@ class LeadListCard extends StatelessWidget {
                     const Spacer(),
                     Container(
                       padding: EdgeInsets.symmetric(
-                        horizontal: context.w(12),
-                        vertical: context.h(5),
+                        horizontal: RS.HS(12),
+                        vertical: RS.VS(5),
                       ),
                       decoration: BoxDecoration(
                         color: _statusColor.withValues(alpha: 0.08),
-                        borderRadius: BorderRadius.circular(context.w(10)),
+                        borderRadius: BorderRadius.circular(RS.HS(10)),
                       ),
                       child: Text(
                         lead.status,
                         style: TextStyle(
-                          fontSize: context.s(11),
+                          fontSize: RS.FS(11),
                           fontWeight: FontWeight.w600,
                           color: _statusColor,
                         ),
@@ -242,6 +258,32 @@ class LeadListCard extends StatelessWidget {
   }
 }
 
+class _SelectCircle extends StatelessWidget {
+  final bool isSelected;
+
+  const _SelectCircle({required this.isSelected});
+
+  @override
+  Widget build(BuildContext context) {
+    RS.init(context);
+    return Container(
+      width: RS.HS(22),
+      height: RS.HS(22),
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: isSelected ? CommonColors.primaryColor : Colors.transparent,
+        border: Border.all(
+          color: isSelected ? CommonColors.primaryColor : CommonColors.grey300,
+          width: 1.5,
+        ),
+      ),
+      child: isSelected
+          ? Icon(Icons.check, size: RS.HS(12), color: CommonColors.whiteColor)
+          : null,
+    );
+  }
+}
+
 class _ActionBtn extends StatelessWidget {
   final String svgPath;
   final Color color;
@@ -250,9 +292,10 @@ class _ActionBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    RS.init(context);
     return Container(
-      width: context.w(36),
-      height: context.w(36),
+      width: RS.HS(36),
+      height: RS.HS(36),
       decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(10),
@@ -260,8 +303,8 @@ class _ActionBtn extends StatelessWidget {
       child: Center(
         child: SvgPicture.asset(
           svgPath,
-          width: context.w(18),
-          height: context.w(18),
+          width: RS.HS(18),
+          height: RS.HS(18),
           colorFilter: const ColorFilter.mode(
             CommonColors.whiteColor,
             BlendMode.srcIn,
@@ -285,22 +328,23 @@ class _InfoPair extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    RS.init(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           label,
           style: TextStyle(
-            fontSize: context.s(12),
+            fontSize: RS.FS(12),
             color: CommonColors.textTertiary,
             fontWeight: FontWeight.w500,
           ),
         ),
-        SizedBox(height: context.h(4)),
+        SizedBox(height: RS.VS(4)),
         Text(
           value,
           style: TextStyle(
-            fontSize: context.s(14),
+            fontSize: RS.FS(14),
             fontWeight: FontWeight.w500,
             color: valueColor,
           ),

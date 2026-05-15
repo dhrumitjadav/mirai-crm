@@ -1,6 +1,6 @@
-import 'package:fl_chart/fl_chart.dart';
+﻿import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:mirai_crm/utils/app_size.dart';
+import 'package:mirai_crm/utils/responsive.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
 import 'package:mirai_crm/widgets/section_header.dart';
 
@@ -16,8 +16,9 @@ class LeadStatusChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    RS.init(context);
     return Container(
-      padding: EdgeInsets.all(context.w(17)),
+      padding: EdgeInsets.all(RS.HS(17)),
       decoration: BoxDecoration(
         color: CommonColors.whiteColor,
         borderRadius: BorderRadius.circular(8),
@@ -27,25 +28,25 @@ class LeadStatusChart extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SectionHeader(title: 'Lead Status'),
-          SizedBox(height: context.h(16)),
+          SizedBox(height: RS.VS(16)),
           Row(
             children: [
               SizedBox(
-                width: context.w(130),
-                height: context.w(130),
+                width: RS.HS(130),
+                height: RS.HS(130),
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
                     PieChart(
                       PieChartData(
                         sectionsSpace: 0,
-                        centerSpaceRadius: context.w(42),
+                        centerSpaceRadius: RS.HS(42),
                         sections: _segments
                             .map(
                               (s) => PieChartSectionData(
                                 value: s.value.toDouble(),
                                 color: s.color,
-                                radius: context.w(15),
+                                radius: RS.HS(15),
                                 showTitle: false,
                               ),
                             )
@@ -59,7 +60,7 @@ class LeadStatusChart extends StatelessWidget {
                         Text(
                           '12.4K',
                           style: TextStyle(
-                            fontSize: context.s(12),
+                            fontSize: RS.FS(12),
                             fontWeight: FontWeight.w800,
                             color: CommonColors.textPrimary,
                           ),
@@ -67,7 +68,7 @@ class LeadStatusChart extends StatelessWidget {
                         Text(
                           'Total',
                           style: TextStyle(
-                            fontSize: context.s(10),
+                            fontSize: RS.FS(10),
                             color: CommonColors.greyAEAEAE,
                           ),
                         ),
@@ -76,32 +77,32 @@ class LeadStatusChart extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(width: context.w(24)),
+              SizedBox(width: RS.HS(24)),
               SizedBox(
-                width: context.w(130),
-                height: context.w(130),
+                width: RS.HS(130),
+                height: RS.HS(130),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: _segments
                       .map(
                         (s) => Padding(
-                          padding: EdgeInsets.only(bottom: context.h(12)),
+                          padding: EdgeInsets.only(bottom: RS.VS(12)),
                           child: Row(
                             children: [
                               Container(
-                                width: context.w(8),
-                                height: context.w(8),
+                                width: RS.HS(8),
+                                height: RS.HS(8),
                                 decoration: BoxDecoration(
                                   color: s.color,
                                   shape: BoxShape.circle,
                                 ),
                               ),
-                              SizedBox(width: context.w(6)),
+                              SizedBox(width: RS.HS(6)),
                               Expanded(
                                 child: Text(
                                   s.label,
                                   style: TextStyle(
-                                    fontSize: context.s(12),
+                                    fontSize: RS.FS(12),
                                     fontWeight: FontWeight.w600,
                                     color: CommonColors.textSecondary,
                                   ),
@@ -110,7 +111,7 @@ class LeadStatusChart extends StatelessWidget {
                               Text(
                                 '${s.value}%',
                                 style: TextStyle(
-                                  fontSize: context.s(12),
+                                  fontSize: RS.FS(12),
                                   fontWeight: FontWeight.w700,
                                   color: CommonColors.textPrimary,
                                 ),

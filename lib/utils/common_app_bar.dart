@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:mirai_crm/utils/app_size.dart';
+import 'package:mirai_crm/utils/responsive.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
 import 'package:mirai_crm/utils/common_img.dart';
 
@@ -23,13 +23,14 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    RS.init(context);
     return AppBar(
       leading: GestureDetector(
         onTap: () => Get.back(),
         child: Center(
           child: Container(
-            width: context.w(32),
-            height: context.w(32),
+            width: RS.HS(32),
+            height: RS.HS(32),
             decoration: BoxDecoration(
               color: CommonColors.grey75,
               borderRadius: BorderRadius.circular(12),
@@ -37,8 +38,8 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: Center(
               child: SvgPicture.asset(
                 CommonImg.crmArrowLeftOutlined,
-                width: context.w(12),
-                height: context.w(12),
+                width: RS.HS(12),
+                height: RS.HS(12),
                 colorFilter: const ColorFilter.mode(
                   CommonColors.textPrimary,
                   BlendMode.srcIn,
@@ -54,7 +55,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
         style: TextStyle(
           color: CommonColors.textSecondary,
           fontWeight: FontWeight.w600,
-          fontSize: context.s(18),
+          fontSize: RS.FS(18),
         ),
       ),
       bottom: bottom,

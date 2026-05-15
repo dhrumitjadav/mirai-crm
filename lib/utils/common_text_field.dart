@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mirai_crm/utils/app_size.dart';
+import 'package:mirai_crm/utils/responsive.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
 
 class CommonTextField extends StatelessWidget {
@@ -15,6 +15,7 @@ class CommonTextField extends StatelessWidget {
   final TextInputAction? textInputAction;
   final int maxLines;
   final int phoneNumberLength;
+  final double? textHeight;
   final bool isApplyInputFormatter;
   final FocusNode? focusNode;
   final List<TextInputFormatter>? inputFormatters;
@@ -35,6 +36,7 @@ class CommonTextField extends StatelessWidget {
     this.textInputAction,
     this.maxLines = 1,
     this.phoneNumberLength = 10,
+    this.textHeight = 1.25,
     this.isApplyInputFormatter = false,
     this.focusNode,
     this.inputFormatters,
@@ -45,11 +47,13 @@ class CommonTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    RS.init(context);
     return TextFormField(
       controller: controller,
       enabled: enabled,
       readOnly: readOnly,
       showCursor: true,
+      cursorColor: CommonColors.primaryColor,
       focusNode: focusNode,
       maxLines: maxLines,
       obscureText: isObscure,
@@ -75,16 +79,33 @@ class CommonTextField extends StatelessWidget {
       keyboardType: isPhoneNumber ? TextInputType.phone : TextInputType.text,
       validator: validator,
       style: TextStyle(
-        fontSize: context.s(14),
+        fontSize: RS.FS(14),
         color: CommonColors.textPrimary,
+        height: textHeight,
       ),
       decoration: InputDecoration(
         hintText: hint,
         hintStyle: TextStyle(
-          fontSize: context.s(14),
+          fontSize: RS.FS(14),
           color: CommonColors.textTertiary,
         ),
-        prefixIcon: prefixIcon,
+        prefixIcon: prefixIcon != null
+            ? Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  prefixIcon!,
+                  Container(
+                    width: 1,
+                    height: RS.VS(20),
+                    color: CommonColors.textPlaceholder,
+                  ),
+                  SizedBox(width: RS.HS(8)),
+                ],
+              )
+            : null,
+        prefixIconConstraints: prefixIcon != null
+            ? const BoxConstraints(minWidth: 0, minHeight: 0)
+            : null,
         suffixIcon: suffixIcon,
         counterText: '',
 
@@ -92,8 +113,8 @@ class CommonTextField extends StatelessWidget {
         fillColor: CommonColors.whiteColor,
         alignLabelWithHint: true,
         contentPadding: EdgeInsets.symmetric(
-          horizontal: context.w(14),
-          vertical: context.h(14),
+          horizontal: RS.HS(14),
+          vertical: RS.VS(14),
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
@@ -109,7 +130,7 @@ class CommonTextField extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: CommonColors.appRedColor, width: 1.5),
+          borderSide: BorderSide(color: CommonColors.borderDefault),
         ),
       ),
     );

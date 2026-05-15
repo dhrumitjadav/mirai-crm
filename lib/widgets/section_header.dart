@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:mirai_crm/utils/app_size.dart';
+﻿import 'package:flutter/material.dart';
+import 'package:mirai_crm/utils/responsive.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
 
 class SectionHeader extends StatelessWidget {
@@ -22,13 +22,14 @@ class SectionHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    RS.init(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           title,
           style: TextStyle(
-            fontSize: context.s(15),
+            fontSize: RS.FS(15),
             fontWeight: FontWeight.w600,
             color: CommonColors.textPrimary,
           ),
@@ -41,7 +42,7 @@ class SectionHeader extends StatelessWidget {
             child: Text(
               prefixText ?? 'View All',
               style: TextStyle(
-                fontSize: context.s(14),
+                fontSize: RS.FS(14),
                 fontWeight: FontWeight.w500,
                 height: 1,
                 color: CommonColors.red500,

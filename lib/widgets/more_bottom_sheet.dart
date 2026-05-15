@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mirai_crm/utils/app_size.dart';
+import 'package:mirai_crm/utils/responsive.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
 import 'package:mirai_crm/utils/common_img.dart';
 import 'package:mirai_crm/widgets/app_divider.dart';
@@ -109,7 +109,9 @@ class _MoreSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    RS.init(context);
     return DraggableScrollableSheet(
+      expand: false,
       initialChildSize: 0.85,
       minChildSize: 0.5,
       maxChildSize: 0.95,
@@ -120,13 +122,32 @@ class _MoreSheet extends StatelessWidget {
         ),
         child: Column(
           children: [
-            _buildHandle(context),
-            _buildProfile(context),
+            Container(
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(color: CommonColors.borderDefault),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: CommonColors.blackColor.withValues(alpha: 0.08),
+                    offset: Offset(0, 2),
+                    blurRadius: 2,
+                    blurStyle: BlurStyle.outer,
+                  ),
+                ],
+              ),
+              child: Column(
+                children: [
+                  _buildHandle(context),
+                  _buildProfile(context),
+                ],
+              ),
+            ),
             Expanded(
               child: ListView(
                 controller: controller,
                 padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).padding.bottom + context.h(16),
+                  bottom: MediaQuery.of(context).padding.bottom + RS.VS(16),
                 ),
                 children: _sections
                     .map((s) => _SectionWidget(section: s))
@@ -141,10 +162,10 @@ class _MoreSheet extends StatelessWidget {
 
   Widget _buildHandle(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: context.h(12), bottom: context.h(8)),
+      padding: EdgeInsets.only(top: RS.VS(12), bottom: RS.VS(8)),
       child: Container(
-        width: context.w(40),
-        height: context.h(4),
+        width: RS.HS(40),
+        height: RS.VS(4),
         decoration: BoxDecoration(
           color: CommonColors.grey300,
           borderRadius: BorderRadius.circular(2),
@@ -156,14 +177,14 @@ class _MoreSheet extends StatelessWidget {
   Widget _buildProfile(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: context.w(16),
-        vertical: context.h(12),
+        horizontal: RS.HS(16),
+        vertical: RS.VS(12),
       ),
       child: Row(
         children: [
           Container(
-            width: context.w(52),
-            height: context.w(52),
+            width: RS.HS(52),
+            height: RS.HS(52),
             decoration: BoxDecoration(
               color: CommonColors.greyF8F8F8,
               borderRadius: BorderRadius.circular(10),
@@ -173,7 +194,7 @@ class _MoreSheet extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(width: context.w(12)),
+          SizedBox(width: RS.HS(12)),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -181,27 +202,27 @@ class _MoreSheet extends StatelessWidget {
                 Text(
                   'John Walter',
                   style: TextStyle(
-                    fontSize: context.s(16),
+                    fontSize: RS.FS(16),
                     fontWeight: FontWeight.w700,
                     color: CommonColors.textPrimary,
                   ),
                 ),
-                SizedBox(height: context.h(3)),
+                SizedBox(height: RS.VS(3)),
                 Row(
                   children: [
                     Container(
-                      width: context.w(7),
-                      height: context.w(7),
+                      width: RS.HS(7),
+                      height: RS.HS(7),
                       decoration: const BoxDecoration(
                         color: CommonColors.success500,
                         shape: BoxShape.circle,
                       ),
                     ),
-                    SizedBox(width: context.w(5)),
+                    SizedBox(width: RS.HS(5)),
                     Text(
                       'Sales Manager – Active',
                       style: TextStyle(
-                        fontSize: context.s(12),
+                        fontSize: RS.FS(12),
                         color: CommonColors.textSecondary,
                       ),
                     ),
@@ -212,8 +233,8 @@ class _MoreSheet extends StatelessWidget {
           ),
           SvgPicture.asset(
             CommonImg.crmArrowRightOutlined,
-            width: context.w(18),
-            height: context.w(18),
+            width: RS.HS(18),
+            height: RS.HS(18),
             colorFilter: const ColorFilter.mode(
               CommonColors.greyAEAEAE,
               BlendMode.srcIn,
@@ -232,20 +253,21 @@ class _SectionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    RS.init(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: EdgeInsets.fromLTRB(
-            context.w(16),
-            context.h(16),
-            context.w(16),
-            context.h(8),
+            RS.HS(16),
+            RS.VS(16),
+            RS.HS(16),
+            RS.VS(8),
           ),
           child: Text(
             section.label,
             style: TextStyle(
-              fontSize: context.s(11),
+              fontSize: RS.FS(11),
               fontWeight: FontWeight.w600,
               letterSpacing: 0.8,
               color: CommonColors.textPrimary,
@@ -258,7 +280,7 @@ class _SectionWidget extends StatelessWidget {
             return Column(
               children: [
                 _ItemTile(item: item),
-                AppDivider(indent: context.w(15), endIndent: context.w(15)),
+                AppDivider(indent: RS.HS(15), endIndent: RS.HS(15)),
               ],
             );
           }),
@@ -275,18 +297,19 @@ class _ItemTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    RS.init(context);
     return InkWell(
       onTap: () {},
       child: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: context.w(16),
-          vertical: context.h(16),
+          horizontal: RS.HS(16),
+          vertical: RS.VS(16),
         ),
         child: Row(
           children: [
             Container(
-              width: context.w(44),
-              height: context.w(44),
+              width: RS.HS(44),
+              height: RS.HS(44),
               decoration: BoxDecoration(
                 color: item.iconBg,
                 borderRadius: BorderRadius.circular(12),
@@ -294,8 +317,8 @@ class _ItemTile extends StatelessWidget {
               child: Center(
                 child: SvgPicture.asset(
                   item.icon,
-                  width: context.w(22),
-                  height: context.w(22),
+                  width: RS.HS(22),
+                  height: RS.HS(22),
                   colorFilter: ColorFilter.mode(
                     item.iconColor ?? CommonColors.whiteColor,
                     BlendMode.srcIn,
@@ -303,7 +326,7 @@ class _ItemTile extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(width: context.w(16)),
+            SizedBox(width: RS.HS(16)),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -311,16 +334,16 @@ class _ItemTile extends StatelessWidget {
                   Text(
                     item.label,
                     style: TextStyle(
-                      fontSize: context.s(15),
+                      fontSize: RS.FS(15),
                       fontWeight: FontWeight.w600,
                       color: CommonColors.textPrimary,
                     ),
                   ),
-                  SizedBox(height: context.h(2)),
+                  SizedBox(height: RS.VS(2)),
                   Text(
                     item.subtitle,
                     style: TextStyle(
-                      fontSize: context.s(13),
+                      fontSize: RS.FS(13),
                       color: CommonColors.textSecondary,
                     ),
                   ),
@@ -329,8 +352,8 @@ class _ItemTile extends StatelessWidget {
             ),
             SvgPicture.asset(
               CommonImg.crmArrowRightOutlined,
-              width: context.w(18),
-              height: context.w(18),
+              width: RS.HS(18),
+              height: RS.HS(18),
               colorFilter: const ColorFilter.mode(
                 CommonColors.grey350,
                 BlendMode.srcIn,

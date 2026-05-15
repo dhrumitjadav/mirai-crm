@@ -1,8 +1,8 @@
-import 'dart:developer';
+﻿import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mirai_crm/utils/app_size.dart';
+import 'package:mirai_crm/utils/responsive.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
 import 'package:mirai_crm/utils/common_img.dart';
 import 'package:mirai_crm/widgets/section_header.dart';
@@ -36,8 +36,9 @@ class ActiveCampaignsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    RS.init(context);
     return Container(
-      padding: EdgeInsets.all(context.w(16)),
+      padding: EdgeInsets.all(RS.HS(16)),
       decoration: BoxDecoration(
         color: CommonColors.whiteColor,
         borderRadius: BorderRadius.circular(10),
@@ -47,7 +48,7 @@ class ActiveCampaignsSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SectionHeader(title: 'Active Campaigns', onViewAll: () {}),
-          SizedBox(height: context.h(12)),
+          SizedBox(height: RS.VS(12)),
           ..._campaigns.map((c) => _CampaignCard(campaign: c)),
         ],
       ),
@@ -62,6 +63,7 @@ class _CampaignCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    RS.init(context);
     return Material(
       color: Colors.transparent,
       borderRadius: BorderRadius.circular(10),
@@ -74,20 +76,20 @@ class _CampaignCard extends StatelessWidget {
         },
         child: Container(
           padding: EdgeInsets.symmetric(
-            vertical: context.h(12),
-            // horizontal: context.w(12),
+            vertical: RS.VS(12),
+            // horizontal: RS.HS(12),
           ),
           child: Row(
             children: [
               Container(
-                padding: EdgeInsets.all(context.w(10)),
+                padding: EdgeInsets.all(RS.HS(10)),
                 decoration: BoxDecoration(
                   color: ActiveCampaignsSection._iconBg,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: SvgPicture.asset(
                   fit: BoxFit.fitHeight,
-                  height: context.h(18),
+                  height: RS.VS(18),
                   campaign.svgIcon,
                   colorFilter: ColorFilter.mode(
                     ActiveCampaignsSection._iconColor,
@@ -95,7 +97,7 @@ class _CampaignCard extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: context.w(12)),
+              SizedBox(width: RS.HS(12)),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,33 +107,33 @@ class _CampaignCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                       style: TextStyle(
-                        fontSize: context.s(14),
+                        fontSize: RS.FS(14),
                         fontWeight: FontWeight.w700,
                         color: CommonColors.textPrimary,
                       ),
                     ),
-                    SizedBox(height: context.h(2)),
+                    SizedBox(height: RS.VS(2)),
                     Text(
                       campaign.subtitle,
                       style: TextStyle(
-                        fontSize: context.s(12),
+                        fontSize: RS.FS(12),
                         color: CommonColors.textSecondary,
                       ),
                     ),
                   ],
                 ),
               ),
-              SizedBox(width: context.w(12)),
+              SizedBox(width: RS.HS(12)),
 
               Text(
                 campaign.progress,
                 style: TextStyle(
-                  fontSize: context.s(14),
+                  fontSize: RS.FS(14),
                   fontWeight: FontWeight.w500,
                   color: CommonColors.textSecondary,
                 ),
               ),
-              SizedBox(width: context.w(4)),
+              SizedBox(width: RS.HS(4)),
               SvgPicture.asset(
                 CommonImg.crmArrowRightOutlined,
                 colorFilter: ColorFilter.mode(

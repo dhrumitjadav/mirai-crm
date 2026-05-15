@@ -15,6 +15,7 @@ class CommonImg {
   static const String crmCameraOutlined = '$_o/camera.svg';
   static const String crmPauseOutlined = '$_o/pause.svg';
   static const String crmCheckCircleOutlined = '$_o/check_circle.svg';
+  static const String crmCrossCircleOutlined = '$_o/cross_circle.svg';
   static const String crmCardOutlined = '$_o/card_outlined.svg';
   static const String crmClipboardOutlined = '$_o/clipboard.svg';
   static const String crmClockOutlined = '$_o/clock.svg';

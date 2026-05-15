@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:mirai_crm/utils/app_size.dart';
+﻿import 'package:flutter/material.dart';
+import 'package:mirai_crm/utils/responsive.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
 
 class CommonDropdown extends StatefulWidget {
@@ -69,7 +69,9 @@ class _CommonDropdownState extends State<CommonDropdown> {
                       border: Border.all(color: CommonColors.borderDefault),
                       boxShadow: [
                         BoxShadow(
-                          color: CommonColors.blackColor.withValues(alpha: 0.06),
+                          color: CommonColors.blackColor.withValues(
+                            alpha: 0.06,
+                          ),
                           blurRadius: 8,
                           offset: const Offset(0, 4),
                         ),
@@ -83,15 +85,15 @@ class _CommonDropdownState extends State<CommonDropdown> {
                           onTap: () => _select(item),
                           child: Padding(
                             padding: EdgeInsets.symmetric(
-                              horizontal: context.w(16),
-                              vertical: context.h(14),
+                              horizontal: RS.HS(16),
+                              vertical: RS.VS(14),
                             ),
                             child: Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
                                 item,
                                 style: TextStyle(
-                                  fontSize: context.s(14),
+                                  fontSize: RS.FS(14),
                                   color: CommonColors.textPrimary,
                                 ),
                               ),
@@ -124,6 +126,7 @@ class _CommonDropdownState extends State<CommonDropdown> {
 
   @override
   Widget build(BuildContext context) {
+    RS.init(context);
     final hasValue = widget.value != null && widget.value!.isNotEmpty;
 
     return CompositedTransformTarget(
@@ -131,17 +134,12 @@ class _CommonDropdownState extends State<CommonDropdown> {
       child: GestureDetector(
         onTap: _toggle,
         child: Container(
-          height: context.h(50),
-          padding: EdgeInsets.symmetric(horizontal: context.w(14)),
+          height: RS.VS(50),
+          padding: EdgeInsets.symmetric(horizontal: RS.HS(14)),
           decoration: BoxDecoration(
             color: CommonColors.whiteColor,
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-              color: _isOpen
-                  ? CommonColors.appRedColor
-                  : CommonColors.borderDefault,
-              width: _isOpen ? 1.5 : 1,
-            ),
+            border: Border.all(color: CommonColors.borderDefault),
           ),
           child: Row(
             children: [
@@ -149,7 +147,7 @@ class _CommonDropdownState extends State<CommonDropdown> {
                 child: Text(
                   hasValue ? widget.value! : widget.hint,
                   style: TextStyle(
-                    fontSize: context.s(14),
+                    fontSize: RS.FS(14),
                     color: hasValue
                         ? CommonColors.textPrimary
                         : CommonColors.textTertiary,
@@ -160,7 +158,7 @@ class _CommonDropdownState extends State<CommonDropdown> {
                 _isOpen
                     ? Icons.keyboard_arrow_up_rounded
                     : Icons.keyboard_arrow_down_rounded,
-                size: context.w(22),
+                size: RS.HS(22),
                 color: CommonColors.textTertiary,
               ),
             ],

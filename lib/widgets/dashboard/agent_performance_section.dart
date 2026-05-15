@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:mirai_crm/utils/app_size.dart';
+﻿import 'package:flutter/material.dart';
+import 'package:mirai_crm/utils/responsive.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
 import 'package:mirai_crm/widgets/section_header.dart';
 
@@ -29,8 +29,9 @@ class AgentPerformanceSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    RS.init(context);
     return Container(
-      padding: EdgeInsets.all(context.w(16)),
+      padding: EdgeInsets.all(RS.HS(16)),
       decoration: BoxDecoration(
         color: CommonColors.whiteColor,
         borderRadius: BorderRadius.circular(10),
@@ -44,7 +45,7 @@ class AgentPerformanceSection extends StatelessWidget {
             prefixText: 'View All Agents',
             onViewAll: () {},
           ),
-          SizedBox(height: context.h(14)),
+          SizedBox(height: RS.VS(14)),
           ..._agents.map((a) => _AgentRow(agent: a)),
         ],
       ),
@@ -59,16 +60,17 @@ class _AgentRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    RS.init(context);
     return Padding(
-      padding: EdgeInsets.only(bottom: context.h(14)),
+      padding: EdgeInsets.only(bottom: RS.VS(14)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
               Container(
-                width: context.w(38),
-                height: context.w(38),
+                width: RS.HS(38),
+                height: RS.HS(38),
                 decoration: BoxDecoration(
                   color: CommonColors.green50,
                   shape: BoxShape.circle,
@@ -77,14 +79,14 @@ class _AgentRow extends StatelessWidget {
                   child: Text(
                     agent.initials,
                     style: TextStyle(
-                      fontSize: context.s(14),
+                      fontSize: RS.FS(14),
                       fontWeight: FontWeight.w700,
                       color: CommonColors.green600,
                     ),
                   ),
                 ),
               ),
-              SizedBox(width: context.w(10)),
+              SizedBox(width: RS.HS(10)),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,16 +94,16 @@ class _AgentRow extends StatelessWidget {
                     Text(
                       agent.name,
                       style: TextStyle(
-                        fontSize: context.s(14),
+                        fontSize: RS.FS(14),
                         fontWeight: FontWeight.w700,
                         color: CommonColors.textPrimary,
                       ),
                     ),
-                    SizedBox(height: context.h(2)),
+                    SizedBox(height: RS.VS(2)),
                     Text(
                       '${agent.closed} closed this month',
                       style: TextStyle(
-                        fontSize: context.s(12),
+                        fontSize: RS.FS(12),
                         color: CommonColors.textSecondary,
                       ),
                     ),
@@ -111,19 +113,19 @@ class _AgentRow extends StatelessWidget {
               Text(
                 '${agent.percent}%',
                 style: TextStyle(
-                  fontSize: context.s(16),
+                  fontSize: RS.FS(16),
                   fontWeight: FontWeight.w500,
                   color: CommonColors.textSecondary,
                 ),
               ),
             ],
           ),
-          SizedBox(height: context.h(10)),
+          SizedBox(height: RS.VS(10)),
           ClipRRect(
             borderRadius: BorderRadius.circular(4),
             child: LinearProgressIndicator(
               value: agent.percent / 100,
-              minHeight: context.h(5),
+              minHeight: RS.VS(5),
               backgroundColor: CommonColors.borderDefault,
               valueColor: AlwaysStoppedAnimation<Color>(agent.barColor),
             ),

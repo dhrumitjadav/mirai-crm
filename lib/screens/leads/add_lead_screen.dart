@@ -1,7 +1,7 @@
 ﻿import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mirai_crm/utils/app_size.dart';
+import 'package:mirai_crm/utils/responsive.dart';
 import 'package:mirai_crm/utils/common_app_bar.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
 import 'package:mirai_crm/utils/common_img.dart';
@@ -68,12 +68,13 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
 
   @override
   Widget build(BuildContext context) {
+    RS.init(context);
     return Scaffold(
       backgroundColor: CommonColors.scaffoldBgColor,
       appBar: CommonAppBar(
         title: 'Add Lead',
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(context.h(56)),
+          preferredSize: Size.fromHeight(RS.VS(56)),
           child: _buildStepIndicator(context),
         ),
       ),
@@ -82,8 +83,8 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
           Expanded(
             child: SingleChildScrollView(
               padding: EdgeInsets.symmetric(
-                horizontal: context.w(16),
-                vertical: context.h(20),
+                horizontal: RS.HS(16),
+                vertical: RS.VS(20),
               ),
               child: _buildStepContent(context),
             ),
@@ -98,10 +99,10 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
     return Container(
       color: CommonColors.whiteColor,
       padding: EdgeInsets.fromLTRB(
-        context.w(24),
-        context.h(10),
-        context.w(24),
-        context.h(14),
+        RS.HS(24),
+        RS.VS(10),
+        RS.HS(24),
+        RS.VS(14),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -109,21 +110,21 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
           Text(
             'Step $_step of $_totalSteps',
             style: TextStyle(
-              fontSize: context.s(12),
+              fontSize: RS.FS(12),
               fontWeight: FontWeight.w600,
               color: CommonColors.primaryColor,
             ),
           ),
-          SizedBox(height: context.h(8)),
+          SizedBox(height: RS.VS(8)),
           Row(
             children: List.generate(_totalSteps, (i) {
               final filled = i < _step;
               return Expanded(
                 child: Container(
                   margin: EdgeInsets.only(
-                    right: i < _totalSteps - 1 ? context.w(6) : 0,
+                    right: i < _totalSteps - 1 ? RS.HS(6) : 0,
                   ),
-                  height: context.h(4),
+                  height: RS.VS(4),
                   decoration: BoxDecoration(
                     color: filled
                         ? CommonColors.primaryColor
@@ -155,9 +156,9 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildSectionHeader(context, 'Contact Details', 'Who are we adding?'),
-        SizedBox(height: context.h(20)),
+        SizedBox(height: RS.VS(20)),
         _buildLabel(context, 'Full Name'),
-        SizedBox(height: context.h(6)),
+        SizedBox(height: RS.VS(6)),
         CommonTextField(
           controller: _nameCtrl,
           focusNode: _nameFocus,
@@ -165,9 +166,9 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
           textInputAction: TextInputAction.next,
           onSubmitted: () => _phoneFocus.requestFocus(),
         ),
-        SizedBox(height: context.h(16)),
+        SizedBox(height: RS.VS(16)),
         _buildLabel(context, 'Phone Number'),
-        SizedBox(height: context.h(6)),
+        SizedBox(height: RS.VS(6)),
         CommonTextField(
           controller: _phoneCtrl,
           focusNode: _phoneFocus,
@@ -179,9 +180,9 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
           prefixIcon: _svgPrefix(context, CommonImg.crmPhoneOutlined),
           onSubmitted: () => _emailFocus.requestFocus(),
         ),
-        SizedBox(height: context.h(16)),
+        SizedBox(height: RS.VS(16)),
         _buildLabel(context, 'Email'),
-        SizedBox(height: context.h(6)),
+        SizedBox(height: RS.VS(6)),
         CommonTextField(
           controller: _emailCtrl,
           focusNode: _emailFocus,
@@ -190,9 +191,9 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
           prefixIcon: _svgPrefix(context, CommonImg.crmMailOutlined),
           onSubmitted: () => _cityFocus.requestFocus(),
         ),
-        SizedBox(height: context.h(16)),
+        SizedBox(height: RS.VS(16)),
         _buildLabel(context, 'City'),
-        SizedBox(height: context.h(6)),
+        SizedBox(height: RS.VS(6)),
         CommonTextField(
           controller: _cityCtrl,
           focusNode: _cityFocus,
@@ -212,9 +213,9 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
           'Lead Details',
           'Where did this lead come from?',
         ),
-        SizedBox(height: context.h(20)),
+        SizedBox(height: RS.VS(20)),
         _buildLabel(context, 'Source'),
-        SizedBox(height: context.h(6)),
+        SizedBox(height: RS.VS(6)),
         _buildDropdown(
           context,
           value: _source,
@@ -228,9 +229,9 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
           ],
           onChanged: (v) => setState(() => _source = v),
         ),
-        SizedBox(height: context.h(16)),
+        SizedBox(height: RS.VS(16)),
         _buildLabel(context, 'Campaign'),
-        SizedBox(height: context.h(6)),
+        SizedBox(height: RS.VS(6)),
         _buildDropdown(
           context,
           value: _campaign,
@@ -238,13 +239,13 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
           items: const ['Summer Sale', 'Q1 Outreach', 'Product Launch'],
           onChanged: (v) => setState(() => _campaign = v),
         ),
-        SizedBox(height: context.h(16)),
+        SizedBox(height: RS.VS(16)),
         _buildLabel(context, 'Priority', required: false),
-        SizedBox(height: context.h(10)),
+        SizedBox(height: RS.VS(10)),
         _buildPrioritySelector(context),
-        SizedBox(height: context.h(16)),
+        SizedBox(height: RS.VS(16)),
         _buildLabel(context, 'Budget', required: false),
-        SizedBox(height: context.h(10)),
+        SizedBox(height: RS.VS(10)),
         _buildBudgetFields(context),
       ],
     );
@@ -256,13 +257,13 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
       children: priorities.map((p) {
         final isSelected = _priority == p;
         return Padding(
-          padding: EdgeInsets.only(right: context.w(8)),
+          padding: EdgeInsets.only(right: RS.HS(8)),
           child: GestureDetector(
             onTap: () => setState(() => _priority = p),
             child: Container(
               padding: EdgeInsets.symmetric(
-                horizontal: context.w(16),
-                vertical: context.h(8),
+                horizontal: RS.HS(16),
+                vertical: RS.VS(8),
               ),
               decoration: BoxDecoration(
                 color: isSelected
@@ -278,7 +279,7 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
               child: Text(
                 p,
                 style: TextStyle(
-                  fontSize: context.s(13),
+                  fontSize: RS.FS(13),
                   fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
                   color: isSelected
                       ? CommonColors.primaryColor
@@ -303,7 +304,7 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
             hint: '\$ 250',
           ),
         ),
-        SizedBox(width: context.w(12)),
+        SizedBox(width: RS.HS(12)),
         Expanded(
           child: _buildBudgetField(
             context,
@@ -329,8 +330,8 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
         border: Border.all(color: CommonColors.borderDefault),
       ),
       padding: EdgeInsets.symmetric(
-        horizontal: context.w(14),
-        vertical: context.h(10),
+        horizontal: RS.HS(14),
+        vertical: RS.VS(10),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -338,25 +339,25 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
           Text(
             label,
             style: TextStyle(
-              fontSize: context.s(11),
+              fontSize: RS.FS(11),
               color: CommonColors.textTertiary,
               fontWeight: FontWeight.w500,
             ),
           ),
-          SizedBox(height: context.h(2)),
+          SizedBox(height: RS.VS(2)),
           TextField(
             controller: controller,
             keyboardType: TextInputType.number,
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             style: TextStyle(
-              fontSize: context.s(14),
+              fontSize: RS.FS(14),
               fontWeight: FontWeight.w500,
               color: CommonColors.primaryColor,
             ),
             decoration: InputDecoration(
               hintText: hint,
               hintStyle: TextStyle(
-                fontSize: context.s(14),
+                fontSize: RS.FS(14),
                 color: CommonColors.primaryColor,
               ),
               isDense: true,
@@ -374,9 +375,9 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildSectionHeader(context, 'Assignment', 'Who handles this lead?'),
-        SizedBox(height: context.h(20)),
+        SizedBox(height: RS.VS(20)),
         _buildLabel(context, 'Team'),
-        SizedBox(height: context.h(6)),
+        SizedBox(height: RS.VS(6)),
         _buildDropdown(
           context,
           value: _team,
@@ -384,9 +385,9 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
           items: const ['Sales Team A', 'Sales Team B', 'Support'],
           onChanged: (v) => setState(() => _team = v),
         ),
-        SizedBox(height: context.h(16)),
+        SizedBox(height: RS.VS(16)),
         _buildLabel(context, 'Assign To Agent'),
-        SizedBox(height: context.h(6)),
+        SizedBox(height: RS.VS(6)),
         _buildDropdown(
           context,
           value: _agent,
@@ -394,9 +395,9 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
           items: const ['Nour', 'Alex', 'Sara', 'John'],
           onChanged: (v) => setState(() => _agent = v),
         ),
-        SizedBox(height: context.h(16)),
+        SizedBox(height: RS.VS(16)),
         _buildLabel(context, 'Industry'),
-        SizedBox(height: context.h(6)),
+        SizedBox(height: RS.VS(6)),
         _buildDropdown(
           context,
           value: _industry,
@@ -410,9 +411,9 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
           ],
           onChanged: (v) => setState(() => _industry = v),
         ),
-        SizedBox(height: context.h(16)),
+        SizedBox(height: RS.VS(16)),
         _buildLabel(context, 'Notes', required: false, suffix: '(optional)'),
-        SizedBox(height: context.h(6)),
+        SizedBox(height: RS.VS(6)),
         CommonTextField(
           controller: _notesCtrl,
           hint: 'Write anything here',
@@ -433,16 +434,16 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
         Text(
           title,
           style: TextStyle(
-            fontSize: context.s(22),
+            fontSize: RS.FS(22),
             fontWeight: FontWeight.w600,
             color: CommonColors.textPrimary,
           ),
         ),
-        SizedBox(height: context.h(4)),
+        SizedBox(height: RS.VS(4)),
         Text(
           subtitle,
           style: TextStyle(
-            fontSize: context.s(15),
+            fontSize: RS.FS(15),
             color: CommonColors.textTertiary,
           ),
         ),
@@ -461,7 +462,7 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
         Text(
           label,
           style: TextStyle(
-            fontSize: context.s(14),
+            fontSize: RS.FS(14),
             height: 1.25,
             color: CommonColors.textPrimary,
           ),
@@ -469,14 +470,14 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
         if (required)
           Text(
             ' *',
-            style: TextStyle(fontSize: context.s(12), color: Colors.red),
+            style: TextStyle(fontSize: RS.FS(12), color: Colors.red),
           ),
         if (suffix != null) ...[
-          SizedBox(width: context.w(4)),
+          SizedBox(width: RS.HS(4)),
           Text(
             suffix,
             style: TextStyle(
-              fontSize: context.s(13),
+              fontSize: RS.FS(13),
               color: CommonColors.textTertiary,
             ),
           ),
@@ -502,11 +503,11 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
 
   Widget _svgPrefix(BuildContext context, String assetPath) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: context.w(12)),
+      padding: EdgeInsets.symmetric(horizontal: RS.HS(12)),
       child: SvgPicture.asset(
         assetPath,
-        width: context.w(18),
-        height: context.w(18),
+        width: RS.HS(18),
+        height: RS.HS(18),
         colorFilter: ColorFilter.mode(
           CommonColors.textTertiary,
           BlendMode.srcIn,
@@ -520,14 +521,14 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
     return Container(
       color: CommonColors.whiteColor,
       padding: EdgeInsets.fromLTRB(
-        context.w(16),
-        context.h(12),
-        context.w(16),
-        context.h(16) + MediaQuery.of(context).padding.bottom,
+        RS.HS(16),
+        RS.VS(12),
+        RS.HS(16),
+        RS.VS(16) + MediaQuery.of(context).padding.bottom,
       ),
       child: SizedBox(
         width: double.infinity,
-        height: context.h(52),
+        height: RS.VS(52),
         child: ElevatedButton(
           onPressed: _onContinue,
           style: ElevatedButton.styleFrom(
@@ -541,7 +542,7 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
           child: Text(
             isLastStep ? 'Save Lead' : 'Continue',
             style: TextStyle(
-              fontSize: context.s(16),
+              fontSize: RS.FS(16),
               fontWeight: FontWeight.w600,
             ),
           ),

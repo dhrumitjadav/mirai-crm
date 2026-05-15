@@ -34,7 +34,7 @@ class CommonColors {
   // static const Color txtTertiary = Color(0xff6B7280);
   static const Color redB52424 = Color(0xffff0000);
   static const Color appGreenColor = Color(0xff059669);
-  static const Color appRedColor = Color(0xffFA5F1C);
+  // static const Color appRedColor = Color(0xffFA5F1C);
   static const Color greyAEAEAE = Color(0xffAEAEAE);
   static const Color grey3B4A5E = Color(0xff3B4A5E);
   static const Color greyDEE2E6 = Color(0xffDEE2E6);
