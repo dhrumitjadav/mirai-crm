@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mirai_crm/utils/common_img.dart';
 import 'package:mirai_crm/utils/responsive.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
 import 'package:mirai_crm/utils/common_text_field.dart';
@@ -179,16 +181,21 @@ class _FilterSheetState extends State<FilterSheet> {
                         GestureDetector(
                           onTap: () => Navigator.pop(context),
                           child: Container(
-                            width: RS.HS(28),
-                            height: RS.HS(28),
+                            width: RS.HS(32),
+                            height: RS.HS(32),
+                            // padding: EdgeInsets.all(RS.VS(5)),
                             decoration: BoxDecoration(
                               color: CommonColors.grey100,
-                              borderRadius: BorderRadius.circular(8),
+                              shape: BoxShape.circle,
                             ),
-                            child: Icon(
-                              Icons.close,
-                              size: RS.HS(16),
-                              color: CommonColors.textSecondary,
+                            alignment: Alignment.center,
+                            child: SvgPicture.asset(
+                              height: RS.VS(22),
+                              CommonImg.crmCrossCircleOutlined,
+                              colorFilter: ColorFilter.mode(
+                                CommonColors.blackColor,
+                                BlendMode.srcIn,
+                              ),
                             ),
                           ),
                         ),
@@ -214,19 +221,20 @@ class _FilterSheetState extends State<FilterSheet> {
                     Wrap(
                       spacing: RS.HS(8),
                       runSpacing: RS.VS(8),
-                      children: [
-                        'All',
-                        'New',
-                        'Follow-up',
-                        'Contacted',
-                        'Closed',
-                      ].map((s) {
-                        return _FilterChip(
-                          label: s,
-                          selected: _statusSel.contains(s),
-                          onTap: () => _toggleStatus(s),
-                        );
-                      }).toList(),
+                      children:
+                          [
+                            'All',
+                            'New',
+                            'Follow-up',
+                            'Contacted',
+                            'Closed',
+                          ].map((s) {
+                            return _FilterChip(
+                              label: s,
+                              selected: _statusSel.contains(s),
+                              onTap: () => _toggleStatus(s),
+                            );
+                          }).toList(),
                     ),
                     SizedBox(height: RS.VS(20)),
                     _sectionLabel('Priority', _prioritySel.length),
@@ -248,11 +256,19 @@ class _FilterSheetState extends State<FilterSheet> {
                     CommonTextField(
                       controller: _campaignCtrl,
                       hint: 'Search Campaign...',
-                      prefixIcon: Icon(
-                        Icons.search,
-                        size: RS.HS(20),
-                        color: CommonColors.textTertiary,
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: RS.HS(12)),
+                        child: SvgPicture.asset(
+                          CommonImg.crmSearchOutlined,
+                          width: RS.HS(18),
+                          height: RS.HS(18),
+                          colorFilter: const ColorFilter.mode(
+                            CommonColors.textTertiary,
+                            BlendMode.srcIn,
+                          ),
+                        ),
                       ),
+                      showPrefixDivider: false,
                       textInputAction: TextInputAction.search,
                     ),
                     SizedBox(height: RS.VS(10)),
@@ -280,11 +296,19 @@ class _FilterSheetState extends State<FilterSheet> {
                     CommonTextField(
                       controller: _teamCtrl,
                       hint: 'Search Teams...',
-                      prefixIcon: Icon(
-                        Icons.search,
-                        size: RS.HS(20),
-                        color: CommonColors.textTertiary,
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: RS.HS(12)),
+                        child: SvgPicture.asset(
+                          CommonImg.crmSearchOutlined,
+                          width: RS.HS(18),
+                          height: RS.HS(18),
+                          colorFilter: const ColorFilter.mode(
+                            CommonColors.textTertiary,
+                            BlendMode.srcIn,
+                          ),
+                        ),
                       ),
+                      showPrefixDivider: false,
                       textInputAction: TextInputAction.search,
                     ),
                     SizedBox(height: RS.VS(10)),
@@ -312,11 +336,19 @@ class _FilterSheetState extends State<FilterSheet> {
                     CommonTextField(
                       controller: _agentCtrl,
                       hint: 'Search Agents...',
-                      prefixIcon: Icon(
-                        Icons.search,
-                        size: RS.HS(20),
-                        color: CommonColors.textTertiary,
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: RS.HS(12)),
+                        child: SvgPicture.asset(
+                          CommonImg.crmSearchOutlined,
+                          width: RS.HS(18),
+                          height: RS.HS(18),
+                          colorFilter: const ColorFilter.mode(
+                            CommonColors.textTertiary,
+                            BlendMode.srcIn,
+                          ),
+                        ),
                       ),
+                      showPrefixDivider: false,
                       textInputAction: TextInputAction.search,
                     ),
                     SizedBox(height: RS.VS(10)),
@@ -403,7 +435,7 @@ class _FilterSheetState extends State<FilterSheet> {
                               ),
                             ),
                             child: Text(
-                              'Show 7 Result',
+                              'Show $activeCount Result',
                               style: TextStyle(
                                 fontSize: RS.FS(14),
                                 fontWeight: FontWeight.w600,
@@ -461,10 +493,7 @@ class _FilterSheetState extends State<FilterSheet> {
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: CommonColors.borderDefault),
       ),
-      padding: EdgeInsets.symmetric(
-        horizontal: RS.HS(14),
-        vertical: RS.VS(10),
-      ),
+      padding: EdgeInsets.symmetric(horizontal: RS.HS(14), vertical: RS.VS(10)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

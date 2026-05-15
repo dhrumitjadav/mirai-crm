@@ -45,8 +45,12 @@ class LeadDetailController extends GetxController
   }
 
   void onCall() {}
+
   void onWhatsapp() {}
+
   void onEmail() {}
+
   void onEditLead() {}
+
   void onReassign() {}
 }

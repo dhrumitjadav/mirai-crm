@@ -56,8 +56,8 @@ class Repository {
   }
 
   Future<bool> isInternetAvailable() async {
-    final List<ConnectivityResult> connectivityResult =
-        await Connectivity().checkConnectivity();
+    final List<ConnectivityResult> connectivityResult = await Connectivity()
+        .checkConnectivity();
     return connectivityResult.contains(ConnectivityResult.mobile) ||
         connectivityResult.contains(ConnectivityResult.wifi);
   }
@@ -100,9 +100,11 @@ class Repository {
         Response response = await dio.post(url, data: body);
         responseJson = response.data;
       } else {
-        noInternetDialog(onRetry: () {
-          postApiCall(url: url, body: body);
-        });
+        noInternetDialog(
+          onRetry: () {
+            postApiCall(url: url, body: body);
+          },
+        );
       }
       return responseJson;
     } on DioException catch (e) {
@@ -132,9 +134,11 @@ class Repository {
         Response response = await dio.put(url, data: body);
         responseJson = response.data;
       } else {
-        noInternetDialog(onRetry: () {
-          putApiCall(url: url, body: body);
-        });
+        noInternetDialog(
+          onRetry: () {
+            putApiCall(url: url, body: body);
+          },
+        );
       }
       return responseJson;
     } on DioException catch (e) {
@@ -167,9 +171,11 @@ class Repository {
         );
         responseJson = response.data;
       } else {
-        noInternetDialog(onRetry: () {
-          multipartPostApiCall(url: url, formData: formData);
-        });
+        noInternetDialog(
+          onRetry: () {
+            multipartPostApiCall(url: url, formData: formData);
+          },
+        );
       }
       return responseJson;
     } on DioException catch (e) {
@@ -199,9 +205,11 @@ class Repository {
         Response response = await dio.delete(url);
         responseJson = response.data;
       } else {
-        noInternetDialog(onRetry: () {
-          deleteApiCall(url: url);
-        });
+        noInternetDialog(
+          onRetry: () {
+            deleteApiCall(url: url);
+          },
+        );
       }
       return responseJson;
     } on DioException catch (e) {

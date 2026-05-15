@@ -7,7 +7,6 @@ import 'package:mirai_crm/utils/common_delete_dialog.dart';
 import 'package:mirai_crm/utils/common_img.dart';
 import 'package:mirai_crm/widgets/leads/lead_list_card.dart';
 import 'package:mirai_crm/widgets/app_divider.dart';
-import 'package:mirai_crm/widgets/leads/filter_sheet.dart';
 import 'package:mirai_crm/widgets/leads/sort_bottom_sheet.dart';
 import 'package:mirai_crm/screens/leads/lead_detail_screen.dart';
 
@@ -194,12 +193,6 @@ class _LeadsScreenState extends State<LeadsScreen> {
             ),
           ),
           const Spacer(),
-          _HeaderAction(
-            icon: Icons.tune_rounded,
-            label: 'Filter',
-            onTap: () => showFilterSheet(context),
-          ),
-          SizedBox(width: RS.HS(8)),
           _HeaderAction(
             icon: Icons.swap_vert_rounded,
             label: 'Sort',

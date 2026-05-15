@@ -8,9 +8,7 @@ class MoreScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       backgroundColor: CommonColors.scaffoldBgColor,
-      body: Center(
-        child: Text('More'),
-      ),
+      body: Center(child: Text('More')),
     );
   }
 }

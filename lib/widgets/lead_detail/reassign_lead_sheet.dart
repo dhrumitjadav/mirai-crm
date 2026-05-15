@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mirai_crm/utils/common_img.dart';
 import 'package:mirai_crm/utils/responsive.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
 import 'package:mirai_crm/utils/common_text_field.dart';
@@ -177,10 +179,17 @@ class _ReassignLeadSheetState extends State<ReassignLeadSheet> {
                     CommonTextField(
                       controller: _searchCtrl,
                       hint: 'Search Agent...',
-                      prefixIcon: Icon(
-                        Icons.search,
-                        size: RS.HS(20),
-                        color: CommonColors.textTertiary,
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: RS.HS(12)),
+                        child: SvgPicture.asset(
+                          CommonImg.crmSearchOutlined,
+                          width: RS.HS(18),
+                          height: RS.HS(18),
+                          colorFilter: const ColorFilter.mode(
+                            CommonColors.textTertiary,
+                            BlendMode.srcIn,
+                          ),
+                        ),
                       ),
                       textInputAction: TextInputAction.search,
                     ),
@@ -209,7 +218,7 @@ class _ReassignLeadSheetState extends State<ReassignLeadSheet> {
                                 width: RS.HS(40),
                                 height: RS.HS(40),
                                 decoration: BoxDecoration(
-                                  color:agent.isActive
+                                  color: agent.isActive
                                       ? CommonColors.green50
                                       : CommonColors.warning100,
                                   shape: BoxShape.circle,

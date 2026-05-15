@@ -18,5 +18,6 @@ class AppString {
   static const String doNotHaveAccount = "Don't have an account? Sign up here.";
   static const String haveAccount = "Have an account? Login here.";
   static const String deleteWarning = "Are you sure you want to delete";
-  static const String logoutWarning = 'Are you sure you want to logout from the app?';
+  static const String logoutWarning =
+      'Are you sure you want to logout from the app?';
 }

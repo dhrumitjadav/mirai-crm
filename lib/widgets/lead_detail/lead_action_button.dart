@@ -7,7 +7,11 @@ class LeadActionButton extends StatelessWidget {
   final String svgPath;
   final Color color;
 
-  const LeadActionButton({super.key, required this.svgPath, required this.color});
+  const LeadActionButton({
+    super.key,
+    required this.svgPath,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) {

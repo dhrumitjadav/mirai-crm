@@ -84,7 +84,7 @@ class LeadFileItem extends StatelessWidget {
               height: RS.HS(30),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                border: Border.all(color: CommonColors.info50)
+                border: Border.all(color: CommonColors.info50),
               ),
               child: Center(
                 child: SvgPicture.asset(
@@ -111,7 +111,6 @@ class LeadFileItem extends StatelessWidget {
               if (confirmed) onDelete(index);
             },
             child: Container(
-
               padding: EdgeInsets.all(RS.HS(8)),
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,

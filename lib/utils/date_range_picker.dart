@@ -29,8 +29,18 @@ class _DateRangePickerState extends State<DateRangePicker> {
 
   static const _weekdays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
   static const _months = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December',
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
   ];
 
   @override
@@ -85,12 +95,15 @@ class _DateRangePickerState extends State<DateRangePicker> {
   }
 
   bool _isStart(DateTime d) => _startDate != null && _isSameDay(d, _startDate!);
+
   bool _isEnd(DateTime d) => _endDate != null && _isSameDay(d, _endDate!);
+
   bool _isInRange(DateTime d) =>
       _startDate != null &&
       _endDate != null &&
       d.isAfter(_startDate!) &&
       d.isBefore(_endDate!);
+
   bool _isSameDay(DateTime a, DateTime b) =>
       a.year == b.year && a.month == b.month && a.day == b.day;
 
@@ -315,16 +328,27 @@ class _DateRangePickerState extends State<DateRangePicker> {
 
   Widget _buildDaysGrid(BuildContext context) {
     final firstDay = DateTime(_currentMonth.year, _currentMonth.month, 1);
-    final daysInMonth =
-        DateTime(_currentMonth.year, _currentMonth.month + 1, 0).day;
-    final prevMonthDays =
-        DateTime(_currentMonth.year, _currentMonth.month, 0).day;
+    final daysInMonth = DateTime(
+      _currentMonth.year,
+      _currentMonth.month + 1,
+      0,
+    ).day;
+    final prevMonthDays = DateTime(
+      _currentMonth.year,
+      _currentMonth.month,
+      0,
+    ).day;
     final startWeekday = firstDay.weekday % 7;
 
     final List<DateTime> days = [];
     for (int i = startWeekday - 1; i >= 0; i--) {
-      days.add(DateTime(
-          _currentMonth.year, _currentMonth.month - 1, prevMonthDays - i));
+      days.add(
+        DateTime(
+          _currentMonth.year,
+          _currentMonth.month - 1,
+          prevMonthDays - i,
+        ),
+      );
     }
     for (int d = 1; d <= daysInMonth; d++) {
       days.add(DateTime(_currentMonth.year, _currentMonth.month, d));
@@ -332,7 +356,8 @@ class _DateRangePickerState extends State<DateRangePicker> {
     int nextDay = 1;
     while (days.length % 7 != 0) {
       days.add(
-          DateTime(_currentMonth.year, _currentMonth.month + 1, nextDay++));
+        DateTime(_currentMonth.year, _currentMonth.month + 1, nextDay++),
+      );
     }
 
     final weeks = days.length ~/ 7;
@@ -423,11 +448,11 @@ class _DateRangePickerState extends State<DateRangePicker> {
                                 bottomLeft: Radius.circular(8),
                               )
                             : isEnd
-                                ? const BorderRadius.only(
-                                    topRight: Radius.circular(8),
-                                    bottomRight: Radius.circular(8),
-                                  )
-                                : BorderRadius.circular(10),
+                            ? const BorderRadius.only(
+                                topRight: Radius.circular(8),
+                                bottomRight: Radius.circular(8),
+                              )
+                            : BorderRadius.circular(10),
                       )
                     : null,
                 child: Center(
@@ -435,15 +460,16 @@ class _DateRangePickerState extends State<DateRangePicker> {
                     '${day.day}',
                     style: TextStyle(
                       fontSize: RS.FS(13),
-                      fontWeight:
-                          isSelected ? FontWeight.w700 : FontWeight.w400,
+                      fontWeight: isSelected
+                          ? FontWeight.w700
+                          : FontWeight.w400,
                       color: isSelected
                           ? CommonColors.whiteColor
                           : !isCurrentMonth
-                              ? CommonColors.grey300
-                              : isInRange
-                                  ? CommonColors.primaryColor
-                                  : CommonColors.textPrimary,
+                          ? CommonColors.grey300
+                          : isInRange
+                          ? CommonColors.primaryColor
+                          : CommonColors.textPrimary,
                     ),
                   ),
                 ),

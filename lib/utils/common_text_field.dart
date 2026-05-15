@@ -20,6 +20,7 @@ class CommonTextField extends StatelessWidget {
   final FocusNode? focusNode;
   final List<TextInputFormatter>? inputFormatters;
   final Widget? prefixIcon;
+  final bool showPrefixDivider;
   final Widget? suffixIcon;
   final VoidCallback? onSubmitted;
 
@@ -41,6 +42,7 @@ class CommonTextField extends StatelessWidget {
     this.focusNode,
     this.inputFormatters,
     this.prefixIcon,
+    this.showPrefixDivider = true,
     this.suffixIcon,
     this.onSubmitted,
   });
@@ -94,12 +96,14 @@ class CommonTextField extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   prefixIcon!,
-                  Container(
-                    width: 1,
-                    height: RS.VS(20),
-                    color: CommonColors.textPlaceholder,
-                  ),
-                  SizedBox(width: RS.HS(8)),
+                  if (showPrefixDivider) ...[
+                    Container(
+                      width: 1,
+                      height: RS.VS(20),
+                      color: CommonColors.textPlaceholder,
+                    ),
+                    SizedBox(width: RS.HS(8)),
+                  ],
                 ],
               )
             : null,

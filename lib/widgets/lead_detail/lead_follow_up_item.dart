@@ -80,7 +80,10 @@ class LeadFollowUpItem extends StatelessWidget {
                           : CommonColors.warning50,
                       border: isConnected
                           ? Border.all(color: CommonColors.green600, width: 1)
-                          : Border.all(color: CommonColors.warning500, width: 1),
+                          : Border.all(
+                              color: CommonColors.warning500,
+                              width: 1,
+                            ),
                     ),
                     child: isConnected
                         ? SvgPicture.asset(

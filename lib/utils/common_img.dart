@@ -36,6 +36,7 @@ class CommonImg {
   static const String crmPhoneOutlined = '$_o/phone.svg';
   static const String crmPersonOutlined = '$_o/person.svg';
   static const String crmPersonAddOutlined = '$_o/person_add.svg';
+  static const String crmPieChartOutlined = '$_o/pie_chart.svg';
   static const String crmPlayOutlined = '$_o/play.svg';
   static const String crmSettingsOutlined = '$_o/settings.svg';
   static const String crmSettingGearOutlined = '$_o/setting_gear.svg';
@@ -50,6 +51,7 @@ class CommonImg {
   static const String crmWarningOutlined = '$_o/warning.svg';
   static const String crmWaveChartOutlined = '$_o/wave_chart.svg';
   static const String crmWhatsappOutlined = '$_o/whatsapp.svg';
+  static const String crmSearchOutlined = '$_o/search.svg';
 
   // CRM filled icons
   static const String _f = 'assets/icons/crm_filled';

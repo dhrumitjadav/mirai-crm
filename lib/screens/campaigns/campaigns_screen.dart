@@ -8,9 +8,7 @@ class CampaignsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       backgroundColor: CommonColors.scaffoldBgColor,
-      body: Center(
-        child: Text('Campaigns'),
-      ),
+      body: Center(child: Text('Campaigns')),
     );
   }
 }

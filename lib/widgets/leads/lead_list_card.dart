@@ -78,12 +78,7 @@ class LeadListCard extends StatelessWidget {
               height: RS.VS(37),
               margin: const EdgeInsets.only(top: 3),
               alignment: Alignment.topLeft,
-              padding: EdgeInsets.fromLTRB(
-                RS.HS(12),
-                RS.VS(7),
-                RS.HS(17),
-                0,
-              ),
+              padding: EdgeInsets.fromLTRB(RS.HS(12), RS.VS(7), RS.HS(17), 0),
               decoration: BoxDecoration(
                 color: CommonColors.green600,
                 borderRadius: BorderRadius.only(

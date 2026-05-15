@@ -8,9 +8,7 @@ class TaskScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       backgroundColor: CommonColors.scaffoldBgColor,
-      body: Center(
-        child: Text('Task'),
-      ),
+      body: Center(child: Text('Task')),
     );
   }
 }

@@ -48,7 +48,7 @@ class _MoreSheet extends StatelessWidget {
         _Item(
           label: 'Reports',
           subtitle: 'Analytics & exports',
-          icon: CommonImg.crmMailOutlined,
+          icon: CommonImg.crmPieChartOutlined,
           iconBg: CommonColors.grey600,
         ),
         _Item(
@@ -137,10 +137,7 @@ class _MoreSheet extends StatelessWidget {
                 ],
               ),
               child: Column(
-                children: [
-                  _buildHandle(context),
-                  _buildProfile(context),
-                ],
+                children: [_buildHandle(context), _buildProfile(context)],
               ),
             ),
             Expanded(
@@ -176,10 +173,7 @@ class _MoreSheet extends StatelessWidget {
 
   Widget _buildProfile(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: RS.HS(16),
-        vertical: RS.VS(12),
-      ),
+      padding: EdgeInsets.symmetric(horizontal: RS.HS(16), vertical: RS.VS(12)),
       child: Row(
         children: [
           Container(

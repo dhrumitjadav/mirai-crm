@@ -98,12 +98,7 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
   Widget _buildStepIndicator(BuildContext context) {
     return Container(
       color: CommonColors.whiteColor,
-      padding: EdgeInsets.fromLTRB(
-        RS.HS(24),
-        RS.VS(10),
-        RS.HS(24),
-        RS.VS(14),
-      ),
+      padding: EdgeInsets.fromLTRB(RS.HS(24), RS.VS(10), RS.HS(24), RS.VS(14)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -329,10 +324,7 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: CommonColors.borderDefault),
       ),
-      padding: EdgeInsets.symmetric(
-        horizontal: RS.HS(14),
-        vertical: RS.VS(10),
-      ),
+      padding: EdgeInsets.symmetric(horizontal: RS.HS(14), vertical: RS.VS(10)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -541,10 +533,7 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
           ),
           child: Text(
             isLastStep ? 'Save Lead' : 'Continue',
-            style: TextStyle(
-              fontSize: RS.FS(16),
-              fontWeight: FontWeight.w600,
-            ),
+            style: TextStyle(fontSize: RS.FS(16), fontWeight: FontWeight.w600),
           ),
         ),
       ),

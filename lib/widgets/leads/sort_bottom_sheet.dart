@@ -98,10 +98,7 @@ class _SortSheetState extends State<_SortSheet> {
               ],
             ),
             child: Column(
-              children: [
-                _buildHandle(context),
-                _buildHeader(context),
-              ],
+              children: [_buildHandle(context), _buildHeader(context)],
             ),
           ),
           AppDivider(indent: 20, endIndent: 20),
@@ -162,10 +159,7 @@ class _SortSheetState extends State<_SortSheet> {
 
   Widget _buildHeader(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: RS.HS(16),
-        vertical: RS.VS(14),
-      ),
+      padding: EdgeInsets.symmetric(horizontal: RS.HS(16), vertical: RS.VS(14)),
       child: Row(
         children: [
           Text(

@@ -12,10 +12,8 @@ Future<({DateTime start, DateTime end})?> showDateRangePickerSheet(
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    builder: (_) => _DateRangeSheet(
-      initialStart: initialStart,
-      initialEnd: initialEnd,
-    ),
+    builder: (_) =>
+        _DateRangeSheet(initialStart: initialStart, initialEnd: initialEnd),
   );
 }
 
@@ -69,10 +67,7 @@ class _DateRangeSheetState extends State<_DateRangeSheet> {
               ],
             ),
             child: Column(
-              children: [
-                _buildHandle(context),
-                _buildHeader(context),
-              ],
+              children: [_buildHandle(context), _buildHeader(context)],
             ),
           ),
           _buildCustomRow(context),
@@ -99,10 +94,7 @@ class _DateRangeSheetState extends State<_DateRangeSheet> {
 
   Widget _buildHeader(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: RS.HS(16),
-        vertical: RS.VS(14),
-      ),
+      padding: EdgeInsets.symmetric(horizontal: RS.HS(16), vertical: RS.VS(14)),
       child: Row(
         children: [
           Text(
@@ -129,39 +121,33 @@ class _DateRangeSheetState extends State<_DateRangeSheet> {
 
   Widget _buildCalendarCard(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(
-        horizontal: RS.HS(16),
-        vertical: RS.VS(4),
-      ),
+      margin: EdgeInsets.symmetric(horizontal: RS.HS(16), vertical: RS.VS(4)),
       decoration: BoxDecoration(
         color: CommonColors.whiteColor,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.all(RS.HS(16)),
-              child: DateRangePicker(
-                initialStart: _startDate,
-                initialEnd: _endDate,
-                onRangeChanged: (start, end) => setState(() {
-                  _startDate = start;
-                  _endDate = end;
-                }),
-              ),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.all(RS.HS(16)),
+            child: DateRangePicker(
+              initialStart: _startDate,
+              initialEnd: _endDate,
+              onRangeChanged: (start, end) => setState(() {
+                _startDate = start;
+                _endDate = end;
+              }),
             ),
-          ],
+          ),
+        ],
       ),
     );
   }
 
   Widget _buildCustomRow(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: RS.HS(16),
-        vertical: RS.VS(14),
-      ),
+      padding: EdgeInsets.symmetric(horizontal: RS.HS(16), vertical: RS.VS(14)),
       child: Row(
         children: [
           Text(
@@ -198,21 +184,14 @@ class _DateRangeSheetState extends State<_DateRangeSheet> {
 
   Widget _buildActions(BuildContext context, bool canApply) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(
-        RS.HS(16),
-        RS.VS(8),
-        RS.HS(16),
-        RS.VS(16),
-      ),
+      padding: EdgeInsets.fromLTRB(RS.HS(16), RS.VS(8), RS.HS(16), RS.VS(16)),
       child: SizedBox(
         width: double.infinity,
         height: RS.VS(50),
         child: ElevatedButton(
           onPressed: canApply
-              ? () => Navigator.pop(
-                    context,
-                    (start: _startDate!, end: _endDate!),
-                  )
+              ? () =>
+                    Navigator.pop(context, (start: _startDate!, end: _endDate!))
               : null,
           style: ElevatedButton.styleFrom(
             backgroundColor: CommonColors.primaryColor,
@@ -221,14 +200,12 @@ class _DateRangeSheetState extends State<_DateRangeSheet> {
             disabledForegroundColor: CommonColors.greyAEAEAE,
             elevation: 0,
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10)),
+              borderRadius: BorderRadius.circular(10),
+            ),
           ),
           child: Text(
             'Apply',
-            style: TextStyle(
-              fontSize: RS.FS(15),
-              fontWeight: FontWeight.w600,
-            ),
+            style: TextStyle(fontSize: RS.FS(15), fontWeight: FontWeight.w600),
           ),
         ),
       ),

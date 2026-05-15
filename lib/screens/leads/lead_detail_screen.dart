@@ -352,16 +352,16 @@ class _LeadDetailScreenState extends State<LeadDetailScreen>
   Widget _buildTabBar(BuildContext context) {
     return TabBar(
       controller: _tabController,
-      isScrollable: true,
-      tabAlignment: TabAlignment.start,
+      physics: AlwaysScrollableScrollPhysics(),
       indicatorColor: CommonColors.primaryColor,
       indicatorSize: TabBarIndicatorSize.tab,
       indicatorWeight: 2,
       labelColor: CommonColors.primaryColor,
       unselectedLabelColor: CommonColors.textTertiary,
-      labelStyle: TextStyle(fontSize: RS.FS(13), fontWeight: FontWeight.w600),
+      labelPadding: EdgeInsets.symmetric(horizontal: RS.HS(4)),
+      labelStyle: TextStyle(fontSize: RS.FS(14), fontWeight: FontWeight.w600),
       unselectedLabelStyle: TextStyle(
-        fontSize: RS.FS(13),
+        fontSize: RS.FS(14),
         fontWeight: FontWeight.w400,
       ),
       dividerColor: CommonColors.borderSubtle,
@@ -679,7 +679,17 @@ class _LeadDetailScreenState extends State<LeadDetailScreen>
 
   Widget _buildBottomBar(BuildContext context) {
     return Container(
-      color: CommonColors.whiteColor,
+      decoration: BoxDecoration(
+        color: CommonColors.whiteColor,
+        border: Border(top: BorderSide(color: CommonColors.borderDefault)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.08),
+            offset: Offset(2, 0),
+            blurRadius: 2,
+          ),
+        ],
+      ),
       padding: EdgeInsets.fromLTRB(
         RS.HS(16),
         RS.VS(12),

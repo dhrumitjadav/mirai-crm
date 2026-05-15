@@ -13,6 +13,8 @@ import 'package:mirai_crm/utils/common_img.dart';
 import 'package:mirai_crm/widgets/dashboard/quick_action_card.dart';
 import 'package:mirai_crm/widgets/more_bottom_sheet.dart';
 
+import '../widgets/leads/filter_sheet.dart';
+
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
@@ -256,23 +258,27 @@ class _MainScreenState extends State<MainScreen> {
 
   Widget _buildSearchBar(BuildContext context) {
     return TextFormField(
-      style: TextStyle(
-        fontSize: RS.FS(12),
-        color: CommonColors.textPrimary,
-      ),
+      style: TextStyle(fontSize: RS.FS(12), color: CommonColors.textPrimary),
       decoration: InputDecoration(
         hintText: 'Search leads, campaigns...',
         hintStyle: TextStyle(
           fontSize: RS.FS(12),
           color: CommonColors.greyAEAEAE,
         ),
-        prefixIcon: Icon(
-          Icons.search,
-          size: RS.HS(18),
-          color: CommonColors.greyAEAEAE,
+        prefixIcon: Padding(
+          padding: EdgeInsets.symmetric(horizontal: RS.HS(12)),
+          child: SvgPicture.asset(
+            CommonImg.crmSearchOutlined,
+            width: RS.HS(18),
+            height: RS.HS(18),
+            colorFilter: const ColorFilter.mode(
+              CommonColors.textTertiary,
+              BlendMode.srcIn,
+            ),
+          ),
         ),
         filled: true,
-        fillColor: const Color(0xFFF0F2F5),
+        fillColor: CommonColors.colorCardBgHover,
         contentPadding: EdgeInsets.symmetric(vertical: RS.VS(11)),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
@@ -321,23 +327,27 @@ class _MainScreenState extends State<MainScreen> {
     return SizedBox(
       height: RS.VS(38),
       child: TextFormField(
-        style: TextStyle(
-          fontSize: RS.FS(12),
-          color: CommonColors.textPrimary,
-        ),
+        style: TextStyle(fontSize: RS.FS(12), color: CommonColors.textPrimary),
         decoration: InputDecoration(
           hintText: 'Search leads...',
           hintStyle: TextStyle(
             fontSize: RS.FS(12),
             color: CommonColors.greyAEAEAE,
           ),
-          prefixIcon: Icon(
-            Icons.search,
-            size: RS.HS(16),
-            color: CommonColors.greyAEAEAE,
+          prefixIcon: Padding(
+            padding: EdgeInsets.symmetric(horizontal: RS.HS(12)),
+            child: SvgPicture.asset(
+              CommonImg.crmSearchOutlined,
+              width: RS.HS(18),
+              height: RS.HS(18),
+              colorFilter: const ColorFilter.mode(
+                CommonColors.textTertiary,
+                BlendMode.srcIn,
+              ),
+            ),
           ),
           filled: true,
-          fillColor: const Color(0xFFF0F2F5),
+          fillColor: CommonColors.colorCardBgHover,
           contentPadding: EdgeInsets.zero,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
@@ -357,21 +367,24 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   Widget _buildIconBtn(BuildContext context, String svgPath) {
-    return Container(
-      width: RS.HS(38),
-      height: RS.VS(38),
-      decoration: BoxDecoration(
-        color: const Color(0xFFF0F2F5),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Center(
-        child: SvgPicture.asset(
-          svgPath,
-          width: RS.HS(16),
-          height: RS.HS(16),
-          colorFilter: const ColorFilter.mode(
-            CommonColors.grey475569,
-            BlendMode.srcIn,
+    return GestureDetector(
+      onTap: () => showFilterSheet(context),
+      child: Container(
+        width: RS.HS(38),
+        height: RS.VS(38),
+        decoration: BoxDecoration(
+          color: const Color(0xFFF0F2F5),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Center(
+          child: SvgPicture.asset(
+            svgPath,
+            width: RS.HS(16),
+            height: RS.HS(16),
+            colorFilter: const ColorFilter.mode(
+              CommonColors.grey475569,
+              BlendMode.srcIn,
+            ),
           ),
         ),
       ),
@@ -393,11 +406,7 @@ class _MainScreenState extends State<MainScreen> {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              Icons.add,
-              size: RS.HS(16),
-              color: CommonColors.whiteColor,
-            ),
+            Icon(Icons.add, size: RS.HS(16), color: CommonColors.whiteColor),
             SizedBox(width: RS.HS(4)),
             Text(
               'Add',

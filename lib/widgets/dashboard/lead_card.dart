@@ -51,10 +51,7 @@ class LeadCard extends StatelessWidget {
   Widget build(BuildContext context) {
     RS.init(context);
     return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: RS.HS(14),
-        vertical: RS.VS(12),
-      ),
+      padding: EdgeInsets.symmetric(horizontal: RS.HS(14), vertical: RS.VS(12)),
       child: Row(
         children: [
           Container(
@@ -101,7 +98,7 @@ class LeadCard extends StatelessWidget {
                     ),
                     SizedBox(width: RS.HS(16)),
                     SvgPicture.asset(
-                      CommonImg.crmBookmarkOutlined,
+                      CommonImg.crmPersonOutlined,
                       height: RS.VS(12),
                       colorFilter: ColorFilter.mode(
                         CommonColors.blackColor,
