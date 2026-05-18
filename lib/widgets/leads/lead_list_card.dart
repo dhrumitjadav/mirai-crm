@@ -102,11 +102,11 @@ class LeadListCard extends StatelessWidget {
           ),
           padding: EdgeInsets.all(RS.VS(16)),
           decoration: BoxDecoration(
-            color: isSelected
-                ? CommonColors.primaryColor.withValues(alpha: 0.04)
-                : CommonColors.whiteColor,
+            color: CommonColors.whiteColor,
             borderRadius: BorderRadius.circular(14),
-            border: isSelected ? Border.all(color: CommonColors.red200) : null,
+            border: isSelected
+                ? Border.all(color: CommonColors.red200)
+                : Border.all(color: Colors.transparent),
             boxShadow: isSelected
                 ? null
                 : [

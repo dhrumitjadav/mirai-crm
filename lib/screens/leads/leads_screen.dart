@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -6,7 +7,8 @@ import 'package:mirai_crm/utils/common_colors.dart';
 import 'package:mirai_crm/utils/common_delete_dialog.dart';
 import 'package:mirai_crm/utils/common_img.dart';
 import 'package:mirai_crm/widgets/leads/lead_list_card.dart';
-import 'package:mirai_crm/widgets/app_divider.dart';
+import 'package:mirai_crm/widgets/leads/filter_sheet.dart';
+import 'package:mirai_crm/widgets/lead_detail/reassign_lead_sheet.dart';
 import 'package:mirai_crm/widgets/leads/sort_bottom_sheet.dart';
 import 'package:mirai_crm/screens/leads/lead_detail_screen.dart';
 
@@ -78,6 +80,20 @@ class _LeadsScreenState extends State<LeadsScreen> {
 
   bool _isSelectMode = false;
   final Set<int> _selectedIndices = {};
+  late final TapGestureRecognizer _filterTapRecognizer;
+
+  @override
+  void initState() {
+    super.initState();
+    _filterTapRecognizer = TapGestureRecognizer()
+      ..onTap = () => showFilterSheet(context);
+  }
+
+  @override
+  void dispose() {
+    _filterTapRecognizer.dispose();
+    super.dispose();
+  }
 
   void _enterSelectMode(int index) {
     setState(() {
@@ -193,6 +209,12 @@ class _LeadsScreenState extends State<LeadsScreen> {
             ),
           ),
           const Spacer(),
+          _HeaderAction(
+            icon: Icons.tune_rounded,
+            label: 'Filter',
+            onTap: () => showFilterSheet(context),
+          ),
+          SizedBox(width: RS.HS(8)),
           _HeaderAction(
             icon: Icons.swap_vert_rounded,
             label: 'Sort',
@@ -332,7 +354,6 @@ class _LeadsScreenState extends State<LeadsScreen> {
       padding: EdgeInsets.symmetric(vertical: RS.VS(10)),
       child: Column(
         children: [
-          AppDivider(),
           Text(
             'Showing leads from the last 7 days',
             style: TextStyle(
@@ -351,9 +372,10 @@ class _LeadsScreenState extends State<LeadsScreen> {
               children: [
                 TextSpan(
                   text: 'filter',
+                  recognizer: _filterTapRecognizer,
                   style: TextStyle(
                     color: CommonColors.primaryColor,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w500,
                     decoration: TextDecoration.underline,
                     decorationColor: CommonColors.primaryColor,
                   ),
@@ -384,7 +406,12 @@ class _LeadsScreenState extends State<LeadsScreen> {
         children: [
           Expanded(
             child: OutlinedButton.icon(
-              onPressed: () {},
+              onPressed: () => showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                backgroundColor: Colors.transparent,
+                builder: (_) => const ReassignLeadSheet(),
+              ),
               icon: Icon(Icons.person_add_outlined, size: RS.HS(16)),
               label: const Text('Reassign'),
               style: OutlinedButton.styleFrom(

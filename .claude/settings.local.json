@@ -10,7 +10,8 @@
       "Bash(Get-ChildItem -Recurse \"E:\\\\Flutter\\\\mirai_crm\\\\assets\\\\icons\")",
       "Bash(Select-Object FullName, Name)",
       "Bash(Format-Table -AutoSize)",
-      "Bash(dart analyze *)"
+      "Bash(dart analyze *)",
+      "Bash(del *)"
     ]
   }
 }
