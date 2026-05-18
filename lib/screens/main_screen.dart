@@ -13,7 +13,10 @@ import 'package:mirai_crm/utils/common_img.dart';
 import 'package:mirai_crm/widgets/dashboard/quick_action_card.dart';
 import 'package:mirai_crm/widgets/more_bottom_sheet.dart';
 
-import '../widgets/leads/filter_sheet.dart';
+import 'package:mirai_crm/widgets/campaigns/campaign_filter_sheet.dart';
+import 'package:mirai_crm/widgets/campaigns/campaign_sort_sheet.dart';
+import 'package:mirai_crm/widgets/leads/filter_sheet.dart';
+import 'package:mirai_crm/widgets/leads/sort_bottom_sheet.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -141,6 +144,7 @@ class _MainScreenState extends State<MainScreen> {
   AppBar _buildAppBar(BuildContext context) {
     final isDashboard = _selectedIndex == 3;
     final isLeads = _selectedIndex == 0;
+    final isCampaigns = _selectedIndex == 1;
 
     return AppBar(
       title: Row(
@@ -232,9 +236,6 @@ class _MainScreenState extends State<MainScreen> {
           ? PreferredSize(
               preferredSize: const Size.fromHeight(56),
               child: Container(
-                // decoration: BoxDecoration(
-                //   border: Border(bottom: BorderSide(color: CommonColors.borderDefault)),
-                // ),
                 padding: EdgeInsets.fromLTRB(
                   RS.HS(16),
                   0,
@@ -248,6 +249,27 @@ class _MainScreenState extends State<MainScreen> {
                     _buildIconBtn(context, CommonImg.crmFunnelOutlined),
                     SizedBox(width: RS.HS(8)),
                     _buildAddBtn(context),
+                  ],
+                ),
+              ),
+            )
+          : isCampaigns
+          ? PreferredSize(
+              preferredSize: const Size.fromHeight(56),
+              child: Container(
+                padding: EdgeInsets.fromLTRB(
+                  RS.HS(16),
+                  0,
+                  RS.HS(16),
+                  RS.VS(10),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(child: _buildCampaignsSearchBar(context)),
+                    SizedBox(width: RS.HS(8)),
+                    _buildFilterBtnWithBadge(context),
+                    SizedBox(width: RS.HS(8)),
+                    _buildSortTextBtn(context),
                   ],
                 ),
               ),
@@ -366,9 +388,9 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  Widget _buildIconBtn(BuildContext context, String svgPath) {
+  Widget _buildIconBtn(BuildContext context, String svgPath, {VoidCallback? onTap}) {
     return GestureDetector(
-      onTap: () => showFilterSheet(context),
+      onTap: onTap ?? () => showFilterSheet(context),
       child: Container(
         width: RS.HS(38),
         height: RS.VS(38),
@@ -386,6 +408,116 @@ class _MainScreenState extends State<MainScreen> {
               BlendMode.srcIn,
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCampaignsSearchBar(BuildContext context) {
+    return SizedBox(
+      height: RS.VS(38),
+      child: TextFormField(
+        style: TextStyle(fontSize: RS.FS(12), color: CommonColors.textPrimary),
+        decoration: InputDecoration(
+          hintText: 'Search campaigns...',
+          hintStyle: TextStyle(
+            fontSize: RS.FS(12),
+            color: CommonColors.greyAEAEAE,
+          ),
+          prefixIcon: Padding(
+            padding: EdgeInsets.symmetric(horizontal: RS.HS(12)),
+            child: SvgPicture.asset(
+              CommonImg.crmSearchOutlined,
+              width: RS.HS(18),
+              height: RS.HS(18),
+              colorFilter: const ColorFilter.mode(
+                CommonColors.textTertiary,
+                BlendMode.srcIn,
+              ),
+            ),
+          ),
+          filled: true,
+          fillColor: CommonColors.colorCardBgHover,
+          contentPadding: EdgeInsets.zero,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide.none,
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide.none,
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide.none,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFilterBtnWithBadge(BuildContext context) {
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        _buildIconBtn(
+          context,
+          CommonImg.crmFunnelOutlined,
+          onTap: () => showCampaignFilterSheet(context),
+        ),
+        Positioned(
+          top: -RS.VS(3),
+          right: -RS.HS(3),
+          child: Container(
+            width: RS.HS(15),
+            height: RS.HS(15),
+            decoration: const BoxDecoration(
+              color: CommonColors.primaryColor,
+              shape: BoxShape.circle,
+            ),
+            child: Center(
+              child: Text(
+                '2',
+                style: TextStyle(
+                  fontSize: RS.FS(9),
+                  fontWeight: FontWeight.w700,
+                  color: CommonColors.whiteColor,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSortTextBtn(BuildContext context) {
+    return GestureDetector(
+      onTap: () => showCampaignSortSheet(context),
+      child: Container(
+        height: RS.VS(38),
+        padding: EdgeInsets.symmetric(horizontal: RS.HS(12)),
+        decoration: BoxDecoration(
+          color: const Color(0xFFF0F2F5),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              Icons.swap_vert_rounded,
+              size: RS.HS(16),
+              color: CommonColors.grey475569,
+            ),
+            SizedBox(width: RS.HS(4)),
+            Text(
+              'Sort',
+              style: TextStyle(
+                fontSize: RS.FS(12),
+                color: CommonColors.grey475569,
+              ),
+            ),
+          ],
         ),
       ),
     );

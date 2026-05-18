@@ -58,7 +58,7 @@ showAlertDialog({String? msg}) {
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 13,
-                color: CommonColors.hintColor,
+                color: CommonColors.grey700,
                 height: 1.5,
               ),
             ),
@@ -134,7 +134,7 @@ noInternetDialog({required Function() onRetry}) {
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 13,
-                color: CommonColors.hintColor,
+                color: CommonColors.grey700,
                 height: 1.5,
               ),
             ),

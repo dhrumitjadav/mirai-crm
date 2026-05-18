@@ -1,7 +1,7 @@
 ﻿import 'package:flutter/material.dart';
 import 'package:mirai_crm/utils/responsive.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
-import 'package:mirai_crm/widgets/section_header.dart';
+import 'package:mirai_crm/widgets/app_card.dart';
 
 class AgentPerformanceSection extends StatelessWidget {
   const AgentPerformanceSection({super.key});
@@ -30,24 +30,19 @@ class AgentPerformanceSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     RS.init(context);
-    return Container(
-      padding: EdgeInsets.all(RS.HS(16)),
-      decoration: BoxDecoration(
-        color: CommonColors.whiteColor,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: CommonColors.borderDefault),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SectionHeader(
-            title: 'Agent Performance',
-            prefixText: 'View All Agents',
-            onViewAll: () {},
-          ),
-          SizedBox(height: RS.VS(14)),
-          ..._agents.map((a) => _AgentRow(agent: a)),
-        ],
+    return AppCard(
+      radius: 10,
+      title: 'Agent Performance',
+      prefixText: 'View All Agents',
+      onViewAll: () {},
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(RS.HS(16), RS.VS(0), RS.HS(16), RS.VS(16)),
+        child: Column(
+          children: [
+            SizedBox(height: RS.VS(14)),
+            ..._agents.map((a) => _AgentRow(agent: a)),
+          ],
+        ),
       ),
     );
   }

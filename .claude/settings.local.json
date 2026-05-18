@@ -11,7 +11,10 @@
       "Bash(Select-Object FullName, Name)",
       "Bash(Format-Table -AutoSize)",
       "Bash(dart analyze *)",
-      "Bash(del *)"
+      "Bash(del *)",
+      "PowerShell(cmd /c \"dir /s /b E:\\\\Flutter\\\\mirai_crm\\\\assets\\\\icons\")",
+      "PowerShell(cmd /c \"dir /b E:\\\\Flutter\\\\mirai_crm\\\\assets\\\\icons\\\\crm_filled\")",
+      "PowerShell(Rename-Item *)"
     ]
   }
 }

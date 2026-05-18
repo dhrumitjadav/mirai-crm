@@ -81,7 +81,11 @@ class CommonImg {
   static const String crmMicrophoneFilled = '$_f/microphone.svg';
   static const String crmTimeAltFilled = '$_f/time_alt.svg';
   static const String crmPauseFilled = '$_f/pause.svg';
-  static const String crmPersonFilled = '$_f/bookmark.svg';
+  static const String crmPersonFilled = '$_f/person.svg';
+  static const String crmFacebookPng = 'assets/icons/crm_filled/facebook.png';
+  static const String crmIndiaMartPng = 'assets/icons/crm_filled/india_mart.png';
+  static const String crmJustDialPng = 'assets/icons/crm_filled/justdial.png';
+  static const String crmMetaPng = 'assets/icons/crm_filled/meta.png';
   static const String crmPhoneFilled = '$_f/phone.svg';
   static const String crmPlayFilled = '$_f/play.svg';
   static const String crmPushPinFilled = '$_f/push_pin_fill.svg';

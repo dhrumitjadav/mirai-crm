@@ -16,7 +16,7 @@ import 'package:mirai_crm/widgets/lead_detail/lead_note_item.dart';
 import 'package:mirai_crm/widgets/lead_detail/activity_tab.dart';
 import 'package:mirai_crm/widgets/lead_detail/reassign_lead_sheet.dart';
 import 'package:mirai_crm/widgets/lead_detail/upload_file_sheet.dart';
-import 'package:mirai_crm/widgets/section_header.dart';
+import 'package:mirai_crm/widgets/app_card.dart';
 
 class LeadDetailScreen extends StatefulWidget {
   const LeadDetailScreen({super.key});
@@ -423,34 +423,22 @@ class _LeadDetailScreenState extends State<LeadDetailScreen>
     Widget? trailing,
     required List<(String, String)> rows,
   }) {
-    return Container(
-      decoration: BoxDecoration(
-        color: CommonColors.whiteColor,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: CommonColors.borderSubtle),
-      ),
+    return AppCard(
+      title: title,
+      trailing: trailing,
+      borderColor: CommonColors.borderSubtle,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.fromLTRB(
-              RS.HS(18),
-              RS.VS(16),
-              RS.HS(18),
-              RS.VS(11),
-            ),
-            child: SectionHeader(title: title, trailing: trailing),
-          ),
-          ...rows.indexed.map(
-            (entry) => Column(
-              children: [
-                _buildInfoRow(context, entry.$2.$1, entry.$2.$2),
-                if (entry.$1 < rows.length - 1)
-                  AppDivider(indent: RS.HS(16), endIndent: RS.HS(16)),
-              ],
-            ),
-          ),
-        ],
+        children: rows.indexed
+            .map(
+              (entry) => Column(
+                children: [
+                  _buildInfoRow(context, entry.$2.$1, entry.$2.$2),
+                  if (entry.$1 < rows.length - 1)
+                    AppDivider(indent: RS.HS(16), endIndent: RS.HS(16)),
+                ],
+              ),
+            )
+            .toList(),
       ),
     );
   }
@@ -486,24 +474,15 @@ class _LeadDetailScreenState extends State<LeadDetailScreen>
     return Builder(
       builder: (context) => SingleChildScrollView(
         padding: EdgeInsets.all(RS.HS(16)),
-        child: Container(
-          decoration: BoxDecoration(
-            color: CommonColors.whiteColor,
-            borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: CommonColors.borderSubtle),
-          ),
+        child: AppCard(
+          title: 'Notes (${_notes.length})',
+          prefixText: '+ Add new',
+          onViewAll: () => _showAddNoteSheet(context),
+          showDivider: true,
+          borderColor: CommonColors.borderSubtle,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: EdgeInsets.all(RS.HS(16)),
-                child: SectionHeader(
-                  title: 'Notes (${_notes.length})',
-                  prefixText: '+ Add new',
-                  onViewAll: () => _showAddNoteSheet(context),
-                ),
-              ),
-              AppDivider(indent: 18, endIndent: 18),
               ..._notes.indexed.map(
                 (entry) => Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -550,24 +529,15 @@ class _LeadDetailScreenState extends State<LeadDetailScreen>
     return Builder(
       builder: (context) => SingleChildScrollView(
         padding: EdgeInsets.all(RS.HS(16)),
-        child: Container(
-          decoration: BoxDecoration(
-            color: CommonColors.whiteColor,
-            borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: CommonColors.borderSubtle),
-          ),
+        child: AppCard(
+          title: 'Files (${_files.length})',
+          prefixText: '+ Upload',
+          onViewAll: () => _showUploadSheet(context),
+          showDivider: true,
+          borderColor: CommonColors.borderSubtle,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: EdgeInsets.all(RS.HS(16)),
-                child: SectionHeader(
-                  title: 'Files (${_files.length})',
-                  prefixText: '+ Upload',
-                  onViewAll: () => _showUploadSheet(context),
-                ),
-              ),
-              AppDivider(indent: 18, endIndent: 18),
               ..._files.indexed.map(
                 (entry) => Column(
                   children: [
@@ -620,38 +590,20 @@ class _LeadDetailScreenState extends State<LeadDetailScreen>
     return Builder(
       builder: (context) => SingleChildScrollView(
         padding: EdgeInsets.all(RS.HS(16)),
-        child: Container(
-          decoration: BoxDecoration(
-            color: CommonColors.whiteColor,
-            borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: CommonColors.borderSubtle),
-          ),
+        child: AppCard(
+          title: 'Timeline (${_followUps.length})',
+          prefixText: '+ Add Follow up',
+          onViewAll: () => _showAddFollowUpSheet(context),
+          showDivider: true,
+          borderColor: CommonColors.borderSubtle,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: EdgeInsets.fromLTRB(
-                  RS.HS(16),
-                  RS.VS(14),
-                  RS.HS(16),
-                  RS.VS(14),
-                ),
-                child: SectionHeader(
-                  title: 'Timeline (${_followUps.length})',
-                  prefixText: '+ Add Follow up',
-                  onViewAll: () => _showAddFollowUpSheet(context),
-                ),
-              ),
-              AppDivider(indent: 18, endIndent: 18),
-              Column(
-                children: [
-                  for (final (i, item) in _followUps.indexed) ...[
-                    LeadFollowUpItem(item: item),
-                    if (i < _followUps.length - 1)
-                      AppDivider(indent: 18, endIndent: 18),
-                  ],
-                ],
-              ),
+              for (final (i, item) in _followUps.indexed) ...[
+                LeadFollowUpItem(item: item),
+                if (i < _followUps.length - 1)
+                  AppDivider(indent: 18, endIndent: 18),
+              ],
             ],
           ),
         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mirai_crm/utils/responsive.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
+import 'package:mirai_crm/widgets/app_card.dart';
 import 'package:mirai_crm/widgets/app_divider.dart';
 import 'package:mirai_crm/widgets/lead_detail/lead_detail_models.dart';
 
@@ -14,32 +15,13 @@ class ActivityTab extends StatelessWidget {
     RS.init(context);
     return SingleChildScrollView(
       padding: EdgeInsets.all(RS.HS(16)),
-      child: Container(
-        decoration: BoxDecoration(
-          color: CommonColors.whiteColor,
-          borderRadius: BorderRadius.circular(14),
-          border: Border.all(color: CommonColors.borderSubtle),
-        ),
+      child: AppCard(
+        title: 'Activity Timeline',
+        showDivider: true,
+        borderColor: CommonColors.borderSubtle,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: EdgeInsets.fromLTRB(
-                RS.HS(16),
-                RS.VS(14),
-                RS.HS(16),
-                RS.VS(14),
-              ),
-              child: Text(
-                'Activity Timeline',
-                style: TextStyle(
-                  fontSize: RS.FS(15),
-                  fontWeight: FontWeight.w600,
-                  color: CommonColors.textPrimary,
-                ),
-              ),
-            ),
-            AppDivider(indent: 18, endIndent: 18),
             ...activities.indexed.map(
               (entry) => _ActivityItem(
                 activity: entry.$2,

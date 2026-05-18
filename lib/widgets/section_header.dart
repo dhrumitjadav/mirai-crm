@@ -1,10 +1,12 @@
 ﻿import 'package:flutter/material.dart';
 import 'package:mirai_crm/utils/responsive.dart';
 import 'package:mirai_crm/utils/common_colors.dart';
+import 'package:mirai_crm/widgets/app_divider.dart';
 
 class SectionHeader extends StatelessWidget {
   final String title;
   final String? prefixText;
+  final bool showDivider;
 
   /// Shows a red "View All" label. Ignored if [trailing] is provided.
   final VoidCallback? onViewAll;
@@ -16,6 +18,7 @@ class SectionHeader extends StatelessWidget {
     super.key,
     required this.title,
     this.prefixText,
+    this.showDivider = false,
     this.onViewAll,
     this.trailing,
   });
@@ -23,32 +26,41 @@ class SectionHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     RS.init(context);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: RS.FS(15),
-            fontWeight: FontWeight.w600,
-            color: CommonColors.textPrimary,
-          ),
-        ),
-        if (trailing != null)
-          trailing!
-        else if (onViewAll != null)
-          GestureDetector(
-            onTap: onViewAll,
-            child: Text(
-              prefixText ?? 'View All',
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              title,
               style: TextStyle(
-                fontSize: RS.FS(14),
-                fontWeight: FontWeight.w500,
-                height: 1,
-                color: CommonColors.red500,
+                fontSize: RS.FS(15),
+                fontWeight: FontWeight.w600,
+                color: CommonColors.textPrimary,
               ),
             ),
-          ),
+            if (trailing != null)
+              trailing!
+            else if (onViewAll != null)
+              GestureDetector(
+                onTap: onViewAll,
+                child: Text(
+                  prefixText ?? 'View All',
+                  style: TextStyle(
+                    fontSize: RS.FS(15),
+                    fontWeight: FontWeight.w600,
+                    height: 1,
+                    color: CommonColors.red500,
+                  ),
+                ),
+              ),
+          ],
+        ),
+        if (showDivider) ...[
+          SizedBox(height: RS.VS(11)),
+          AppDivider(indent: 0, endIndent: 0),
+        ],
       ],
     );
   }

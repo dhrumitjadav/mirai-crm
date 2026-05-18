@@ -28,3 +28,30 @@ class AppDivider extends StatelessWidget {
     );
   }
 }
+
+class AppVerticalDivider extends StatelessWidget {
+  final double? indent;
+  final double? endIndent;
+  final Color? color;
+  final double thickness;
+
+  const AppVerticalDivider({
+    super.key,
+    this.indent,
+    this.endIndent,
+    this.color,
+    this.thickness = 1,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    RS.init(context);
+    return VerticalDivider(
+      color: color ?? CommonColors.borderSubtle,
+      indent: indent,
+      endIndent: endIndent,
+      thickness: thickness,
+      width: thickness,
+    );
+  }
+}
